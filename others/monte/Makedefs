@@ -1,0 +1,9 @@
+###############
+# Optimization
+###############
+CFLAGS=-fdiagnostics-color=always -Wno-misleading-indentation
+# OPT=$(CFLAGS) -g -Wall
+OPT=$(CFLAGS) -g -O3 -Wall -ffast-math
+# OPT=$(CLFAGS) -g -O0 -Wall -ffast-math
+
+

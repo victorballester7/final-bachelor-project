@@ -1,0 +1,6 @@
+For times (GMST GAST mean and true equators...)
+https://gssc.esa.int/navipedia//index.php/Sidereal_Time
+
+Transformations between systems
+https://gssc.esa.int/navipedia/index.php/ICRF_to_CEP
+https://gssc.esa.int/navipedia/index.php/CEP_to_ITRF
