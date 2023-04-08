@@ -2,4 +2,40 @@
 
 \begin{document}
 
+\section{Force model}\label{sec:force}
+So far we have only considered the gravitational force acting point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will deep into the details of a more realistic model of the Earth's gravitational field.
+\subsection{Geopotential model}
+It is well-known that the gravity force $\vf{F}$ is a conservative force. This means $\vf{F}$ can be expressed as the gradient of a function $-V$, which we call the gravitational potential: $\vf{F}=-\grad V$. The minus sign is chosen according the convention that work done by the forces decreases the potential.
+\subsubsection{Poisson and Laplace equations}
+\begin{theorem}
+  Consider distribution of matter of density $\rho$ in a region $\Omega$. Then, the gravitational potential $V$ satisfies the Poisson equation
+  \begin{equation}
+    \laplacian V = 4\pi G \rho
+  \end{equation}
+  Thus, at points outside $\Omega$ since we have $\rho=0$, the potential $V$ satisfies the Laplace equation:
+  \begin{equation}
+    \laplacian V = 0
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  TO-DO
+\end{proof}
+Hence, the gravitational potential $V$ created by a distribution of mass in a region $\Omega$ is a solution of the following Dirichlet problem:
+\begin{equation}
+  \begin{cases}
+    \laplacian V = 0 & \text{in } \Omega^c    \\
+    V = f            & \text{on } \Fr{\Omega}
+  \end{cases}
+\end{equation}
+If $\Omega$ represents the Earth, then $f=f(\theta,\phi)$ represents is the boundary condition concerning the gravitational potential at the surface of the Earth as a function of the longitude $\theta$ and colatitude $\phi$.
+\subsubsection{Expansion in spherical harmonics}
+We have just seen that $V$ satisfies the Laplace equation. In \cref{sec:laplace_spherical} we have seen that the solution can be expressed as:
+\begin{equation}\label{eq:sol_laplace}
+  V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta}
+\end{equation}
+where $c_{n}^m,d_n^m\in\CC$. Choosing the origin of potential the infinity, we must have $c_{n}^m=0$. Thus, with a bit of algebra, our solution becomes:
+\begin{equation}\label{eq:sol_laplace}
+  V(r,\theta,\phi) = \frac{GM_\oplus}{r}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^n}{r^{n}}P_n^m(\cos\phi) (C_n^m\cos(m\theta)+S_n^m\sin(m\theta))
+\end{equation}
+where $C_n^m,S_n^m\in\RR$, $G$ is the gravitational constant, $M_\oplus$ is the mass of the Earth and $R_\oplus$ is the reference radius of the Earth. The coefficients $C_n^m$, $S_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation
 \end{document}

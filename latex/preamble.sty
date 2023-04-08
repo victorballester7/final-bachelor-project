@@ -1,11 +1,3 @@
-% \usepackage[utf8]{inputenc}
-\usepackage[a4paper, headheight=14pt, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
-\usepackage{fancyhdr} % for customizing page-style (mainly headings).
-\usepackage{titlesec} % for changing style of chapters, section... (with title format).
-\usepackage{bookmark} % solve some warnings such as writing a section just below a part (i.e. without a chapter between them).
-\usepackage[es-ES]{datetime2} % for writing the current date when compiling.
-\usepackage{subfiles} % for creating subfiles .tex and compiling them separately to main.tex.
-\usepackage{lmodern} % modern latin font. Also for avoiding (and correcting) some warnings. 
 \usepackage{amsthm, amsmath, mathtools, amssymb, physics} % for math and physics commands and symbols.
 \usepackage[intlimits]{esint} % for more options on integrals.
 \usepackage{standalone} % for compiling individually .tex images.
@@ -20,16 +12,14 @@
 % \usepackage{hycolor} % implements options of colors for hyperref (it ables the user to use colors from xcolor package)
 \usepackage[capitalise,nameinlink]{cleveref} % for clever references. That is, for example, for automatically write "Definition 2.13" instead of only "2.13".
 \usepackage{graphicx} % for options like \definecolor{}{}{}, \textcolor{}{},...
-\usepackage[usenames,x11names]{xcolor} % to customize RGB colors.
-\usepackage{colortbl} % for colors in tables.
+% \usepackage[usenames,x11names]{xcolor} % to customize RGB colors.
+% \usepackage{colortbl} % for colors in tables.
 \usepackage{tcolorbox} % for coloring boxes.
 \setlength{\parindent}{0pt} % Indentation disabled.
 
 %%%%% tikz images %%%%%%
 \usepackage{tikz, pgfplots} % for tikz images.
-\usepackage{tkz-euclide} % for getting some useful geometric commands.
 \usepackage{tikz-3dplot} % to draw a visual 3d image with tikz (not with pgfplots).
-\usepackage[RPvoltages]{circuitikz} % to draw electric circuits with tikz
 \usetikzlibrary{arrows,arrows.meta,decorations.pathmorphing,decorations.pathreplacing,decorations.shapes,decorations.markings,patterns,calc,fillbetween,intersections}
 \usepgfplotslibrary{fillbetween, polar}
 \pgfplotsset{compat=newest}
@@ -197,16 +187,6 @@
 \renewcommand{\S}{S} % S of the S ^ n (n-th dimensional sphere)
 
 
-%%% GALOIS THEORY
-\newcommand{\FF}{\ensuremath{\mathbb{F}}} % finite fields
-\DeclareMathOperator{\irr}{Irr} % irreducible polynomial 
-\DeclareMathOperator{\Mor}{Mor} % set of morphisms
-\DeclareMathOperator{\Iso}{Iso} % set of isomorphisms
-\DeclareMathOperator{\Aut}{Aut} % set of automorphisms
-\DeclareMathOperator{\Gal}{Gal} % Galois group
-\DeclareMathOperator{\Disc}{Disc} % discriminant of a polynomial
-
-
 %%% PROBABILITY
 \newcommand{\Prob}{\ensuremath{\mathbb{P}}} % probability
 \newcommand{\Exp}{\mathbb{E}} % expected value
@@ -249,20 +229,6 @@
 
 
 %%% REAL AND FUNCTIONAL ANALYSIS
-\newcommand{\m}[1]{
-  \if\relax\detokenize{#1}\relax % first argument empty
-    \abs{\cdot}
-  \else % first argument non-empty
-    \abs{#1}
-  \fi
-} % measure
-\newcommand{\om}[1]{
-  \if\relax\detokenize{#1}\relax % first argument empty
-    \abs{\cdot}^*
-  \else % first argument non-empty
-    \abs{#1}^*
-  \fi
-} % outer measure
 \newcommand{\almoste}[1]{\overset{\text{a.e.}}{#1}} % almost everywhere
 \newcommand{\dotp}[2]{{\left\langle#1,#2\right\rangle}} % inner product
 \DeclareMathOperator{\diam}{diam} % diameter
@@ -310,6 +276,10 @@
 
 %%% PHYSICS
 \newcommand{\const}{\text{const.}}
+\newcommand{\m}{\mathrm{m}} % meter
+\newcommand{\s}{\mathrm{s}} % second
+\newcommand{\kg}{\mathrm{kg}} % kilogram
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%% for long-vector arrows %%%%%
@@ -332,7 +302,7 @@
 {\bfseries} % HEADFONT
 {.}         % HEADPUNCT
 {5pt plus 1pt minus 1pt} % HEADSPACE
-{\color{\col}\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+{\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
   \thmnote{{ \bfseries\color{black}(#3)\index{#3}}}}          % CUSTOM-HEAD-SPEC
 
 \theoremstyle{math_theorems}

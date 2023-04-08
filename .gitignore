@@ -6,6 +6,8 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.lot
+*.lof
 *.out
 *.synctex.gz
 *.synctex(busy)
