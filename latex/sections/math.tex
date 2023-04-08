@@ -97,7 +97,7 @@ If seek for analytic solutions of this equation using the power series method, i
 \begin{equation}\label{eq:legendre_recursion}
   a_{j+2}=\frac{j(j+1)-\lambda}{(j+1)(j+2)}a_j\quad j=0,1,2,\ldots
 \end{equation}
-From here we can obtain two independent solutions by setting the initial conditions $a_0$ and $a_1$ of the iteration. For example, setting $a_1=0$ we obtain a series that has only even powers of $x$. On the other hand, setting $a_0=0$ we obtain a series that has only odd powers of $x$. These two series converge on the interval $(-1,1)$ by the ratio test (by looking at \cref{eq:legendre_recursion}) and can be expressed compactly as \cite{lorida:legendre}:
+From here we can obtain two independent solutions by setting the initial conditions $a_0$ and $a_1$ of the iteration. For example, setting $a_1=0$ we obtain a series that has only even powers of $x$. On the other hand, setting $a_0=0$ we obtain a series that has only odd powers of $x$. These two series converge on the interval $(-1,1)$ by the ratio test (by looking at \cref{eq:legendre_recursion}) and can be expressed compactly as \cite{florida:legendre}:
 \begin{equation}\label{eq:legendre_series}
   y_\mathrm{e}(x)=a_0\sum_{j=0}^{\infty}\left[\prod_{k=0}^{j-1}(2k(2k+1)-\lambda)\right]\frac{x^{2j+1}}{(2j)!}\qquad y_\mathrm{o}(x)=a_1\sum_{j=0}^{\infty}\left[\prod_{k=1}^j(2k(2k+1)-\lambda)\right]\frac{x^{2j+1}}{(2j+1)!}
 \end{equation}
