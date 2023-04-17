@@ -5,22 +5,61 @@
 \section{Force model}\label{sec:force}
 So far we have only considered the gravitational force acting point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will deep into the details of a more realistic model of the Earth's gravitational field.
 \subsection{Geopotential model}
-It is well-known that the gravity force $\vf{F}$ is a conservative force. This means $\vf{F}$ can be expressed as the gradient of a function $-V$, which we call the gravitational potential: $\vf{F}=-\grad V$. The minus sign is chosen according the convention that work done by the forces decreases the potential.
-\subsubsection{Poisson and Laplace equations}
+\subsubsection{Continuous distribution of mass}
+In \cref{sec:twoBody} we have seen that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the larger one as well as the precense of other forces such as atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun, which we wil talk later on. Even though, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses.
+
+Consider a body of confined in a bounded region $\Omega\subseteq\RR$ with a continuous density $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of the body. To do this we can discretize the body $\Omega$ in a set of cubes $m_{i,j,k}$ each of volume $\frac{1}{n_1n_2n_3}$ and density $\rho(\frac{i}{n_1},\frac{j}{n_2},\frac{k}{n_3})=:\rho_{i,j,k}$, where $n_1$, $n_2$, and $n_3$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces and it is given by:
+\begin{equation}\label{eq:riemann_sum}
+  \vf{g}=-\sum_{i=0}^{n_1}\sum_{j=0}^{n_2}\sum_{k=0}^{n_3}\frac{m_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})=-\sum_{i=0}^{n_1}\sum_{j=0}^{n_2}\sum_{k=0}^{n_3}\frac{\rho_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})\frac{1}{n_1n_2n_3}
+\end{equation}
+where $\vf{s}_{i,j,k}=(\frac{i}{n_1},\frac{j}{n_2},\frac{k}{n_3})$ (in cartesian coordinates). Note that \cref{eq:riemann_sum} is a Riemann su and so letting $n_1,n_2,n_3\to\infty$ we get:
+\begin{equation}\label{eq:limit}
+  \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}
+\end{equation}
+where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 \begin{theorem}
-  Consider distribution of matter of density $\rho$ in a region $\Omega$. Then, the gravitational potential $V$ satisfies the Poisson equation
+  Let $\Omega$ be a closed bounded region in $\RR^3$ with a continuous density $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
+\end{theorem}
+\begin{proof}
+  An easy computation shows that fixed $\vf{s}\in\RR^3$ we have:
   \begin{equation}
-    \laplacian V = 4\pi G \rho
+    \grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)=-\frac{1}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})
   \end{equation}
-  Thus, at points outside $\Omega$ since we have $\rho=0$, the potential $V$ satisfies the Laplace equation:
+  So we need to justify if the following permutation of the gradient and the integral is correct:
+  \begin{equation}
+    \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_{\Omega}\rho(\vf{s})\grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}=\grad\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}
+  \end{equation}
+  Without loss of generality we will only justify that
+  \begin{equation}
+    \pdv{}{x}\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}=\int_{\Omega}\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}
+  \end{equation}
+  assuming $\vf{r}=(x,y,z)$ and $\vf{s}=(x',y',z')$. In order to apply the theorem of derivation under the integral sign we need to control $\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)=-\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}$ by an integrable function $h(\vf{s})$. Using sphericall coordinates centered at $\vf{r}$ and writing ${(\vf{r}-\vf{s})}_{\mathrm{sph}}=(\rho,\theta,\phi)$, the integrand to bound becomes (in spherical coordinates):
+  \begin{equation}
+    \abs{-\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\rho^2\sin\phi}=\abs{\frac{\rho\cos\theta\sin\phi}{\rho^3}\rho^2\sin\phi}\leq 1
+  \end{equation}
+  and $h(\vf{s})=1$ is integrable because $\Omega$ is bounded.
+\end{proof}
+Physically speaking, the gravitational force being conservative means that the work done by the force is independent of the path taken by the particle. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by the forces decreases the potential.
+\subsubsection{Laplace equations}
+\begin{theorem}
+  Consider distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
   \begin{equation}
     \laplacian V = 0
   \end{equation}
+  for all points outside $\Omega$\footnote{It can be seen that $V$ satisfies in fact the \emph{Poisson equation} $\laplacian V=4\pi G\rho$ for any point $\vf{r}\in\RR^3$, which reduced to Laplace equation when $\vf{r}\in\Omega^c$, because there we have $\rho(\vf{r})=0$.}.
 \end{theorem}
 \begin{proof}
-  TO-DO
+  Recall that $\laplacian V=\div(\grad V)$. So since $\vf{g}=-\grad V$ it suffices to prove that $\div(\vf{g})=0$. Note that if $\vf{r}\in\Omega^c$ and $\vf{s}\in\Omega$ then $\norm{\vf{r}-\vf{s}}\geq\delta>0$, so $\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}$ is differentiable and:
+  \begin{multline*}
+    \div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)=\pdv{}{x}\left(\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{y}\left(\frac{y-y'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{z}\left(\frac{z-z'}{\norm{\vf{r}-\vf{s}}^3}\right)=\\
+    =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
+  \end{multline*}
+  Hence:
+  \begin{equation}
+    \div(\vf{g})=\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
+  \end{equation}
 \end{proof}
-Hence, the gravitational potential $V$ created by a distribution of mass in a region $\Omega$ is a solution of the following Dirichlet problem:
+Hence, the gravitational potential $V$ created by a distribution of mass in a region $\Omega$ is a solution of the following exterior Dirichlet problem:
 \begin{equation}
   \begin{cases}
     \laplacian V = 0 & \text{in } \Omega^c    \\
@@ -37,5 +76,16 @@ where $c_{n}^m,d_n^m\in\CC$. Choosing the origin of potential the infinity, we m
 \begin{equation}
   V(r,\theta,\phi) = \frac{GM_\oplus}{r}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^n}{r^{n}}P_n^m(\cos\phi) (C_n^m\cos(m\theta)+S_n^m\sin(m\theta))
 \end{equation}
-where $C_n^m,S_n^m\in\RR$, $G$ is the gravitational constant, $M_\oplus$ is the mass of the Earth and $R_\oplus$ is the reference radius of the Earth. The coefficients $C_n^m$, $S_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation
+where $C_n^m,S_n^m\in\RR$, $G$ is the gravitational constant, $M_\oplus$ is the mass of the Earth and $R_\oplus$ is the reference radius of the Earth.
+In order to use a more uniform model in magnitude for the coefficients $C_n^m$, $S_n^m$ and avoid large oscillations which may provoke a loss of data in double-precision arithmetic, the following normalization is used:
+\begin{equation}
+  \bar{P}_n^m=\frac{P_n^m}{\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}}\qquad \bar{C}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}C_n^m\qquad \bar{S}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}S_n^m
+\end{equation}
+Hence, our potential at the coordinate $(r,\theta,\phi)$ outside the Earth is given by:
+\begin{equation}
+  V(r,\theta,\phi) = \frac{GM_\oplus}{r}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^n}{r^{n}}\bar{P}_n^m(\cos\phi) (\bar{C}_n^m\cos(m\theta)+\bar{S}_n^m\sin(m\theta))
+\end{equation}
+The coefficients $\bar{C}_n^m$, $\bar{S}_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in of the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
+\subsubsection{Numerical computation of the gravity acceleration}
+POSAR LES RECURRENCIES I MENCIONAR CUNNINGHAM
 \end{document}

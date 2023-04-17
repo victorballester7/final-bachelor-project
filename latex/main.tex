@@ -2,6 +2,15 @@
 \usepackage{preamble_style}
 \usepackage{preamble}
 
+%%% url symbol for references it is needed \usepackage{stmaryrd} %%%
+% \newcommand\enllas{\raise.5pt\hbox{$\boxempty\kern-4.85pt{}^{\tiny\nearrow}$}\kern-2pt}
+
+% \DeclareFieldFormat{url}{%
+%   \ifboolexpr{test {\ifhyperref}}
+%     {\href{#1}{\enllas}}
+%     {\url{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Numerical propagation of trajectories of Earth-orbiting spacecraft}
 \author{Víctor Ballester}
@@ -9,16 +18,23 @@
 
 \begin{document}
 \maketitle
+\thispagestyle{empty}
 \newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\vspace{-4cm}
+\epigraph{We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.}{\textit{Stephen Hawking}}
+\vspace*{\fill}
+\newpage
+\setcounter{page}{1}
 \tableofcontents
-\listoffigures
-\listoftables
+% \listoffigures
+% \listoftables
 \newpage
 
 \subfile{sections/intro}
 \subfile{sections/math}
 \subfile{sections/astro}
-\subfile{sections/sphericalharm}
 \subfile{sections/force}
 \subfile{sections/simulation}
 \subfile{sections/conclusions}
