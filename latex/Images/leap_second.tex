@@ -1,0 +1,11 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}[scale=2]
+  \def\eps{0.2}
+  \node[right] at (0,0){\texttt{1998 December 31,\hspace{1cm} 23h 59m 59s}};
+  \node[right] at (0,-\eps){\texttt{1998 December 31,\hspace{1cm} 23h 59m 60s}};
+  \node[right] at (0,-2*\eps){\texttt{1999 January \hspace{5.2pt} 1,\hspace{1cm} 00h 00m 00s}};
+  \node[right] at (0,-3*\eps){\texttt{1999 January \hspace{5.2pt} 2,\hspace{1cm} 00h 00m 01s}};
+\end{tikzpicture}
+\end{document}

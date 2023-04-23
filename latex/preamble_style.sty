@@ -1,4 +1,4 @@
-% \usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[a4paper, headheight=14pt, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{fancyhdr} % for customizing page-style (mainly headings).
 \usepackage{titlesec} % for changing style of chapters, section... (with title format).
@@ -7,3 +7,26 @@
 \usepackage{subfiles} % for creating subfiles .tex and compiling them separately to main.tex.
 \usepackage{lmodern} % modern latin font. Also for avoiding (and correcting) some warnings. 
 \usepackage{epigraph} % for epigraphs (i.e. quotes after the title).
+\usepackage{csquotes} % needed for biblatex.
+\usepackage{stmaryrd} % for the url symbol in references.
+\usepackage[style=alphabetic,backend=biber]{biblatex} % for extended bibliography capabilities.
+
+% \ifSubfilesClassLoaded{% show only when the single subfile is compiled        
+% }{% show only when the main file is compiled
+\addbibresource{references.bib} % add bibliography file.
+% }
+
+%%% url symbol for references it is needed \usepackage{stmaryrd} %%%
+\newcommand\enllas{\raise.5pt\hbox{$\boxempty\kern-4.85pt{}^{\tiny\nearrow}$}\kern-2pt}
+
+\DeclareFieldFormat{url}{%
+  \mkbibacro{URL}\addcolon\space%
+  \ifhyperref%
+  {\href{#1}{\enllas}}%
+  {\url{#1}}}
+\DeclareFieldFormat{doi}{%
+  \mkbibacro{DOI}\addcolon\space%
+  \ifhyperref%
+  {\href{#1}{\enllas}}%
+  {\url{#1}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

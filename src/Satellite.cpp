@@ -49,7 +49,7 @@ Satellite::Satellite(const std::string& line0, const std::string& line1, const s
 
   solve_kepler_equation();                             // Solve kepler equation to get the eccentric anomaly
   nu = atan(sqrt(1 - e * e) * sin(E) / (cos(E) - e));  // True anomaly
-  nu += PI * ((nu < 0) ? 1 : 0);                       // Make sure that nu is in the range [0, 2pi
+  nu += 2 * PI * ((nu < 0) ? 1 : 0);                   // Make sure that nu is in the range [0, 2PI]
   set_position_velocity();                             // Set position and velocity vectors
   get_gregorian_date(epoch_year, epoch_day, MM, D);
   mjd_TT = get_mjd_TT(epoch_year, MM, D);
@@ -141,7 +141,7 @@ void Satellite::set_orbital_elements(Vector r, Vector v) {
   std::cout << "omega1 = " << omega1 << std::endl;
   n = sqrt(GM_EARTH / (a * a * a));
   e = sqrt(1 - p / a);
-  E = atan(r.dot(v) / (a * a * n) / (1. - r.norm() / a)) + PI;
+  E = atan(r.dot(v) / (a * a * n) / (1. - r.norm() / a));
   M = E - e * sin(E);
 
   double u = atan(r(2) / (-r(0) * W(1) + r(1) * W(0)));
@@ -149,10 +149,10 @@ void Satellite::set_orbital_elements(Vector r, Vector v) {
   omega = u - nu;
 
   // Make sure all angles are in [0, 2PI]
-  i += PI * ((i < 0) ? 1 : 0);
-  Omega += PI * ((Omega < 0) ? 1 : 0);
-  E += PI * ((E < 0) ? 1 : 0);
-  M += PI * ((M < 0) ? 1 : 0);
-  nu += PI * ((nu < 0) ? 1 : 0);
-  omega += PI * ((omega < 0) ? 1 : 0);
+  i += 2 * PI * ((i < 0) ? 1 : 0);
+  Omega += 2 * PI * ((Omega < 0) ? 1 : 0);
+  E += 2 * PI * ((E < 0) ? 1 : 0);
+  M += 2 * PI * ((M < 0) ? 1 : 0);
+  nu += 2 * PI * ((nu < 0) ? 1 : 0);
+  omega += 2 * PI * ((omega < 0) ? 1 : 0);
 }

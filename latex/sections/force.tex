@@ -8,38 +8,38 @@ So far we have only considered the gravitational force acting point masses. In r
 \subsubsection{Continuous distribution of mass}
 In \cref{sec:twoBody} we have seen that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the larger one as well as the precense of other forces such as atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun, which we wil talk later on. Even though, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses.
 
-Consider a body of confined in a bounded region $\Omega\subseteq\RR$ with a continuous density $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of the body. To do this we can discretize the body $\Omega$ in a set of cubes $m_{i,j,k}$ each of volume $\frac{1}{n_1n_2n_3}$ and density $\rho(\frac{i}{n_1},\frac{j}{n_2},\frac{k}{n_3})=:\rho_{i,j,k}$, where $n_1$, $n_2$, and $n_3$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces and it is given by:
+Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this we can discretize the body $\Omega$ in a set of cubes $m_{i,j,k}$ each of volume $\frac{1}{n_xn_yn_z}$ and density $\rho(\frac{i}{n_x},\frac{j}{n_y},\frac{k}{n_z})=:\rho_{i,j,k}$, where $n_x$, $n_y$, and $n_z$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces and it is given by:
 \begin{equation}\label{eq:riemann_sum}
-  \vf{g}=-\sum_{i=0}^{n_1}\sum_{j=0}^{n_2}\sum_{k=0}^{n_3}\frac{m_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})=-\sum_{i=0}^{n_1}\sum_{j=0}^{n_2}\sum_{k=0}^{n_3}\frac{\rho_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})\frac{1}{n_1n_2n_3}
+  \vf{g}=-\sum_{i=0}^{n_x}\sum_{j=0}^{n_y}\sum_{k=0}^{n_z}\frac{m_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})=-\sum_{i=0}^{n_x}\sum_{j=0}^{n_y}\sum_{k=0}^{n_z}\frac{\rho_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})\frac{1}{n_xn_yn_z}
 \end{equation}
-where $\vf{s}_{i,j,k}=(\frac{i}{n_1},\frac{j}{n_2},\frac{k}{n_3})$ (in cartesian coordinates). Note that \cref{eq:riemann_sum} is a Riemann su and so letting $n_1,n_2,n_3\to\infty$ we get:
+where $\vf{s}_{i,j,k}=(\frac{i}{n_x},\frac{j}{n_y},\frac{k}{n_z})$ (in cartesian coordinates). Note that \cref{eq:riemann_sum} is a Riemann sum and so letting $n_x,n_y,n_z\to\infty$ we get:
 \begin{equation}\label{eq:limit}
   \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}
 \end{equation}
 where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
-\begin{theorem}
-  Let $\Omega$ be a closed bounded region in $\RR^3$ with a continuous density $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
+\begin{theorem}\label{thm:conservative}
+  Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
 \end{theorem}
 \begin{proof}
   An easy computation shows that fixed $\vf{s}\in\RR^3$ we have:
   \begin{equation}
     \grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)=-\frac{1}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})
   \end{equation}
-  So we need to justify if the following permutation of the gradient and the integral is correct:
+  So we need to justify if the following exchange of the gradient and the integral is correct:
   \begin{equation}
     \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_{\Omega}\rho(\vf{s})\grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}=\grad\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}
   \end{equation}
-  Without loss of generality we will only justify that
-  \begin{equation}
+  Without loss of generality it suffices to justify that
+  \begin{equation}\label{eq:exchangeDivInt}
     \pdv{}{x}\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}=\int_{\Omega}\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}
   \end{equation}
-  assuming $\vf{r}=(x,y,z)$ and $\vf{s}=(x',y',z')$. In order to apply the theorem of derivation under the integral sign we need to control $\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)=-\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}$ by an integrable function $h(\vf{s})$. Using sphericall coordinates centered at $\vf{r}$ and writing ${(\vf{r}-\vf{s})}_{\mathrm{sph}}=(\rho,\theta,\phi)$, the integrand to bound becomes (in spherical coordinates):
+  assuming $\vf{r}=(x,y,z)$ and $\vf{s}=(x',y',z')$. In order to apply the theorem of derivation under the integral sign we need to control $\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)=-\rho(\vf{s})\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}$ by an integrable function $h(\vf{s})$. Using spherical coordinates centered at $\vf{r}$ and writing ${(\vf{r}-\vf{s})}_{\mathrm{sph}}=(\rho_{\vf{r}},\theta,\phi)$, the integrand to bound becomes (in spherical coordinates):
   \begin{equation}
-    \abs{-\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\rho^2\sin\phi}=\abs{\frac{\rho\cos\theta\sin\phi}{\rho^3}\rho^2\sin\phi}\leq 1
+    \abs{-\rho(\vf{s})\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}{\rho_{\vf{r}}}^2\sin\phi}=\abs{\rho(\vf{s})}\abs{\frac{{\rho_{\vf{r}}}\cos\theta\sin\phi}{{\rho_{\vf{r}}}^3}{\rho_{\vf{r}}}^2\sin\phi}\leq \abs{\rho(\vf{s})}\leq K
   \end{equation}
-  and $h(\vf{s})=1$ is integrable because $\Omega$ is bounded.
+  where the last inequality follows for certain $K\in\RR$ by Weierstra\ss\ theorem ($\rho$ is continuous and $\Omega$ is compact). Thus, since $h(\vf{s})=K$ is integrable, because $\Omega$ is bounded, the equality of \cref{eq:exchangeDivInt} is licit.
 \end{proof}
-Physically speaking, the gravitational force being conservative means that the work done by the force is independent of the path taken by the particle. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by the forces decreases the potential.
+Physically speaking, the gravitational force being conservative means that the work done by the force is independent of the path taken by the particle. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
 \subsubsection{Laplace equations}
 \begin{theorem}
   Consider distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
@@ -54,38 +54,67 @@ Physically speaking, the gravitational force being conservative means that the w
     \div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)=\pdv{}{x}\left(\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{y}\left(\frac{y-y'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{z}\left(\frac{z-z'}{\norm{\vf{r}-\vf{s}}^3}\right)=\\
     =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
   \end{multline*}
-  Hence:
+  Hence, as in \cref{thm:conservative}, we have that for each $\vf{r}\in\Omega^c$ $\exists\varepsilon,\delta>0$ such that $\forall \vf{\tilde{r}} \in B(\vf{r},\varepsilon)$ we have:
+  $$
+    \abs{\rho(\vf{s})\frac{\norm{\vf{\tilde{r}}-\vf{s}}^2-3{(\tilde{x}-x')}^2}{\norm{\vf{\tilde{r}}-\vf{s}}^5}}\leq \frac{4\abs{\rho(\vf{s})}}{\norm{\vf{\tilde{r}}-\vf{s}}^3}\leq \frac{4\abs{\rho(\vf{s})}}{\delta^3}
+  $$
+  which is integrable by Weierstra\ss\ theorem. Thus, by the theorem of derivation under the integral sign:
   \begin{equation}
-    \div(\vf{g})=\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
+    \div(\vf{g})=-\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=-\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
   \end{equation}
 \end{proof}
-Hence, the gravitational potential $V$ created by a distribution of mass in a region $\Omega$ is a solution of the following exterior Dirichlet problem:
-\begin{equation}
+So far we have seen that the gravitational potential $V$ satisfies the Laplace equation. If moreover we choose the origin of potential to be at the infinity, that is, if we impose $\displaystyle\lim_{\norm{\vf{r}}\to\infty}V=0$, then the gravitational potential created by a distribution of mass in a compact region $\Omega$ is a solution of the following exterior Dirichlet problem:
+\begin{equation}\label{eq:dirichletProblem}
   \begin{cases}
     \laplacian V = 0 & \text{in } \Omega^c    \\
-    V = f            & \text{on } \Fr{\Omega}
+    V = f            & \text{on } \Fr{\Omega} \\
+    \displaystyle\lim_{\norm{\vf{r}}\to\infty}V=0
   \end{cases}
 \end{equation}
 If $\Omega$ represents the Earth, then $f=f(\theta,\phi)$ represents is the boundary condition concerning the gravitational potential at the surface of the Earth as a function of the longitude $\theta$ and colatitude $\phi$.
+
+We wil see now that \cref{eq:dirichletProblem} has uniquenes of solutions. To do that we invoke the maximum principle, which we will not prove  (see \cite{evans} for more details).
+\begin{theorem}[Maximum principle]
+  Let $U\subseteq \RR^n$ be open and bounded and $u\in\mathcal{C}^2(U)\cap \mathcal{C}(\overline{U})$. Suppose that $u$ is harmonic within $U$, that is, $\laplacian u=0$ in $U$. Then, $\max_{\overline{U}}u=\max_{\partial U}u$.
+\end{theorem}
+\begin{corollary}
+  The Dirichlet problem of \cref{eq:dirichletProblem} has a unique solution.
+\end{corollary}
+\begin{proof}
+  Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$ and $W=0$ on $\Fr{\Omega}$. Moreover, $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\abs{W}\leq \varepsilon$ on $B(0,n)$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
+\end{proof}
 \subsubsection{Expansion in spherical harmonics}
-We have just seen that $V$ satisfies the Laplace equation. In \cref{sec:laplace_spherical} we have seen that the solution can be expressed as:
+We have just seen that $V$ satisfies the exterior Dirichlet problem for the Laplace equation. In \cref{sec:laplace_spherical} we have seen that a solution to the Laplace equation can be expressed as:
 \begin{equation}
-  V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta}
+  V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta} = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})Y_n^m(\theta,\phi)
 \end{equation}
-where $c_{n}^m,d_n^m\in\CC$. Choosing the origin of potential the infinity, we must have $c_{n}^m=0$. Thus, with a bit of algebra, our solution becomes:
+where $c_{n}^m,d_n^m\in\CC$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $c_{n}^m=0$. Finally, if we choose $R_\oplus$ as a reference radius for a spherical model of the Earth, using the boundary condition on $\Fr{\Omega}$
 \begin{equation}
-  V(r,\theta,\phi) = \frac{GM_\oplus}{r}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^n}{r^{n}}P_n^m(\cos\phi) (C_n^m\cos(m\theta)+S_n^m\sin(m\theta))
+  f(\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n \frac{d_n^m}{{R_\oplus}^{n+1}}Y_n^m(\theta,\phi)
 \end{equation}
-where $C_n^m,S_n^m\in\RR$, $G$ is the gravitational constant, $M_\oplus$ is the mass of the Earth and $R_\oplus$ is the reference radius of the Earth.
+and the orthogonality of the spherical harmonics we can deduce that the coefficients $d_n^m$ are given by:
+\begin{equation}
+  d_n^m=\frac{2n+1}{2}\frac{(n-m)!}{(n+m)!}{R_\oplus}^{n+1}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) \overline{Y_{n}^{m}(\theta,\phi)}\dd{\phi}\dd{\theta}
+\end{equation}
+
+Thus, with a bit of algebra, namely changing the exponential with sines and cosines and introducing the gravitational constant $G$ and the Earth's mass $M_\oplus$ to the equation, our solution can be expressed as:
+\begin{equation}
+  V(r,\theta,\phi) = \frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^{n+1}}{r^{n+1}}P_n^m(\cos\phi) (C_n^m\cos(m\theta)+S_n^m\sin(m\theta))
+\end{equation}
+where the coefficients $C_n^m,S_n^m\in\RR$ are given by the formulas:
+\begin{align}
+  C_n^m & = \frac{1}{G M_\oplus {R_\oplus}^n}(d_n^m+d_n^{-m})=(2n+1)\frac{(n-m)!}{(n+m)!}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) P_{n}^{m}(\cos\phi)\cos(m\theta)\dd{\phi}\dd{\theta}   \\
+  S_n^m & = \frac{\ii}{G M_\oplus {R_\oplus}^n}(d_n^m-d_n^{-m})=(2n+1)\frac{(n-m)!}{(n+m)!}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) P_{n}^{m}(\cos\phi)\sin(m\theta)\dd{\phi}\dd{\theta}
+\end{align}
 In order to use a more uniform model in magnitude for the coefficients $C_n^m$, $S_n^m$ and avoid large oscillations which may provoke a loss of data in double-precision arithmetic, the following normalization is used:
 \begin{equation}
   \bar{P}_n^m=\frac{P_n^m}{\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}}\qquad \bar{C}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}C_n^m\qquad \bar{S}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}S_n^m
 \end{equation}
 Hence, our potential at the coordinate $(r,\theta,\phi)$ outside the Earth is given by:
 \begin{equation}
-  V(r,\theta,\phi) = \frac{GM_\oplus}{r}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^n}{r^{n}}\bar{P}_n^m(\cos\phi) (\bar{C}_n^m\cos(m\theta)+\bar{S}_n^m\sin(m\theta))
+  V(r,\theta,\phi) = \frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^{n+1}}{r^{n+1}}\bar{P}_n^m(\cos\phi) (\bar{C}_n^m\cos(m\theta)+\bar{S}_n^m\sin(m\theta))
 \end{equation}
-The coefficients $\bar{C}_n^m$, $\bar{S}_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in of the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
+The coefficients $\bar{C}_n^m$, $\bar{S}_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
 \subsubsection{Numerical computation of the gravity acceleration}
 POSAR LES RECURRENCIES I MENCIONAR CUNNINGHAM
 \end{document}
