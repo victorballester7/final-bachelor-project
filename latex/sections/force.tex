@@ -73,7 +73,7 @@ So far we have seen that the gravitational potential $V$ satisfies the Laplace e
 \end{equation}
 If $\Omega$ represents the Earth, then $f=f(\theta,\phi)$ represents is the boundary condition concerning the gravitational potential at the surface of the Earth as a function of the longitude $\theta$ and colatitude $\phi$.
 
-We wil see now that \cref{eq:dirichletProblem} has uniquenes of solutions. To do that we invoke the maximum principle, which we will not prove  (see \cite{evans} for more details).
+We wil see now that \cref{eq:dirichletProblem} has uniqueness of solutions. To do that we invoke the maximum principle, which we will not prove  (see \cite{evans} for more details).
 \begin{theorem}[Maximum principle]
   Let $U\subseteq \RR^n$ be open and bounded and $u\in\mathcal{C}^2(U)\cap \mathcal{C}(\overline{U})$. Suppose that $u$ is harmonic within $U$, that is, $\laplacian u=0$ in $U$. Then, $\max_{\overline{U}}u=\max_{\partial U}u$.
 \end{theorem}
@@ -83,38 +83,33 @@ We wil see now that \cref{eq:dirichletProblem} has uniquenes of solutions. To do
 \begin{proof}
   Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$ and $W=0$ on $\Fr{\Omega}$. Moreover, $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\abs{W}\leq \varepsilon$ on $B(0,n)$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
 \end{proof}
-\subsubsection{Expansion in spherical harmonics}
+\subsubsection{Expansion in spherical harmonics}\label{sec:laplace_spherical_potential}
 We have just seen that $V$ satisfies the exterior Dirichlet problem for the Laplace equation. In \cref{sec:laplace_spherical} we have seen that a solution to the Laplace equation can be expressed as:
-\begin{equation}
-  V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta} = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})Y_n^m(\theta,\phi)
+\begin{equation}\label{eq:prePotential}
+  V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-where $c_{n}^m,d_n^m\in\CC$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $c_{n}^m=0$. Finally, if we choose $R_\oplus$ as a reference radius for a spherical model of the Earth, using the boundary condition on $\Fr{\Omega}$
+where $a_n,b_n,\tilde{c}_{n,m},\tilde{d}_{n,m}\in\RR$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $a_{n}=0$.
+Finally, if we choose $R_\oplus$ as a reference radius for a spherical model of the Earth, using the boundary condition on $\Fr{\Omega}$
 \begin{equation}
-  f(\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n \frac{d_n^m}{{R_\oplus}^{n+1}}Y_n^m(\theta,\phi)
+  f(\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n \frac{b_{n}}{{R_\oplus}^{n+1}}(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-and the orthogonality of the spherical harmonics we can deduce that the coefficients $d_n^m$ are given by:
-\begin{equation}
-  d_n^m=\frac{2n+1}{2}\frac{(n-m)!}{(n+m)!}{R_\oplus}^{n+1}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) \overline{Y_{n}^{m}(\theta,\phi)}\dd{\phi}\dd{\theta}
-\end{equation}
-
-Thus, with a bit of algebra, namely changing the exponential with sines and cosines and introducing the gravitational constant $G$ and the Earth's mass $M_\oplus$ to the equation, our solution can be expressed as:
-\begin{equation}
-  V(r,\theta,\phi) = \frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^{n+1}}{r^{n+1}}P_n^m(\cos\phi) (C_n^m\cos(m\theta)+S_n^m\sin(m\theta))
-\end{equation}
-where the coefficients $C_n^m,S_n^m\in\RR$ are given by the formulas:
+and the orthogonality of the spherical harmonics we can deduce that the coefficients $b_n\tilde{c}_{n,m}$ and $b_n\tilde{s}_{n,m}$ are given by:
 \begin{align}
-  C_n^m & = \frac{1}{G M_\oplus {R_\oplus}^n}(d_n^m+d_n^{-m})=(2n+1)\frac{(n-m)!}{(n+m)!}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) P_{n}^{m}(\cos\phi)\cos(m\theta)\dd{\phi}\dd{\theta}   \\
-  S_n^m & = \frac{\ii}{G M_\oplus {R_\oplus}^n}(d_n^m-d_n^{-m})=(2n+1)\frac{(n-m)!}{(n+m)!}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) P_{n}^{m}(\cos\phi)\sin(m\theta)\dd{\phi}\dd{\theta}
+  b_n\tilde{c}_{n,m} & =\frac{{R_\oplus}^{n+1}}{4\pi}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) Y_{n,m}^\mathrm{c}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta} \\
+  b_n\tilde{s}_{n,m} & =\frac{{R_\oplus}^{n+1}}{4\pi}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) Y_{n,m}^\mathrm{s}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta}
 \end{align}
-In order to use a more uniform model in magnitude for the coefficients $C_n^m$, $S_n^m$ and avoid large oscillations which may provoke a loss of data in double-precision arithmetic, the following normalization is used:
-\begin{equation}
-  \bar{P}_n^m=\frac{P_n^m}{\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}}\qquad \bar{C}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}C_n^m\qquad \bar{S}_n^m=\sqrt{\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}}S_n^m
+
+Hence introducing the gravitational constant $G$ and the Earth's mass $M_\oplus$ to the equation, our final expression for the gravitational potential is
+\begin{equation}\label{eq:Potential}
+  V(r,\theta,\phi) =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(C_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+S_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-Hence, our potential at the coordinate $(r,\theta,\phi)$ outside the Earth is given by:
-\begin{equation}
-  V(r,\theta,\phi) = \frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n\frac{{R_\oplus}^{n+1}}{r^{n+1}}\bar{P}_n^m(\cos\phi) (\bar{C}_n^m\cos(m\theta)+\bar{S}_n^m\sin(m\theta))
-\end{equation}
-The coefficients $\bar{C}_n^m$, $\bar{S}_n^m$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
+where the coefficients $C_{n,m},S_{n,m}\in\RR$ are given by the formulas:
+\begin{align}
+  C_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{c}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta} \\
+  S_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{s}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta}
+\end{align}
+% My coefficients Cnm and Snm are the \bar{Cnm} and \bar{Snm} in Montebruck's book
+here $\delta_{0,m}$ denotes the Kronecker delta. The coefficients $C_{n,m}$, $S_{n,m}$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
 \subsubsection{Numerical computation of the gravity acceleration}
 POSAR LES RECURRENCIES I MENCIONAR CUNNINGHAM
 \end{document}

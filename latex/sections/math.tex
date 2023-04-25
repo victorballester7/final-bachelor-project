@@ -130,12 +130,13 @@ However for each $\lambda\in\RR$ either one of these series diverge at $x=\pm 1$
     \label{tab:legendre_polys}
   \end{minipage}
 \end{figure}
-\begin{proposition}[Rodrigues' formula]
-  Let $n\in \NN\cup\{0\}$. Then, $\forall x\in[-1,1]$:
-  \begin{equation}
-    P_n(x)=\frac{1}{2^n n!}\dv[n]{}{x}{\left(x^2-1\right)}^n
-  \end{equation}
-\end{proposition}
+Next proposition gives and explicit formula for the Legendre polynomials.
+% \begin{proposition}[Rodrigues' formula]
+%   Let $n\in \NN\cup\{0\}$. Then, $\forall x\in[-1,1]$:
+%   \begin{equation}\label{eq:rodrigues}
+%     P_n(x)=\frac{1}{2^n n!}\dv[n]{}{x}\left[{\left(x^2-1\right)}^n\right]
+%   \end{equation}
+% \end{proposition}
 % \textcolor{red}{\begin{proposition}
 %     Consider the function $g_x(t)=\frac{1}{\sqrt{1-2xt+t^2}}$ with $\abs{x}\leq 1$. Then, the generating function of $g$ is:
 %     \begin{equation}
@@ -169,6 +170,7 @@ However for each $\lambda\in\RR$ either one of these series diverge at $x=\pm 1$
 %     \end{equation}
 %     \textcolor{red}{NOT FINISHED!!!!!!!!!!}
 %   \end{proof}}
+The following proposition is will be of our interest as in the next section \cite{mathematical_methods}.
 \begin{proposition}\label{prop:associate_legendre}
   Let $y(x)$ be a solution to the Legendre differential equation. Then, $\forall m\in\NN\cup\{0\}$ the function
   \begin{equation}
@@ -179,21 +181,102 @@ However for each $\lambda\in\RR$ either one of these series diverge at $x=\pm 1$
     (1-x^2)y''-2xy'+\left(\lambda - \frac{m^2}{1-x^2}\right) y=0
   \end{equation}
   In particular if $\lambda=n(n+1)$ for $n\in\NN\cup\{0\}$, then $w_m(x)$ is denoted as
-  \begin{equation}
-    P_n^m(x):={(1-x^2)}^{m/2} \dv[m]{P_n}{x}
+  \begin{equation}\label{eq:associated_legendre_polynomials}
+    P_{n,m}(x):={(1-x^2)}^{m/2} \dv[m]{P_n}{x}
   \end{equation}
   and it is called the \emph{associated Legendre polynomial} of degree $n$ and order $m$.
 \end{proposition}
-Note that although these functions $P_n^m$ are referred to \emph{polynomials}, they are only \emph{real} polynomials if $m$ is even. But we have opt to call them as it is the common practice in the literature (see \cite{wolfram_associated_legendre_polynomials}).
+% \begin{proof}
+%   We know that $P_n$ satisfies the equation:
+%   \begin{equation}\label{eq:proof_aso1}
+%     (1-x^2)P_n''-2xP_n'+n(n+1)P_n=0
+%   \end{equation}
+%   Recall the Leibniz rule for differentiation:
+%   \begin{equation}
+%     {(fg)}^{(m)}=\sum_{k=0}^{m}\binom{m}{k}f^{(m-k)}g^{(k)}
+%   \end{equation}
+%   Differentiating \cref{eq:proof_aso1} $m$ times using the Leibniz rule and letting $v=\dv[m]{P_n}{x}$ we obtain:
+%   \begin{equation}
+%     [(1-x^2)v''-2xm v'-m(m-1)v]-[2xv'+2mv]+n(n+1)v= (1-x^2)v''-2x(m+1)v'+(n-m)(n+m+1)v=0
+%   \end{equation}
+%   Now let $P_{n,m}(x)={(1-x^2)}^{m/2}v$. Using the chain rule and isolating $v'$ and $v''$ we obtain:
+%   \begin{align*}
+%     {P_{n,m}}'= {(1-x^2)}^{m/2}v' - \frac{m}{2}x{(1-x^2)}^{m/2-1}v={(1-x^2)}^{m/2}v' - \frac{m}{2}\frac{P_{n,m}}{1-x^2}\implies v'= \frac{2}{m}\frac{1-x^2}{x}P_{n,m} - \frac{2}{m}x{P_{n,m}}' \\
+%   \end{align*}
+%   ....
+% \end{proof}
+Note that although these functions $P_{n,m}$ are referred to \emph{polynomials}, they are only \emph{true} polynomials if $m$ is even. But we have opt to call them as it is the common practice in the literature (see \cite{wolfram_associated_legendre_polynomials}).
 
-Moreover, from the definition of $P_n^m$, we can see $P_n^0=P_n$ and that $P_n^m=0$ if $m>n$. So we can restrict the domain of $m$ to the set $\{0,1,\dots,n-1,n\}$.
+Moreover, from the definition of $P_{n,m}$, we can see $P_{n,0}=P_n$ and that $P_{n,m}=0$ if $m>n$. So we can restrict the domain of $m$ to the set $\{0,1,\dots,n\}$.
 
+% Finally, putting \cref{eq:associated_legendre_polynomials,eq:rodrigues} together, we obtain the following explicit formula for the associated Legendre polynomials:
+% \begin{equation}
+%   P_{n,m}(x)=\frac{1}{2^n n!}{(1-x^2)}^{m/2} \dv[n+m]{x}\left[{\left(x^2-1\right)}^n\right]
+% \end{equation}
+% This allows us to extend the range of $m$ to $\{-n,-(n-1),\dots,n-1,n\}$.
+% \begin{lemma}\label{lem:neg_asso_legendre}
+%   Let $n\in\NN\cup\{0\}$ and $m\in\{0,\ldots,n\}$. Then:
+%   \begin{equation}
+%     P_n^{-m}(x)=(-1)^m \frac{(n-m)!}{(n+m)!}P_{n,m}(x)
+%   \end{equation}
+% \end{lemma}
+% This lemma shows us that the new extended associated polynomials $P_n^{-m}$, $m\in\{0,\ldots,n\}$, are also solutions to the general Legendre differential equation because the satisfy the same equation as $P_{n,m}$ and they only differ by a constant factor.
+% My spherical harmonics are the same as the ones in Riley, Hobson, Bence except for the minus sign (-1)^m in front of Y_{n,m}^{\mathrm{c}}.  
+\begin{table}[ht]
+  \centering
+  \captionsetup{type=table} %% tell latex to change to table
+  \begin{tabular}{c|c||c|c}
+    $n$ & $P_{n,1}(x)$                              & $n$ & $P_{n,2}(x)$                          \\
+    \hline
+    $1$ & $\sqrt{1-x^2}$                            & $2$ & $3(1-x^2)$                            \\
+    $2$ & $3x\sqrt{1-x^2}$                          & $3$ & $15x(1-x^2)$                          \\
+    $3$ & $\frac{3}{2}(5 x^2-1)\sqrt{1-x^2}$        & $4$ & $\frac{15}{2}(7x^2-1)(1-x^2)$         \\
+    $4$ & $\frac{5}{2}x(7x^2-3)\sqrt{1-x^2}$        & $5$ & $\frac{105}{2}x(3x^2-1)(1-x^2)$       \\
+    $5$ & $\frac{15}{8}(21x^4-14x^2+1)\sqrt{1-x^2}$ & $6$ & $\frac{105}{8}(33x^4-18x^2+1)(1-x^2)$ \\
+  \end{tabular}
+  \caption{First associated Legendre polynomials.}
+\end{table}
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{Images/assolegendre1.pdf}
+    \caption{$m=1$}
+  \end{subfigure}
+  \quad
+  \begin{subfigure}[b]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{Images/assolegendre2.pdf}
+    \caption{$m=2$}
+  \end{subfigure}
+  \caption{Graphic representation of the first associated Legendre polynomials for $m=1$ and $m=2$.}
+\end{figure}
 \begin{definition}
-  Let $n\in\NN\cup\{0\}$ and $m\in\{-n,-(n-1),\ldots,0,\dots,n-1,n\}$. We define the \emph{spherical harmonic} $Y_n^m$ as the following function:
-  \begin{equation}
-    Y_n^m(\theta,\phi)=P_n^{\abs{m}}(\cos\phi) \exp{\ii m\theta}
-  \end{equation}
+  Let $n\in\NN\cup\{0\}$ and $m\in\{0,1,\dots,n\}$. We define the \emph{real spherical harmonics} $Y_{n,m}^{\mathrm{c}}$ and $Y_{n,m}^{\mathrm{s}}$ as:
+  \begin{align}
+    Y_{n,m}^{\mathrm{c}}(\theta,\phi) & =\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }P_{n,m}(\cos\phi) \cos{m\theta} \\
+    Y_{n,m}^{\mathrm{s}}(\theta,\phi) & =\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }P_{n,m}(\cos\phi) \sin{m\theta}
+  \end{align}
+  The factor $N_{n,m}:=\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }$ is called the \emph{normalization factor} of the spherical harmonic $Y_{n,m}^{\mathrm{c}}$ and $\delta_{0,m}$ is the Kronecker delta.
 \end{definition}
+\begin{table}[ht]
+  \centering
+  \captionsetup{type=table} %% tell latex to change to table
+  \begin{tabular}{c|c|c||c|c|c}
+    $n$ & $m$ & $Y_{n,1}^{\mathrm{c}}(\theta,\phi)$     & $n$ & $m$ & $Y_{n,2}^{\mathrm{c}}(\theta,\phi)$                        \\
+    \hline
+    $0$ & 0   & $1$                                     & $2$ & 2   & $\frac{\sqrt{15}}{2}{(\sin\phi)}^2\cos 2\theta$            \\
+    $1$ & 0   & $\sqrt{3}\cos\phi$                      & $3$ & 0   & $\frac{\sqrt{7}}{2}\cos\phi(5{(\cos\phi)}^2-3)$            \\
+    $1$ & 1   & $\sqrt{3}\sin\phi\cos\theta$            & $3$ & 1   & $\frac{\sqrt{42}}{4}(5{(\cos\phi)}^2-1)\sin\phi\cos\theta$ \\
+    $2$ & 0   & $\frac{\sqrt{5}}{2}(3{(\cos\phi)}^2-1)$ & $3$ & 2   & $\frac{\sqrt{105}}{2}{(\sin\phi)}^2\cos\phi\cos 2\theta$   \\
+    $2$ & 1   & $\sqrt{15}\sin\phi\cos\phi\cos\theta$   & $3$ & 3   & $\frac{\sqrt{70}}{4}{(\sin\phi)}^3\cos 3\theta$            \\
+  \end{tabular}
+  \caption{First cosine spherical harmonics.}
+\end{table}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{Images/sphericalHarmonics.pdf}
+  \caption{3D heat map of the spherical harmonics of degree $n=5$. The first row correspond to the cosine spherical harmonics and the second row to the sine spherical harmonics.}
+\end{figure}
+
 \subsubsection{Laplace equation in spherical coordinates}\label{sec:laplace_spherical}
 \begin{definition}
   Let $f:\RR^3\rightarrow\RR$ be a twice-differentiable function. The \emph{Laplace equation} is the equation
@@ -210,20 +293,14 @@ The next proposition gives the Laplace equation in spherical coordinates.
   \end{equation}
   where $r$ denotes the radial distance, $\theta$ denotes the azimuthal angle, and $\phi$, the polar angle.
 \end{proposition}
-Recall that a solutions to the \emph{Dirichlet problem} on a bounded domain $\Omega\subset\RR^3$
-\begin{equation}
-  \begin{cases}
-    \laplacian u=0 & \text{in } \Omega         \\
-    u=g            & \text{on } \partial\Omega
-  \end{cases}
-\end{equation}
-exists and is unique if $g$ is sufficiently smooth. \cref{thm:laplace_spherical} gives them as a function of the so-called
+We are now interested in solving the Laplace equation. \cref{thm:laplace_spherical} gives the solution of it as a function of the spherical harmonics.
 \begin{theorem}\label{thm:laplace_spherical}
   The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ to the Laplace equation in spherical coordinates are of the form
-  \begin{equation}\label{eq:sol_laplace}
-    f(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta}= \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})Y_n^m(\theta,\phi)
-  \end{equation}
-  where $c_{n}^m,d_n^m\in\CC$.
+  \begin{align}
+    f(r,\theta,\phi) & = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))                                                              \\
+                     & \label{eq:sol_laplace} = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
+  \end{align}
+  where $a_n,b_n,c_{n,m},d_{n,m},\tilde{c}_{n,m},\tilde{d}_{n,m}\in\RR$.
 \end{theorem}
 \begin{proof}
   Let $f(r,\theta,\phi)$ be a solution of \cref{eq:laplace} Using separation variables $f(r,\theta,\phi)=R(r)\Theta(\theta)\Phi(\phi)$ one can write:
@@ -244,35 +321,55 @@ exists and is unique if $g$ is sufficiently smooth. \cref{thm:laplace_spherical}
     \label{eq:laplaceTheta} & \frac{1}{\Theta}\Theta''  =-m^2                                     \\
     \label{eq:laplacePhi}   & \frac{\sin\phi}{\Phi}{(\sin\phi\Phi')}'+\lambda{(\sin\phi)}^2  =m^2
   \end{align}
-  must be constant with $m\in\CC$ (a priori). The solution to \cref{eq:laplaceTheta} is a linear combination of the exponentials $\exp{\ii m\theta}$, $\exp{-\ii m\theta}$. Note, though, that since $\Theta$ must be a $2\pi$-periodic function, that is satisfying $\Theta(\theta+2\pi)=\Theta(\theta)$ $\forall\theta\in\RR$, $m$ must be an integer. On the other hand making the change of variables $x=\cos \phi$ and $y=\Phi(\phi)$ in \cref{eq:laplacePhi}, that equation becomes:
-  \begin{equation}
+  must be constant with $m\in\CC$ (a priori). The solution to \cref{eq:laplaceTheta} is a linear combination of the $\cos(m\theta)$ and $\sin(m\theta)$. Note, though, that since $\Theta$ must be a $2\pi$-periodic function, that is satisfying $\Theta(\theta+2\pi)=\Theta(\theta)$ $\forall\theta\in\RR$, $m$ must be an integer. On the other hand making the change of variables $x=\cos \phi$ and $y=\Phi(\phi)$ in \cref{eq:laplacePhi}, that equation becomes:
+  \begin{equation}\label{}
     (1-x^2)\dv[2]{y}{x}-2x\dv[2]{y}{x}+\left(\lambda-\frac{m^2}{1-x^2}\right)y=0
   \end{equation}
-  which is the associate Legendre equation. We have argued in \cref{prop:associate_legendre} that we need $\lambda=n(n+1)$ and $m\leq n$ in order to get regular solutions at $x=\cos\phi=\pm 1$. Moreover these solutions are $P_n^m(\cos\phi)$.
+  which is the associate Legendre equation. We have argued in \cref{prop:associate_legendre} that we need $\lambda=n(n+1)$ and $m\leq n$ in order to get regular solutions at $x=\cos\phi=\pm 1$. Moreover these solutions are $P_{n,m}(\cos\phi)$.
 
-  Finally note that equation \cref{eq:laplaceR} is a Cauchy-Euler equation (check \cite{wiki:cauchy-euler}) and so it general solution is given by
+  Finally note that equation \cref{eq:laplaceR} is a Cauchy-Euler equation (check \cite{wiki:cauchy-euler}) and so the general solution of it is given by
   \begin{equation}
     R(r) = c_1 r^{n} + c_2 r^{-n-1}
   \end{equation}
-  because $\lambda = n(n+1)$. So the general solution becomes a linear combination of the each solution founded varying $n\in\NN\cup\{0\}$ and $m\in\{0,1,\dots,n-1,n\}$:
+  because $\lambda = n(n+1)$. So the general solution becomes a linear combination of the each solution founded varying $n\in\NN\cup\{0\}$ and $m\in\{0,1,\dots,n\}$:
   \begin{equation}
-    f(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n (c_{n}^m r^{n} +d_n^mr^{-n-1})P_n^\abs{m}(\cos\phi) \exp{\ii m\theta}
+    f(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))
   \end{equation}
 \end{proof}
-From now we are not concerning of the singularity at $r=0$ of \cref{eq:sol_laplace} (see SECTION-POTENTIAL for more details).
+From now we are not concerning of the singularity at $r=0$ of \cref{eq:sol_laplace} (see \cref{sec:laplace_spherical_potential} for more details).
 
-With a bit of patience one can prove that $\forall n_1,n_2\in\NN\cup\{0\}$ and all $0\leq m\leq\min\{n_1,n_2\}$:
+The associated Legendre polynomials satisfy a orthogonality relation:
+\begin{lemma}\label{lem:ortho_asso_legendre}
+  Let $n_1,n_2\in\NN\cup\{0\}$ and $m\leq \min\{n_1,n_2\}$. Then:
+  \begin{equation}
+    \int_0^1 P_{n_1,m}(x) P_{n_2,m}(x) \dd{x}=\frac{2}{2n_1+1}\frac{(n_1+m)!}{(n_1-m)!} \delta_{n_1,n_2}
+  \end{equation}
+  where $\delta_{n_1,n_2}$ denotes the Kronecker delta.
+\end{lemma}
+Similarly it can be shown that the spherical harmonics from an orthonormal family of functions:
+\begin{proposition}
+  The family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ is orthonormal in the following sense:
+  \begin{equation}\label{eq:ortho_spherical_harmonics}
+    \frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi Y_{n_1,m_1}^i(\theta,\phi) Y_{n_2,m_2}^j(\theta,\phi)\dd\Omega=\delta_{n_1,n_2}\delta_{m_1,m_2}\delta_{i,j}
+  \end{equation}
+  where $\dd\Omega=\sin\phi\dd{\phi}\dd{\theta}$ is the solid angle element, which measures the element of area on a sphere of radius $1$.
+\end{proposition}
+\begin{proof}
+  Let $N_{n_1,m_1}$, $N_{n_2,m_2}$ be the normalization factors of the spherical harmonics $Y_{n_1,m_1}$, $Y_{n_2,m_2}$ respectively. Note that we can separate the variables in the integral of \cref{eq:ortho_spherical_harmonics}. So if $i\ne j$, the integral over $\theta$ becomes $\int_0^{2\pi}\cos(m_1\theta)\sin(m_2\theta)\dd{\theta}=0$ regardless of the values of $m_1$ and $m_2$. So from now on assume that $i=j$. Due to the symmetry between the cosine and the sine we can suppose that $i=\mathrm{c}$. Thus:
+  \begin{multline}
+    \int_0^{2\pi}\int_0^\pi Y_{n_1,m_1}^i(\theta,\phi) Y_{n_2,m_2}^j(\theta,\phi)\dd\Omega=\\= N_{n_1,m_1}N_{n_2,m_2}\int_0^\pi P_{n_1,m_1}(\cos\phi) P_{n_2,m_2}(\cos\phi)\sin\phi\dd\phi\int_{0}^{2\pi}\cos(m_1\theta)\cos(m_2\theta)\dd{\theta}
+  \end{multline}
+  An easy check shows that if $m_1\neq m_2$ then the integral over $\theta$ is zero (and the same applies with sines). So suppose $m_1=m_2=m$. In that case, if $m\ne 0$ we have $\int_{0}^{2\pi}{(\cos m\theta)}^2\dd{\theta}=\int_{0}^{2\pi}{(\sin m\theta)}^2\dd{\theta}=\pi$ and if $m=0$, the cosine integral evaluates to $2\pi$ whereas the sine integral is 0. We can omit this latter case because $Y_{n,0}^{\mathrm{s}}$ is identically zero. Thus:
+  \begin{equation}
+    \frac{2\pi}{2-\delta_{0,m}} N_{n_1,m}N_{n_2,m}\int_0^\pi P_{n_1,m}(\cos\phi) P_{n_2,m}(\cos\phi)\sin\phi\dd\phi=\frac{2\pi}{2-\delta_{0,m}} N_{n_1,m}N_{n_2,m}\int_{-1}^1 P_{n_1,m}(x) P_{n_2,m}(x)\dd{x}
+  \end{equation}
+  By \cref{lem:ortho_asso_legendre} this latter integral is $\frac{2}{2n_1+1}\frac{(n_1+m)!}{(n_1-m)!} \delta_{n_1,n_2}$. Finally, if $n_1=n_2=n$, putting all normalization factors together we get:
+  \begin{equation}
+    \frac{2\pi}{2-\delta_{0,m}} N_{n}^{m}N_{n}^{m}\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}=4\pi
+  \end{equation}
+\end{proof}
+Moreover, an important result in the Sturm-Liouville Theory of second order differential equations (\cite{wiki:sturmliouville,completenessSL}) says that the family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ form a complete set in the sense that any smooth function defined on the sphere $f:S^2\rightarrow\RR$ can be expanded in a series of spherical harmonics:
 \begin{equation}
-  \int_0^1 P_{n_1}^{m}(x) P_{n_2}^{m}(x) \dd{x}=\frac{2}{2n_1+1}\frac{(n_1+m)!}{(n_1-m)!} \delta_{n_1,n_2}
-\end{equation}
-where $\delta_{n_1,n_2}$ denotes the Kronecker delta.
-From here it's not hard to prove that the spherical harmonics behave in a similar way:
-\begin{equation}
-  \int_0^{2\pi}\int_0^\pi Y_{n_1}^{m_1}(\theta,\phi) \overline{Y_{n_2}^{m_2}(\theta,\phi)} \dd{\phi}\dd{\theta}=\frac{2}{2n_1+1}\frac{(n_1+m_1)!}{(n_1-m_1)!} \delta_{n_1,n_2}\delta_{m_1,m_2}
-\end{equation}
-
-Moreover, an important result in the Sturm-Liouville Theory of second order differential equations (\cite{wiki:sturmliouville,completenessSL}) says that the family of spherical harmonics $\{Y_n^m(\theta,\phi):n\in\NN\cup\{0\},\abs{m}\leq n\}$ form a complete set in the sense that any smooth function defined on the sphere $f:S^2\rightarrow\RR$ can be expanded in a series of spherical harmonics:
-\begin{equation}
-  f(\theta,\phi)=\sum_{n=0}^\infty\sum_{m=-n}^n c_{n}^m Y_n^m(\theta,\phi)
+  f(\theta,\phi)=\sum_{n=0}^\infty\sum_{m=-n}^n (c_{n,m} Y_{n,m}^{\mathrm{c}}(\theta,\phi)+s_{n,m} Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
 \end{document}

@@ -1,6 +1,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, headheight=14pt, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 \usepackage{fancyhdr} % for customizing page-style (mainly headings).
+% \usepackage{fontspec}
 \usepackage{titlesec} % for changing style of chapters, section... (with title format).
 \usepackage{bookmark} % solve some warnings such as writing a section just below a part (i.e. without a chapter between them).
 \usepackage[es-ES]{datetime2} % for writing the current date when compiling.
@@ -9,7 +10,7 @@
 \usepackage{epigraph} % for epigraphs (i.e. quotes after the title).
 \usepackage{csquotes} % needed for biblatex.
 \usepackage{stmaryrd} % for the url symbol in references.
-\usepackage[style=alphabetic,backend=biber]{biblatex} % for extended bibliography capabilities.
+\usepackage[style=alphabetic,sorting=nyt,backend=biber]{biblatex} % for extended bibliography capabilities.
 
 % \ifSubfilesClassLoaded{% show only when the single subfile is compiled        
 % }{% show only when the main file is compiled
@@ -17,7 +18,7 @@
 % }
 
 %%% url symbol for references it is needed \usepackage{stmaryrd} %%%
-\newcommand\enllas{\raise.5pt\hbox{$\boxempty\kern-4.85pt{}^{\tiny\nearrow}$}\kern-2pt}
+\newcommand\enllas{\raise.5pt\hbox{$\boxempty\kern-4.85pt{}^{\nearrow}$}\kern-2pt}
 
 \DeclareFieldFormat{url}{%
   \mkbibacro{URL}\addcolon\space%
@@ -30,3 +31,5 @@
   {\href{#1}{\enllas}}%
   {\url{#1}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n} % in order to solve a warning.
