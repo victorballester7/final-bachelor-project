@@ -3,12 +3,57 @@
 \usepackage{preamble}
 
 
-\title{Numerical propagation of trajectories of Earth-orbiting spacecraft}
-\author{Víctor Ballester}
-\date{Version: \today}
+\renewcommand\title{Numerical propagation of trajectories of Earth-orbiting spacecraft}
+\renewcommand\author{Víctor Ballester}
+\renewcommand\date{June 26, 2023}
+\newcommand\supervisor{Josep Maria Mondelo}
+\newcommand\faculty{Faculty of Science}
+% \newcommand\faculty{Facultat de Ciències}
+\newcommand\department{Mathematics Department}
+% \newcommand\department{Departament de Matemàtiques}
+\newcommand\degree{Bachelor's Degree in Mathematics}
+
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+  \begin{center}
+    \vspace*{1in}
+    \begin{figure}[H]
+      \begin{center}
+        \includegraphics[width=6cm]{Images/uab.pdf}
+      \end{center}
+    \end{figure}
+    \vspace*{1.5cm}
+    \textsc{\Large Bachelor Thesis}\\[0.75cm]
+    \rule{150mm}{0.1mm}\\[0.4cm]
+    {\huge \bfseries \title\par}
+    \vspace{0.4cm} % Thesis title
+    \rule{150mm}{0.1mm} \\[1.5cm] % Horizontal line
+    \begin{minipage}[t]{0.4\textwidth}
+      \begin{flushleft} \large
+        \emph{Author:}\\[0.2cm]
+        \author % Author name - remove the \href bracket to remove the link
+      \end{flushleft}
+    \end{minipage}
+    \begin{minipage}[t]{0.4\textwidth}
+      \begin{flushright} \large
+        \emph{Supervisor:} \\[0.2cm]
+        \supervisor % Supervisor name - remove the \href bracket to remove the link  
+      \end{flushright}
+    \end{minipage}\\[3cm]
+    \vfill
+    {\large
+      \degree\\[0.2cm]
+      \department\\[0.2cm]
+      \faculty\\[0.5cm]
+    }
+    % \vfill
+    \rule{80mm}{0.1mm}\\[0.5cm]
+    {\large \date}\\[0.2cm]
+    \vfill
+  \end{center}
+  \newpage
+\end{titlepage}
 \thispagestyle{empty}
 \newpage
 \thispagestyle{empty}
@@ -18,18 +63,24 @@
 \vspace*{\fill}
 \newpage
 \setcounter{page}{1}
+\pagenumbering{roman}
 \tableofcontents
 % \listoffigures
 % \listoftables
 \newpage
 
-\subfile{sections/intro}
-\subfile{sections/math}
-\subfile{sections/astro}
-\subfile{sections/force}
-\subfile{sections/simulation}
-\subfile{sections/conclusions}
+\addcontentsline{toc}{section}{Acknowledgements}
+\subfile{sections/acknowledgements}\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\subfile{sections/intro}\newpage
+\subfile{sections/math}\newpage
+\subfile{sections/astro}\newpage
+\subfile{sections/force}\newpage
+\subfile{sections/simulation}\newpage
+\subfile{sections/conclusions}\newpage
 
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \end{document}
+

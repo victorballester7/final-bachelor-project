@@ -1,1 +1,1 @@
-# Numerical propagation of trajectories of earth-orbiting spacecraft
+# Numerical propagation of trajectories of Earth-orbiting spacecraft

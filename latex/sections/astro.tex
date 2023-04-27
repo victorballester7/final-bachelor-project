@@ -165,13 +165,38 @@ Kepler's equation is the key to solve the problem of finding the position of the
 
 \subsection{Time and reference systems}
 \subsubsection{Time measurement}
-As human beings, we are naturally interested in how time passes and so the correct measure of it becomes an essential necessity for us. As it is the sun that governs our daily activity, it is natural to define time from it.
+As human beings, we are naturally interested in how time passes and therefore the correct measure of it becomes an essential necessity for us. As it is the Sun that governs our daily activity, it is natural to define time from it.
+Firstly we need some definitions:
+\begin{definition}
+  We define the \emph{equatorial plane} as the plane on $\RR^3$ that contains the Earth equator. We define the \emph{ecliptic plane} as the orbital plane on $\RR^3$ of the Earth around the Sun.
+\end{definition}
+\begin{definition}
+  We define the \emph{celestial sphere} as an abstract sphere of infinite radius concentric with the Earth. All the celestial objects are thus, projected naturally on the celestial sphere, identifying them with two coordinates (longitude and latitude). The intersection of the equatorial plane with the celestial sphere is called \emph{celestial equator}. The intersection of the ecliptic plane with the celestial sphere is called \emph{ecliptic} (see \cref{fig:precession_matrix} for a better understanding).
+\end{definition}
+A first important thing to note is that, since the celestial sphere is centered at the Earth, the Sun moves along the ecliptic. Moreover, note that both the celestial equator and the ecliptic are two different great circles on the celestial sphere. Hence, they intersect at exactly two points.
 
-An \emph{apparent solar day} is defined to be the time between two successive transits of the sun across our local meridian. One should note that the Earth has to rotate on itself slightly more than one revolution in order to complete one solar day. The \emph{apparent siderial day} is defined as the time it take to the Earth to complete a rotation relative to very far away stars (see \cref{fig:siderial} for a beter understanding). The non-circular orbit of the Earth around the sun causes some days to be shorter than others due to Kepler's second law. So the introduction of a \emph{mean solar day} and \emph{mean siderial day} are necessary, which are defined as if the Earth was in a circular orbit of the same period as the true one.
+The angle measured along the equator of any object on the celestial sphere from the vernal equinox is called \emph{right ascension}, whereas the angle measured along the meridian of the object from the position of the object to the equator is called \emph{declination}. POSAR FOTO
+\begin{definition}
+  Consider the two points of intersection between the celestial equator and the ecliptic. We define the \emph{vernal equinox} as the point $\Upsilon$ between these two such that the Sun crosses the celestial equator from south to north.
+\end{definition}
+
+An \emph{apparent solar day} is defined to be the time between two successive transits of the Sun across our local meridian. One should note that the Earth has to rotate on itself slightly more than one revolution in order to complete one solar day. The \emph{apparent siderial day} is defined as the time it take to the Earth to complete a rotation relative to very far away stars (see \cref{fig:siderial} for a better understanding). From the point of view of the celestial sphere, the aparent solar time is the angle (measured along the celestial equator) between the local meridian and the meridian of the Sun at that epoch, which is not constant because the Sun's right ascension increases about 1 degree per day.
+
+The non-circular orbit of the Earth around the Sun causes some days to be shorter than others due to Kepler's second law. Thus, the real Sun is not well suited for precise time measurement. So the introduction of a \emph{mean Sun} is necessary.
 
 \begin{definition}
-  The \emph{Greenwich mean time} (GMT) or \emph{Universal time} (UT or UT1 for disambiguation\footnote{There are other times also referred as \emph{universal}, such as UT1R or UT12 but we will not talk about them in the document.}) is defined as the mean solar time at the Greenwich meridian. The \emph{Greenwich mean siderial time} (GMST) is a representation of the \emph{mean siderial day} and it is defined as the angle between the Greenwich meridian and th emean vernal equinox of date. In a similar way, the \emph{Greenwich aparent siderial time} (GAST) is a representation of the \emph{siderial day} and it is defined as the angle between the Greenwich meridian and the true vernal equinox of date.
+  The \emph{mean Sun} is a fictitious Sun that moves along the celestial equator at a constant rate. This rate is determined such that the real Sun and the mean Sun coincide at the vernal equinox. We define the \emph{mean solar day} as the hour angle (along the celestial equator) between the local meridian and the meridian of the mean Sun.
 \end{definition}
+It is worth-noting that the mean Sun does not move around the ecliptic, but rather along the celestial equator.
+\begin{definition}
+  We define the \emph{prime meridian} or \emph{zero meridian} is the meridian on the celestial sphere that passes through the Royal Observatory in Greenwich, England (when projected to the Earth).
+\end{definition}
+\begin{definition}
+  The \emph{Greenwich mean time} (GMT) or \emph{Universal time} (UT) is the hour angle of the mean solar day measured from the prime meridian and counted from midnight. That is, when the prime and mean Sun meridians coincide, the GMT is 12:00.
+
+  % The \emph{Greenwich mean siderial time} (GMST) is a representation of the \emph{mean siderial day} and it is defined as the angle between the Greenwich meridian and the mean vernal equinox of date. In a similar way, the \emph{Greenwich aparent siderial time} (GAST) is a representation of the \emph{siderial day} and it is defined as the angle between the Greenwich meridian and the true vernal equinox of date.
+\end{definition}
+The use of those two different names (GMT and UT) to count the same time can be explained looking at the past, when GMT was defined as the mean solar time with with such that the 00:00 GMT were when the mean Sun was at the prime meridian, and the UT was defined as a 12-hour-translation of it, for civil purposes. Later on, GMT was redefined to match UT.
 
 \begin{figure}[ht]
   \centering
@@ -180,13 +205,22 @@ An \emph{apparent solar day} is defined to be the time between two successive tr
   \label{fig:siderial}
 \end{figure}
 
-In the middle of the 20th century, \emph{Ephemerides time} (ET) was introduced to cope with the irregularities of the Earth's rotation (see POLAR MOTION). This time was defined from historical observations of planets in a Newtonian physics isolating the time from the equations. At the end of the century, the \emph{Terrestrial time} (TT) succeed ET in a relativistic frame. In the meantime, in 1955 \emph{atomic time} (TAI, from French \emph{Temps Athomique International}) was adopted as the SI unit of second. The origin was adopted such that the TAI matches UT at the 00:00:00 UT of January 1st, 1958, yielding the relation
+In the middle of the 20th century, \emph{Ephemerides time} (ET) was introduced to cope with the irregularities of the Earth's rotation (see POLAR MOTION). This time was defined from historical observations of planets in a Newtonian physics framework isolating the time from the equations and the origin was chosen accordingly to the GMT at January 1900. This time provided a uniform time, although it was more difficult to measure than the mean solar time. In the meantime, atomic clocks were invented and soon the \emph{atomic time} (TAI, from French \emph{Temps Athomique International}) was adopted as the SI unit of second. The origin was adopted such that the TAI matched UT at the 00:00:00 UT of January 1st, 1958, and at that time the ET was displaced from UT by 32.184 seconds. At the end of the century, the \emph{Terrestrial time} (TT) was introduced within a relativistic framework in order to succeed ET and provided a smooth and more accurate continuation of it yielding the relation
 \begin{equation}
   \text{TT}=\text{ET}= \text{TAI} + 32.184\,\mathrm{s}
 \end{equation}
 
-Finally, our everyday clock is based on the \emph{Coordinated Universal Time} (UTC). It is defined to be as uniform as the TAI but always kept closer than 0.9 seconds to the UT1 (see GRAPH-TIME). Scientists achieve this by introducing a \emph{leap second} which is an extra second added to UTC at irregular intervals. The last leap second was added on June 30th, 2012. The next one is expected to be added on December 31st, 2016.
-\cref{fig:graph_time} summarizes all the time systems introduced in the document.
+A representation of the siderial time is the \emph{Greenwich mean siderial time} (GMST) which is defined as the angle between the prime meridian and the mean vernal equinox of date (see \cref{sec:reference_systems}). Due to unpredictable irregular changes on the rotation of the Earth (see POLAR motion), the GMST cannot be computed directly with a formula in terms of the TAI or TT. The \emph{Universal time 1} (UT1) is the presently used form of Universal time and it is defined with the following deterministic formula given in \cite{aoki}. For each day, the 00:00 UT1 is defined when the GMST has the value:
+\begin{equation}
+  \mathrm{GMST}(0\text{h UT1})=24110.54841+8640184.812866{T_{\text{UT1},0}}+0.093104{T_{\text{UT1},0}}^2-6.2\cdot 10^{-6}{T_{\text{UT1},0}}^3
+\end{equation}
+where $T_{\text{UT1},0}=\frac{\text{JD}(0\text{h UT1})-2451545}{36525}$ denotes the number of Julian centuries that have passed since January 2000, 1.5 UT1 at the beginning of the day. For any instant of time during the day, the following formula is used:
+\begin{multline}
+  \mathrm{GMST}(\mathrm{UT1})=24110.54841''+8640184.812866''{T_{\text{UT1},0}}+1.002737909350795\text{UT1}+\\+0.093104''{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}''{T_{\text{UT1}}}^3
+\end{multline}
+where $T_\text{UT1}=\frac{\text{JD}(\text{UT1})-2451545}{36525}$ and UT1 is measured in seconds. Similarly to the GMST, there is no simple conversion between the UT1 and the TT or TAI. Instead, the IERS (\emph{International Earth Rotation and Reference Systems Service}) provides regularly a bulletin with the difference $\Delta T:= \mathrm{TT}-\mathrm{UT1}$ at several dates. Interpolating these values we can obtain UT1 from TT at any instant epoch.
+
+Finally, our everyday clock is based on the \emph{Coordinated Universal Time} (UTC). It is defined to be as uniform as the TAI but always kept closer than 0.9 seconds to the UT1 (see \cref{fig:graph_time}). Scientists achieve this by introducing a \emph{leap second}, which is an extra second added to UTC at irregular intervals. \cref{fig:graph_time} summarizes all the time systems introduced in the document.
 
 \begin{figure}[htbp]
   \centering
@@ -212,37 +246,33 @@ The folowing conversions between time systems are useful:
   \text{TAI}  & =\text{UTC}+\delta(\text{TAI})
 \end{align*}
 where $ T=\frac{\text{JD}(\text{UT1})-2451545}{36525}$ is the number of Julian centuries since the epoch J2000.0, $\Delta T$ is the difference between the TT and UT1, $\delta(\text{TAI})$ is a piecewise constant function that counts the number of leap seconds introduced since 1972 (when they were introduced for the first time). All the numbers have units of second. Note that since the rotation of the Earth cannot be predicted accurately, $\Delta T$ can only be determined retrospectively, and is given by the \emph{International Earth Rotation and Reference Systems Service} (IERS).
-\subsubsection{Reference systems}
-Newton's second law in only valid when applied to an \emph{inertial reference frame}, that is, a frame of reference that is not undergoing any acceleration. In practise, however, almost any frame of reference is not inertial. So in this chapter we will describe an almost-inertial frame of reference which will be used to integrate Newton's second law. On the other hand, since the earth is not a perfect sphere and there are zones which higher mass density than others, and therefore with higher gravitational field (see SPHERICAL-HARMONICS), we would need the longitude and latitude of the satellite with respect to the Earth at each time of integration. Hence, a Earth-centered system will be needed too.
+\subsubsection{Reference systems}\label{sec:reference_systems}
+Newton's second law in only valid when applied to an \emph{inertial reference frame}, that is, a frame of reference that is not undergoing any acceleration. In practise, however, almost any frame of reference is inertial. So in this chapter we will describe an almost-inertial frame of reference which will be used to integrate Newton's second law. On the other hand, since the Earth is not a body with an homogeneous density of mass, there are zones which higher mass density than others, and therefore with higher gravitational field (see \cref{sec:laplace_spherical_potential}). Therefore we would need the longitude and latitude of the satellite with respect to the Earth at each time of integration. Hence, a Earth-centered system will be needed too.
 
-The first reference frame we must consider is the \emph{celestial}one. On basis of the study of the solar system a natural origin for this frame is the center of mass of the solar system. In order to define the $x$-, $y$-, and $z$-axes, we will need the following definitions.
-\begin{definition}
-  We define the \emph{celestial equator} as the plane on $\RR^3$ that contains the Earth equator. We define the \emph{celestial ecliptic} as the plane on $\RR^3$ that contains the ecliptic, that is, the orbit of the Earth around the sun. In order to simplify the language, we will call them \emph{equator} and \emph{ecliptic} respectively.
-\end{definition}
-\begin{definition}
-  We define the \emph{celestial sphere} as an abstract sphere of infiniteradius concentric with the Earth. All the celestial objects are thus, projected naturally on the celestial sphere, identifying them with two coordinates (longitude and latitude) (see \cref{fig:precession_matrix} for a better understanding).
-\end{definition}
-\begin{definition}
-  Consider the line $\ell$ of intersection between the celestial equator and the celestial ecliptic. We define the \emph{vernal equinox} as the point $\Upsilon$ on the ecliptic that lies on the line $\ell$ and is such that the Earth is crossing the celestial equator from south to north.
-\end{definition}
-From here, we can define the $x$-axis as the line $\ell$ and pointing to the vernal equinox, the $z$-axis perpendicular to the celestial equator and the $y$-axis chosen such that the triplet $(x,y,z)$ is a right-handed system.
+The first reference frame we must consider is the \emph{celestial} one. On basis of the study of the satellite motion around the Earth, it is natural to locate all the origins of the reference frames considered along the document at the center of mass of the Earth.
+
+In the celestial frame, the $x$-axis is defined as the line $\ell$ of intersection between the equatorial plane and the ecliptic plane. The positive direction is chosen to point towards the vernal equinox. The $z$-axis is chosen to be perpendicular to the equatorial plane and the $y$-axis is such that the triplet $(x,y,z)$ is a right-handed system.
 
 However, due to the presence of other solar system planets (and other smaller perturbations), the orbital plane of the Earth is not fixed in space, but is subjected to a small variation called \emph{planetary precession}. Moreover, the gravitational attraction of the Sun and Moon on the Earth's equator cause Earth's axis of rotation to precess in a similar way to the action of a spinning top with a period of about 26000 years \cite{montenbruck}. This motion is called \emph{lunisolar precession}. On the other hand, smaller pertubations in amplitude ($<18.6$ years \cite{wiki:eci}) with shorter period superposed with the precessional motion creates a motion called \emph{nutation}. When this latter oscillations are averaged out, the Earth's axis of rotation, the ecliptic, and the equator are referred to \emph{mean} values, rather than \emph{true} values.
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/precession_nutation.pdf}
+  \caption{Graphical explanation of the perturbation by precession (blue), nutation (red) and polar motion (violet) of the Earth's axis of rotation (green). }
+  \label{fig:prec_nut}
+\end{figure}
+
 In view of this time-dependent orientation of both the ecliptic and the equator, the standard-reference frame chosen is based on the mean equator, mean ecliptic and mean equinox of some fixed time, the beginning of the year 2000, namely at 12:00 TT on 1 January 2000, the so-called \emph{J2000 epoch}.
 \begin{definition}[J2000 frame of reference]
-  We define the \emph{J2000 frame of reference} as the frame of reference whose $x$-axis is the intersection of the mean celestial equator and the mean celestial ecliptic pointing at the mean vernal equinox, the $z$-axis is perpendicular to the mean ecliptic plane and the $y$-axis is chosen such that the triplet $(x,y,z)$ is a right-handed system. The origin of this system is chosen to be at the center of mass of the solar system.
+  We define the \emph{J2000 frame of reference} as the frame of reference whose $x$-axis is the intersection of the mean celestial equator and the mean ecliptic pointing at the mean vernal equinox, the $z$-axis is perpendicular to the mean ecliptic plane and the $y$-axis is chosen such that the triplet $(x,y,z)$ is a right-handed system. The origin of this system is chosen to be at the center of mass of the solar system.
 \end{definition}
 
 Let's move on now to study an Earth-fixed reference frame.
-\begin{definition}
-  We define the \emph{prime meridian} or \emph{zero meridian} is the meridian that passes through the Royal Observatory in Greenwich, England, and is the reference meridian for longitude measurements.
-\end{definition}
 \begin{definition}[Earth-fixed frame of reference]
   We define the \emph{Earth-fixed frame of reference} at time $t$ as the frame of reference whose $x$-axis is pointing to the prime meridian, the $z$-axis is perpendicular to the Earth equator at time $t$ and the $y$-axis is chosen such that the triplet $(x,y,z)$ is a right-handed system. The origin of this system is chosen to be at the center of mass of the Earth.
 \end{definition}
 \subsubsection{Conversion between reference systems}
-As we noted in the previous section the angle $\varepsilon$ between the celestial equator and celestial ecliptic planes is not constant due to the planetary precession.
+As we noted in the previous section the angle $\varepsilon$ between the celestial equator and ecliptic planes is not constant due to the planetary precession.
 
 We would like to transform the position of the satellite from the J2000 frame of reference to the Earth-fixed frame of reference and vice versa. This rotation transformation is given by a product of 4 rotations:
 \begin{itemize}

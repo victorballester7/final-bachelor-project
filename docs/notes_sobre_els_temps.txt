@@ -1,0 +1,49 @@
+- La esfera celest és una esfera de radi infinit centrada o al centre de la
+  terra o a l'observador, sobre la qual se projecten les posicions dels cossos
+  celestes independentment de la distància a la que es trobin. Pensem que
+  nosaltres estem a dintre i els cossos celestes els veiem projectats a la
+  seva superfície interior. Degut a que tots els cossos celestes estan molt
+  lluny, a efectes pràctics podem considerar equivalent que l'esfera celeste
+  estigui centrada a l'observador o al centre de la terra.
+
+  L'esfera celeste es pot considerar:
+  - Fixada respecte de les estrelles. Llavors, des del punt de vista d'un
+    observador, roda. En particular, el meridià de l'observador (cercle màxim
+    format pel zènit [intersecció de la vertical amb l'esfera celeste] i
+    qualsevol dels pols) també roda.
+  - Fixada respecte de l'observador.
+  Als nostres efectes és més últil considerar-la fixada respecte de les
+  estrelles.
+
+- L'esfera celeste té dos cercles màxims destacats:
+  - L'equador, que és l'equador terrestre projectat sobre l'esfera celeste.
+  - L'eclíptica, que és el pla eclíptic (de rotació de la terra al voltant del
+    sol) projectat a l'esfera celeste.
+
+- El temps solar vertader és l'angle del meridià de l'observador mesurat al
+  llarg de l'equador celeste des del meridià del sol vertader, mesurat en
+  hores.
+
+  Per culpa que la velocitat angular de la terra al llarg de la seva òrbita no
+  és constant, el temps solar vertader no és uniforme. 24h són més llargues
+  quan la terra està a prop del periheli que quan està a prop de l'apoheli.
+
+- Sol mitjà: un sol ficitici definit per considerar que la terra va a
+  velocitat constant a sobre de la seva òrbita, o, equivalentment a l'esfera
+  celest, a l'esfera celest, que es desplaça al llarg de l'eclíptica a
+  velocitat constant.
+
+- Temps solar mitjà: com el temps solar, però mesurat des del meridià del sol
+  mitjà.
+
+- Temps universal UT (sense 1 ni hòsties): és el temps solar mitjà d'un
+  observador situat al meridià zero ("Greenwich").
+ 
+- Mean Vernal Equinox: Vernal Equinox tenint en compte només la precessió,
+  que se defineix a partir d'una fórmula.
+
+- GMST: angle del meridià zero mesurat des del Mean Vernal Equinox.
+
+- UT1: definit per una fórmula determinista a partir de GMST per tal que
+  s'assembli a UT.
+
