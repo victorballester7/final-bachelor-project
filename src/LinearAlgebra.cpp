@@ -144,6 +144,11 @@ bool Vector::operator!=(const Vector& v_) const {
   return !(*this == v_);
 }
 
+std::ostream& operator<<(std::ostream& os, const Vector& u) {
+  os << "(" << u(0) << ", " << u(1) << ", " << u(2) << ")";
+  return os;
+}
+
 Matrix::Matrix() : m(0), n(0) {
   M = NULL;
 }

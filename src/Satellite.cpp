@@ -53,8 +53,8 @@ Satellite::Satellite(const std::string& line0, const std::string& line1, const s
   set_position_velocity();                             // Set position and velocity vectors
   get_gregorian_date(epoch_year, epoch_day, MM, D);
   mjd_TT = get_mjd_TT(epoch_year, MM, D);
-  r_GCRF = GCRF2Perifocal(i, Omega, omega) * r_peri;
-  v_GCRF = GCRF2Perifocal(i, Omega, omega) * v_peri;
+  r_GCRF = GCRF2Perifocal(i, Omega, omega).transpose() * r_peri;
+  v_GCRF = GCRF2Perifocal(i, Omega, omega).transpose() * v_peri;
 }
 
 void Satellite::print() const {
@@ -78,6 +78,10 @@ void Satellite::print() const {
   std::cout << "Mean motion\t\t\t\t\t" << n << std::endl;
   std::cout << "Revolution number at epoch\t\t\t" << rev_num << std::endl;
   std::cout << "Semimajor axis\t\t\t\t\t" << a << std::endl;
+  std::cout << "Position vector in perifocal frame\t\t" << r_peri << std::endl;
+  std::cout << "Velocity vector in perifocal frame\t\t" << v_peri << std::endl;
+  std::cout << "Position vector\t\t\t\t\t" << r_GCRF << std::endl;
+  std::cout << "Velocity vector\t\t\t\t\t" << v_GCRF << std::endl;
 }
 
 // Vector Satellite::get_position_GCRF() const {

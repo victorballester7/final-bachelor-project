@@ -1,6 +1,8 @@
 #ifndef LINEARALGEBRA_H
 #define LINEARALGEBRA_H
 
+#include <iostream>
+
 class Vector {
  public:
   // Constructors
@@ -20,15 +22,16 @@ class Vector {
   double dot(const Vector& v_) const;    // Return dot product with v_
   Vector cross(const Vector& v_) const;  // Return cross product with v_
 
-  double operator()(int i) const;            // Access element i (const)
-  double& operator()(int i);                 // Access element i (non-const)
-  Vector& operator=(const Vector v_);        // Assignment
-  Vector operator+(const Vector& v_) const;  // Vector addition
-  Vector operator-(const Vector& v_) const;  // Vector subtraction
-  Vector operator*(double a) const;          // Scalar multiplication
-  Vector operator/(double a) const;          // Scalar division
-  bool operator==(const Vector& v_) const;   // Vector equality
-  bool operator!=(const Vector& v_) const;   // Vector inequality
+  double operator()(int i) const;                                        // Access element i (const), i = 0, ..., n-1
+  double& operator()(int i);                                             // Access element i (non-const), i = 0, ..., n-1
+  Vector& operator=(const Vector v_);                                    // Assignment
+  Vector operator+(const Vector& v_) const;                              // Vector addition
+  Vector operator-(const Vector& v_) const;                              // Vector subtraction
+  Vector operator*(double a) const;                                      // Scalar multiplication
+  Vector operator/(double a) const;                                      // Scalar division
+  bool operator==(const Vector& v_) const;                               // Vector equality
+  bool operator!=(const Vector& v_) const;                               // Vector inequality
+  friend std::ostream& operator<<(std::ostream& os, const Vector& Vec);  // Print vector to output stream
 
  private:
   int n;      // Dimension
