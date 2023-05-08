@@ -8,6 +8,12 @@
 #include "../include/constants.h"
 #include "../include/rk78.h"
 
+Vector AccelPointEarth(const Vector& r, double GM) {
+  // std::cout << "AccelPointEarth" << std::endl;
+  double r3 = pow(r.norm(), 3);
+  return r * (-GM / r3);
+}
+
 Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, const Matrix& CS, int n_max, int m_max) {
   double r_sqr, rho, Fac;  // Auxiliary quantities
   double x0, y0, z0;       // Normalized coordinates
@@ -91,34 +97,43 @@ Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, 
 
 int gravField(int n, double t, double x[], double f[], void* param) {
   if (n != 6) return 1;
-  for (int i = 0; i < 3; i++) f[i] = x[i + 3];
-  double* prm = (double*)param;
-  double n_max = prm[0];
-  double m_max = prm[1];
-
-  Vector v_dot = AccelHarmonic(Vector(x[0], x[1], x[2]), GCRF2ITRF(t), GM_EARTH, R_JGM3, CS_JGM3, n_max, m_max);
+  for (int i = 0; i < 3; i++) f[i] = x[i + 3];  // dx/dt = v_x, dy/dt = v_y, dz/dt = v_z
+  args_gravField* prm = (args_gravField*)param;
+  Vector v_dot;
+  if (prm->pointEarth)
+    v_dot = AccelPointEarth(Vector(x[0], x[1], x[2]), GM_EARTH);
+  else
+    v_dot = AccelHarmonic(Vector(x[0], x[1], x[2]), ECI2ECEF(t), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
   for (int i = 0; i < 3; i++) f[i + 3] = v_dot(i);
   return 0;
 }
 
-int integrateOrbit(Satellite& s0, Satellite& sT, double T, double hmin, double hmax, double tol, int maxNumSteps, int n_max, int m_max) {
-  args_gravField prm = {n_max, m_max};
+int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* prm) {
   int n = 6;
-  double x[6] = {s0.r_GCRF(0), s0.r_GCRF(1), s0.r_GCRF(2), s0.v_GCRF(0), s0.v_GCRF(1), s0.v_GCRF(2)};
-  double h = 0.01 * SGN(T);
+  double x[6] = {s0.r_ECI(0), s0.r_ECI(1), s0.r_ECI(2), s0.v_ECI(0), s0.v_ECI(1), s0.v_ECI(2)};
+  double hmin = h * 0.5, hmax = h * 2.0;
 
-  printf("\n\nInitial position and velocity:\n");
-  for (int i = 0; i < n; i++)
-    printf("%lf ", x[i]);
+  double t = s0.mjd_TT * 86400.0;
+  if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
+  sT.mjd_TT = t / 86400.0;
 
-  if (flow(&s0.mjd_TT, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, &prm)) return 1;
+  sT.r_ECI = Vector(x[0], x[1], x[2]);
+  sT.v_ECI = Vector(x[3], x[4], x[5]);
+  sT.set_orbital_elements(sT.r_ECI, sT.v_ECI);
+  return 0;
+}
 
-  printf("Final position and velocity:\n");
-  for (int i = 0; i < n; i++)
-    printf("%lf ", x[i]);
+int integrateOrbit(Satellite& s, double T, double h, double tol, int maxNumSteps, void* prm) {
+  int n = 6;
+  double x[6] = {s.r_ECI(0), s.r_ECI(1), s.r_ECI(2), s.v_ECI(0), s.v_ECI(1), s.v_ECI(2)};
+  double hmin = h * 0.5, hmax = h * 2.0;
 
-  sT.r_GCRF = Vector(x[0], x[1], x[2]);
-  sT.v_GCRF = Vector(x[3], x[4], x[5]);
-  sT.set_orbital_elements(sT.r_GCRF, sT.v_GCRF);
+  double t = s.mjd_TT * 86400.0;
+  if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
+
+  s.mjd_TT = t / 86400.0;
+  s.r_ECI = Vector(x[0], x[1], x[2]);
+  s.v_ECI = Vector(x[3], x[4], x[5]);
+  s.set_orbital_elements(s.r_ECI, s.v_ECI);
   return 0;
 }

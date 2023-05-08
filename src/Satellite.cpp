@@ -47,14 +47,13 @@ Satellite::Satellite(const std::string& line0, const std::string& line1, const s
 
   a = pow(GM_EARTH / (n * n), 1.0 / 3.0);  // semimajor axis
 
-  solve_kepler_equation();                             // Solve kepler equation to get the eccentric anomaly
-  nu = atan(sqrt(1 - e * e) * sin(E) / (cos(E) - e));  // True anomaly
-  nu += 2 * PI * ((nu < 0) ? 1 : 0);                   // Make sure that nu is in the range [0, 2PI]
-  set_position_velocity();                             // Set position and velocity vectors
+  solve_kepler_equation();                     // Solve kepler equation to get the eccentric anomaly
+  nu = acos((cos(E) - e) / (1 - e * cos(E)));  // True anomaly
+  if (E > PI) nu = 2 * PI - nu;
+  set_position_velocity();  // Set position and velocity vectors
+
   get_gregorian_date(epoch_year, epoch_day, MM, D);
-  mjd_TT = get_mjd_TT(epoch_year, MM, D);
-  r_GCRF = GCRF2Perifocal(i, Omega, omega).transpose() * r_peri;
-  v_GCRF = GCRF2Perifocal(i, Omega, omega).transpose() * v_peri;
+  mjd_TT = get_mjd(epoch_year, MM, D);
 }
 
 void Satellite::print() const {
@@ -68,31 +67,31 @@ void Satellite::print() const {
   // std::cout << "Epoch MJD TT\t\t\t\t\t" << mjd_TT << std::endl;
   // std::cout << "First time derivative of the mean motion\t" << dn << std::endl;
   // std::cout << "Second time derivative of the mean motion\t" << ddn << std::endl;
-  std::cout << "Inclination\t\t\t\t\t" << i << std::endl;
-  std::cout << "Right ascension (Omega)\t\t\t\t" << Omega << std::endl;
+  std::cout << "Inclination [rad]\t\t\t\t" << i << std::endl;
+  std::cout << "Right ascension (Omega) [rad]\t\t\t" << Omega << std::endl;
   std::cout << "Eccentricity\t\t\t\t\t" << e << std::endl;
-  std::cout << "Argument of perigee (omega)\t\t\t" << omega << std::endl;
-  std::cout << "Mean anomaly\t\t\t\t\t" << M << std::endl;
-  std::cout << "True anomaly\t\t\t\t\t" << nu << std::endl;
-  std::cout << "Eccentric anomaly\t\t\t\t" << E << std::endl;
-  std::cout << "Mean motion\t\t\t\t\t" << n << std::endl;
-  std::cout << "Revolution number at epoch\t\t\t" << rev_num << std::endl;
-  std::cout << "Semimajor axis\t\t\t\t\t" << a << std::endl;
-  std::cout << "Position vector in perifocal frame\t\t" << r_peri << std::endl;
-  std::cout << "Velocity vector in perifocal frame\t\t" << v_peri << std::endl;
-  std::cout << "Position vector\t\t\t\t\t" << r_GCRF << std::endl;
-  std::cout << "Velocity vector\t\t\t\t\t" << v_GCRF << std::endl;
+  std::cout << "Argument of perigee (omega) [rad]\t\t" << omega << std::endl;
+  std::cout << "Mean anomaly [rad]\t\t\t\t" << M << std::endl;
+  std::cout << "True anomaly [rad]\t\t\t\t" << nu << std::endl;
+  std::cout << "Eccentric anomaly [rad]\t\t\t\t" << E << std::endl;
+  std::cout << "Mean motion [rad/s]\t\t\t\t" << n << std::endl;
+  // std::cout << "Revolution number at epoch\t\t\t" << rev_num << std::endl;
+  std::cout << "Semi-major axis [m]\t\t\t\t" << a << std::endl;
+  // std::cout << "Position vector in perifocal frame [m]\t\t" << r_peri << std::endl;
+  // std::cout << "Velocity vector in perifocal frame [m/s]\t" << v_peri << std::endl;
+  std::cout << "Position vector [m]\t\t\t\t" << r_ECI << std::endl;
+  std::cout << "Velocity vector [m/s]\t\t\t\t" << v_ECI << std::endl;
 }
 
 // Vector Satellite::get_position_GCRF() const {
 //   // Rotation matrix from perifocal to GCRF
-//   Matrix R = GCRF2Perifocal(i, Omega, omega);
+//   Matrix R = Perifocal2ECI(i, Omega, omega);
 //   return R.transpose() * r_peri;
 // }
 
 // Vector Satellite::get_position_ITRF() const {
 //   // Rotation matrix from GCRF to ITRF
-//   Matrix R = GCRF2ITRF(mjd_TT);
+//   Matrix R = ECI2ECEF(mjd_TT);
 //   return R * get_position_GCRF();
 // }
 
@@ -127,36 +126,27 @@ void Satellite::set_position_velocity() {
 
   r_peri = Vector(x, y, z);
   v_peri = Vector(vx, vy, vz);
+
+  r_ECI = Perifocal2ECI(i, Omega, omega) * r_peri;
+  v_ECI = Perifocal2ECI(i, Omega, omega) * v_peri;
 }
 
 void Satellite::set_orbital_elements(Vector r, Vector v) {
-  Vector h = r.cross(v);
-  Vector normal = Vector(0, 0, 1).cross(h);
-  Vector e_vec = (r * (v.norm() * v.norm() - GM_EARTH / r.norm()) - v * r.dot(v)) / GM_EARTH;
-  double p = h.norm() * h.norm() / GM_EARTH;
-  Vector W = h.normalized();
-  i = atan(sqrt(W(0) * W(0) + W(1) * W(1)) / W(2));
-  printf("W = (%lf, %lf, %lf)\n", W(0), W(1), W(2));
-  Omega = atan(-W(0) / W(1));
-  double Omega1 = acos(normal(0) / normal.norm());
-  double omega1 = acos(normal.dot(e_vec) / (normal.norm() * e_vec.norm()));
-  std::cout << "Omega1 = " << Omega1 << std::endl;
-  a = 1. / (2. / r.norm() - v.norm() * v.norm() / GM_EARTH);
-  std::cout << "omega1 = " << omega1 << std::endl;
+  Vector h = r.cross(v), k = Vector(0, 0, 1);
+  Vector normal = k.cross(h);
+  Vector e_vec = v.cross(h) / GM_EARTH - r / r.norm();
+  // Vector e_vec = (r * (v.norm() * v.norm() - GM_EARTH / r.norm()) - v * r.dot(v)) / GM_EARTH;
+  i = acos(h(2) / h.norm());
+  Omega = acos(normal(0) / normal.norm());
+  if (normal(1) < 0) Omega = 2 * PI - Omega;
+  e = e_vec.norm();
+  omega = acos(normal.dot(e_vec) / (normal.norm() * e));
+  if (e_vec(2) < 0) omega = 2 * PI - omega;
+  nu = acos(e_vec.dot(r) / (e * r.norm()));
+  if (r.dot(v) < 0) nu = 2 * PI - nu;
+  a = h.norm() * h.norm() / (GM_EARTH * (1 - e * e));
   n = sqrt(GM_EARTH / (a * a * a));
-  e = sqrt(1 - p / a);
-  E = atan(r.dot(v) / (a * a * n) / (1. - r.norm() / a));
+  E = acos((e + cos(nu)) / (1 + e * cos(nu)));
+  if (r.dot(v) < 0) E = 2 * PI - E;
   M = E - e * sin(E);
-
-  double u = atan(r(2) / (-r(0) * W(1) + r(1) * W(0)));
-  nu = atan(sqrt(1 - e * e) * sin(E) / (cos(E) - e));  // True anomaly
-  omega = u - nu;
-
-  // Make sure all angles are in [0, 2PI]
-  i += 2 * PI * ((i < 0) ? 1 : 0);
-  Omega += 2 * PI * ((Omega < 0) ? 1 : 0);
-  E += 2 * PI * ((E < 0) ? 1 : 0);
-  M += 2 * PI * ((M < 0) ? 1 : 0);
-  nu += 2 * PI * ((nu < 0) ? 1 : 0);
-  omega += 2 * PI * ((omega < 0) ? 1 : 0);
 }

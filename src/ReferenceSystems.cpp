@@ -3,20 +3,35 @@
 #include "../include/LinearAlgebra.h"
 #include "../include/constants.h"
 
-Matrix GCRF2Perifocal(double i, double Omega, double omega) {
-  Matrix R(3, Omega), S(1, i), T(3, omega);
-  return T * S * R;
+Matrix Perifocal2ECI(double i, double Omega, double omega) {
+  Matrix R(3, -Omega), S(1, -i), T(3, -omega);
+  return R * S * T;
 }
 
-Matrix GCRF2ITRF(double mjd_TT) {
-  double mjd_UT1 = mjd_TT;  // we assume that UT1 = TT
-  return PolarMotionMatrix(mjd_TT) * RotationMatrix(mjd_UT1) * NutationMatrix(mjd_TT) * PrecessionMatrix(mjd_TT);
+Matrix ECI2ECEF(double mjd_TT) {
+  // double mjd_UT1 = mjd_TT;  // we assume that UT1 = TT
+  return PolarMotionMatrix(mjd_TT) * RotationMatrix(mjd_TT) * NutationMatrix(mjd_TT) * PrecessionMatrix(mjd_TT);
 }
 
 // double TT2JDcenturies_TT(double t) {
 //   // TT (Terrestrial Time) Julian Date
 //   return Mjd_TT + 2400000.5;
 // }
+
+double UTC2UT1(double utc) {
+  int day_before = floor(utc);
+  // we will do a linear interpolation between the two values of UT1-UTC
+  double f1 = eop[day_before][5];      // first value of UT1-UTC
+  double f2 = eop[day_before + 1][5];  // second value of UT1-UTC
+  double ut1 = (utc - day_before) * f2 - (utc - day_before - 1) * f1;
+  return ut1;
+}
+
+double TT2UTC(double mjd_tt) {
+  double sec_tt_utc = 32.184 + 37.0;  // valid from 01/01/2017 onwards.
+  double mdj_utc = mjd_tt - sec_tt_utc / 86400.0;
+  return mdj_utc;
+}
 
 double MeanObliquity(double mjd_TT) {
   const double T = (mjd_TT - MJD_J2000) / 36525.0;
@@ -35,12 +50,12 @@ double EqEquinoxes(double mjd_TT) {
 
 double GMST(double mjd_UT1) {
   // Variables
-  double mjd_0, UT1, T_0, T, gmst;
+  double mjd_UT1_0, UT1, T_0, T, gmst;
 
   // Mean Sidereal Time
-  mjd_0 = floor(mjd_UT1);
-  UT1 = 86400.0 * (mjd_UT1 - mjd_0);  // seconds in UT1 of that day [s]
-  T_0 = (mjd_0 - MJD_J2000) / 36525.0;
+  mjd_UT1_0 = floor(mjd_UT1);
+  UT1 = 86400.0 * (mjd_UT1 - mjd_UT1_0);  // seconds in UT1 of that day [s]
+  T_0 = (mjd_UT1_0 - MJD_J2000) / 36525.0;
   T = (mjd_UT1 - MJD_J2000) / 36525.0;
 
   gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s]
@@ -48,9 +63,11 @@ double GMST(double mjd_UT1) {
   return fmod(gmst * SEC_TO_RAD, 2 * PI);
 }
 
-double GAST(double mjd_UT1) {
-  // we asume that mjd_UT1 = mjd_TT when passed to the EqEquinoxes function
-  return fmod(GMST(mjd_UT1) + EqEquinoxes(mjd_UT1), 2 * PI);
+double GAST(double mjd_TT) {
+  // we assume UT1 = UTC
+  double incr = (32.184 + 37.0) / 86400.0;  // TT-UT1 [days]
+  double mjd_UT1 = mjd_TT - incr;
+  return fmod(GMST(mjd_UT1) + EqEquinoxes(mjd_TT), 2 * PI);
 }
 
 void get_gregorian_date(int year, double day_frac, int& month, double& day) {
@@ -67,7 +84,7 @@ void get_gregorian_date(int year, double day_frac, int& month, double& day) {
   month++;
 }
 
-double get_mjd_TT(double yyyy, double mm, double dd) {
+double get_mjd(double yyyy, double mm, double dd) {
   // more info at
   // https://en.wikipedia.org/wiki/Julian_day#Converting_Julian_or_Gregorian_calendar_date_to_Julian_Day_Number
   // https://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
@@ -264,13 +281,28 @@ Matrix NutationMatrix(double mjd_TT) {
   return R * S * T;
 }
 
-Matrix RotationMatrix(double mjd_UT1) {
-  return Matrix(3, GAST(mjd_UT1));
+Matrix RotationMatrix(double mjd_TT) {
+  return Matrix(3, GAST(mjd_TT));
 }
 
+// Matrix RotationMatrix(double mjd_UT1) {
+//   return Matrix(3, GAST(mjd_UT1));
+// }
+
 void PolarMotion(double mjd_TT, double& xp, double& yp) {
-  xp = 0 * mjd_TT;
-  yp = 0;
+  double mjd_UTC = TT2UTC(mjd_TT);
+  int index = 0;
+  for (int i = 0; i < eop_days; i++) {
+    if (mjd_UTC >= eop[i][3])
+      continue;
+    else
+      index = i - 1;
+  }
+  // we do a linear interpolation to get the 'exact' xp and yp at the given time
+
+  double day = floor(mjd_UTC);
+  xp = eop[index + 1][4] * (mjd_UTC - day) - eop[index][4] * (mjd_UTC - day - 1);
+  yp = eop[index + 1][5] * (mjd_UTC - day) - eop[index][5] * (mjd_UTC - day - 1);
 }
 
 Matrix PolarMotionMatrix(double mjd_TT) {

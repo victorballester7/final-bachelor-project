@@ -4,7 +4,7 @@
 #include <string>
 
 #include "LinearAlgebra.h"
-
+#include "misc.h"
 class Satellite {
  public:
   // Constructor
@@ -43,8 +43,8 @@ class Satellite {
   // Position and velocity
   Vector r_peri;  // position vector in perifocal coordinates [m]
   Vector v_peri;  // velocity vector in perifocal coordinates [m/s]
-  Vector r_GCRF;  // position vector in GCRF coordinates [m]
-  Vector v_GCRF;  // velocity vector in GCRF coordinates [m/s]
+  Vector r_ECI;   // position vector in ECI coordinates [m]
+  Vector v_ECI;   // velocity vector in ECI coordinates [m/s]
 
   // Functions
   void print() const;

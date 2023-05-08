@@ -26,8 +26,8 @@ const double cp[13] = {0., 0., 0., 0., 0., 34. / 105., 9. / 35., 9. / 35., 9. / 
 //    t: pointer to the current time (initially pointing to the time of the initial conditions and at the end of the function pointing to the time at t + h)
 //    x: pointer to the current state vector (initially pointing to the initial conditions and at the end of the function pointing to the state vector at t + h)
 //    h: pointer to the wished step size (initially the step at which we want to integrate the system and at the end of the function pointing to the real step size of the next step)
-//    hmin: minimum step size
-//    hmax: maximum step size
+//    hmin: minimum step size (if the step size is < 0, then hmin < 0)
+//    hmax: maximum step size (if the step size is < 0, then hmax < 0)
 //    tol: tolerance, which corresponds to the (theoretical) error between the real solution and the next step of the solution
 //    n: dimension of the field
 //    field: pointer to the function that calculates the field

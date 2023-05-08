@@ -131,17 +131,15 @@ Hence, the value of $c$ in \cref{fig:ellipse} can be simplified to:
 \end{proof}
 \subsection{Spherical harmonics}
 \subsubsection{Legendre polynomials, regularity and orthonormality}
-\begin{definition}
-  Consider the following second-order differential equation called \emph{Legendre differential equation}:
-  \begin{equation}
-    (1-x^2)y''-2xy'+\lambda y=0
-  \end{equation}
-  for $\lambda\in\RR$. This equation can be rewritten as:
-  \begin{equation}\label{eq:legendre_diff_eq}
-    {((1-x^2)y')}'+\lambda  y=0
-  \end{equation}
-\end{definition}
-If seek for analytic solutions of this equation using the power series method \cite{florida:legendre}, i.e. looking for solutions of the form $y(x)=\sum_{j=0}^{\infty}a_jx^j$, we see that:
+In this section we aim to introduce a class of functions that will appear later on in the general solution of the Laplace equation (see \cref{sec:laplace_spherical}). To do this, we need first to introduce the Legendre polynomials. There are several ways to define them, but the most convenient one for our purposes is from the following differential equation. Consider the following second-order differential equation called \emph{Legendre differential equation}:
+\begin{equation}
+  (1-x^2)y''-2xy'+\lambda y=0
+\end{equation}
+for $\lambda\in\RR$. This equation can be rewritten as:
+\begin{equation}\label{eq:legendre_diff_eq}
+  {((1-x^2)y')}'+\lambda  y=0
+\end{equation}
+Seeking for analytic solutions of this equation using the power series method \cite{florida:legendre}, i.e. looking for solutions of the form $y(x)=\sum_{j=0}^{\infty}a_jx^j$, we see that:
 \begin{multline}
   0=(1-x^2)\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-2x\sum_{j=0}^{\infty}a_{j+1}(j+1)x^j+\lambda\sum_{j=0}^{\infty}a_jx^j =\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-\\-\sum_{j=0}^{\infty}a_{j}(j-1)jx^{j}-\sum_{j=0}^{\infty}2a_{j}jx^{j}+\sum_{j=0}^{\infty}\lambda a_jx^j  =\sum_{j=0}^{\infty}[a_{j+2}(j+1)(j+2) - a_j(j(j+1)-\lambda)]x^j
 \end{multline}
@@ -257,7 +255,7 @@ The following proposition will be of our interest in the next section \cite{math
 %   \end{align*}
 %   ....
 % \end{proof}
-Note that although these functions $P_{n,m}$ are named as \emph{polynomials}, they are only \emph{true} polynomials when $m$ is even. But we have opt to call them in that manner as it is the common practice in the literature (see \cite{wolfram_associated_legendre_polynomials,mathematical_methods,florida:legendre}).
+Note that although we opted to call the functions $P_{n,m}$ as \emph{polynomials}, they are only \emph{true} polynomials when $m$ is even. But we have opt to call them in that manner as it is the common practice in the literature (see \cite{wolfram_associated_legendre_polynomials,mathematical_methods,florida:legendre}).
 
 Moreover, from the definition of $P_{n,m}$, we can see $P_{n,0}=P_n$ and that $P_{n,m}=0$ if $m>n$. So we can restrict the domain of $m$ to the set $\{0,1,\dots,n\}$.
 
@@ -313,7 +311,7 @@ Moreover, from the definition of $P_{n,m}$, we can see $P_{n,0}=P_n$ and that $P
   \centering
   \captionsetup{type=table} %% tell latex to change to table
   \begin{tabular}{c|c|c||c|c|c}
-    $n$ & $m$ & $Y_{n,1}^{\mathrm{c}}(\theta,\phi)$     & $n$ & $m$ & $Y_{n,2}^{\mathrm{c}}(\theta,\phi)$                        \\
+    $n$ & $m$ & $Y_{n,m}^{\mathrm{c}}(\theta,\phi)$     & $n$ & $m$ & $Y_{n,m}^{\mathrm{c}}(\theta,\phi)$                        \\
     \hline
     $0$ & 0   & $1$                                     & $2$ & 2   & $\frac{\sqrt{15}}{2}{(\sin\phi)}^2\cos 2\theta$            \\
     $1$ & 0   & $\sqrt{3}\cos\phi$                      & $3$ & 0   & $\frac{\sqrt{7}}{2}\cos\phi(5{(\cos\phi)}^2-3)$            \\
@@ -343,11 +341,18 @@ The next proposition gives the Laplace equation in spherical coordinates.
   \begin{equation}\label{eq:laplace}
     \frac{1}{r^2}\pdv{}{r}\left(r^2\pdv{f}{r}\right)+\frac{1}{r^2\sin\phi}\pdv{}{\phi}\left(\sin\phi\pdv{f}{\phi}\right)+\frac{1}{r^2{(\sin\phi)}^2}\pdv[2]{f}{\theta}=0
   \end{equation}
-  where $r$ denotes the radial distance, $\theta$ denotes the azimuthal angle, and $\phi$, the polar angle (or colatitude).
+  where $r\in[0,\infty)$ denotes the radial distance, $\theta\in[-\pi,\pi)$ denotes the longitude, and $\phi\in[0,\pi]$, the colatitude:
+  \begin{equation}
+    \begin{aligned}
+      x & =r\sin\phi\cos\theta \\
+      y & =r\sin\phi\sin\theta \\
+      z & =r\cos\phi
+    \end{aligned}
+  \end{equation}
 \end{proposition}
 We are now interested in solving the Laplace equation. \cref{thm:laplace_spherical} gives the solution of it as a function of the spherical harmonics.
 \begin{theorem}\label{thm:laplace_spherical}
-  The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ to the Laplace equation in spherical coordinates are of the form
+  The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ of the Laplace equation in spherical coordinates are of the form
   \begin{align}
     f(r,\theta,\phi) & = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))                                                              \\
                      & \label{eq:sol_laplace} = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))

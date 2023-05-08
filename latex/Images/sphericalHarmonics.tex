@@ -4,16 +4,17 @@
 \def\samp{40}
 \def\xsep{4.5cm}
 \def\ysep{-6cm}
+\def\minmax{3}
 \begin{document}
 \begin{tikzpicture}
   \pgfplotscolorbardrawstandalone[
     colormap/jet,
-    point meta max=3,
-    point meta min=-3,
-    colorbar style={ytick={-3,3},
+    point meta max=\minmax,
+    point meta min=-\minmax,
+    colorbar style={ytick={-\minmax,\minmax},
         xshift=6*\xsep - 0.25cm,
         yshift=-1cm,
-        height=4cm,
+        height=5cm,
         width=0.5cm,
         anchor=center,
       },
@@ -37,8 +38,8 @@
       zticklabels={},
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       colormap/jet,
       view/h=135,
       title = {$Y_{5,0}^\mathrm{c}$},
@@ -82,8 +83,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,1}^\mathrm{c}$},
@@ -127,8 +128,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,2}^\mathrm{c}$},
@@ -137,7 +138,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (cosine) n = 5, m = 2
       opacity = 1,
       surf,
       shader=interp,
@@ -172,8 +173,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,3}^\mathrm{c}$},
@@ -182,7 +183,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (cosine) n = 5, m = 3
       opacity = 1,
       surf,
       shader=interp,
@@ -217,8 +218,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,4}^\mathrm{c}$},
@@ -227,7 +228,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (cosine) n = 5, m = 4
       opacity = 1,
       surf,
       shader=interp,
@@ -262,8 +263,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,5}^\mathrm{c}$},
@@ -272,7 +273,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (cosine) n = 5, m = 5
       opacity = 1,
       surf,
       shader=interp,
@@ -305,8 +306,8 @@
       zticklabels={},
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       colormap/jet,
       view/h=135,
       title = {$Y_{5,0}^\mathrm{s}$},
@@ -315,7 +316,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 0
+    \addplot3[% spherical harmonic (sine) n = 5, m = 0
       opacity = 1,
       surf,
       shader=interp,
@@ -350,8 +351,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,1}^\mathrm{s}$},
@@ -360,7 +361,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (sine) n = 5, m = 1
       opacity = 1,
       surf,
       shader=interp,
@@ -395,8 +396,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,2}^\mathrm{s}$},
@@ -405,7 +406,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (sine) n = 5, m = 2
       opacity = 1,
       surf,
       shader=interp,
@@ -440,8 +441,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,3}^\mathrm{s}$},
@@ -450,7 +451,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (sine) n = 5, m = 3
       opacity = 1,
       surf,
       shader=interp,
@@ -485,8 +486,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,4}^\mathrm{s}$},
@@ -495,7 +496,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (sine) n = 5, m = 4
       opacity = 1,
       surf,
       shader=interp,
@@ -530,8 +531,8 @@
       major grid style = {lightgray!25}, %Changes the color and stroke of the major grid.
       % axis line style={red},
       colormap/jet,
-      point meta min=-3,
-      point meta max=3,
+      point meta min=-\minmax,
+      point meta max=\minmax,
       % enlargelimits=0.3,
       view/h=135,
       title = {$Y_{5,5}^\mathrm{s}$},
@@ -540,7 +541,7 @@
       % scale uniformly strategy=units only,
       % y dir=reverse,
     ]
-    \addplot3[% spherical harmonic (cosine) n = 5, m = 1
+    \addplot3[% spherical harmonic (sine) n = 5, m = 5
       opacity = 1,
       surf,
       shader=interp,

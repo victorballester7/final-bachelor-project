@@ -27,7 +27,7 @@ class Vector {
   Vector& operator=(const Vector v_);                                    // Assignment
   Vector operator+(const Vector& v_) const;                              // Vector addition
   Vector operator-(const Vector& v_) const;                              // Vector subtraction
-  Vector operator*(double a) const;                                      // Scalar multiplication
+  Vector operator*(double a) const;                                      // Scalar multiplication from the left
   Vector operator/(double a) const;                                      // Scalar division
   bool operator==(const Vector& v_) const;                               // Vector equality
   bool operator!=(const Vector& v_) const;                               // Vector inequality

@@ -49,10 +49,10 @@ int rk78(double *t, double x[], double *h,
                                 /* petits de les coordenades, relativa      */
                                 /* "retardada dos digits" per valors grans. */
                                 /* Pleguem si O.K. o pas minim. */
-    if (d < e3 || fabs(*h) <= hmin) break;
+    if (d < e3 || fabs(*h) <= fabs(hmin)) break;
     /* Corregim pas per a reintegrar. */
     (*h) *= .9 * pow(e3 / d, .125);
-    if (fabs((*h)) < hmin) (*h) = SGN(*h) * hmin;
+    if (fabs(*h) < fabs(hmin)) *h = hmin;
     /* Torno a fer RK78 */
   } while (1);
   /* Guardem temps final. */
@@ -68,11 +68,11 @@ int rk78(double *t, double x[], double *h,
   /*    no volem que el nou pas es dispari. */
   (*h) *= .9 * pow(e3 / d, .125); /* Correccio Fehlberg (Stoer 2a ed (7.2.5.16), */
                                   /*   noti's que NO es la (7.2.5.17)).          */
-  if (fabs(*h) < hmin) {          /* Fem que estigui dins */
-    (*h) = SGN(*h) * hmin;
+  if (fabs(*h) < fabs(hmin)) {    /* Fem que estigui dins */
+    *h = hmin;
     // fprintf(stderr, "rk78():: t %G : ajusto a pasmin %G !!\n", *t, hmin);
-  } else if (fabs(*h) > hmax) { /* els limits permesos. */
-    (*h) = SGN(*h) * hmax;
+  } else if (fabs(*h) > fabs(hmax)) { /* els limits permesos. */
+    *h = hmax;
     // fprintf(stderr, "rk78():: t %G : ajusto a pasmax %G\n", *t, hmax);
   }
   return 0;
@@ -81,15 +81,28 @@ int rk78(double *t, double x[], double *h,
 int flow(double *t, double x[], double *h, double T, double hmin, double hmax, double tol, int maxNumSteps, int n, int (*field)(int n, double t, double x[], double f[], void *param), void *param) {
   double t0 = *t;
   int count = 0;
-  while (*t < t0 + T && count < maxNumSteps) {
-    if (*t + *h > t0 + T)
-      *h = t0 + T - *t;
-    rk78(t, x, h, hmin, hmax, tol, n, field, param);
-    count++;
+
+  if (fabs(T) < tol) {
+    *t = t0 + T;
+    return 0;
   }
-  if (*t < t0 + T - tol) {  // this means count = maxNumSteps
-    return -1;
-  } else {
+
+  while (fabs(*t - t0) < fabs(T) && count < maxNumSteps) {
+    if (fabs(*t + *h - t0) > fabs(T)) {
+      *h = t0 + T - *t;
+      if (rk78(t, x, h, hmin, hmax, tol, n, field, param))
+        return 1;
+      else
+        break;
+    }
+    if (rk78(t, x, h, hmin, hmax, tol, n, field, param)) return 1;
+    count++;
+    // printf("t = %lf, t - t0 = %lf, *t + *h - t0 = %lf, T = %lf, h = %lf, hmin = %lf, hmax = %lf \n", *t, *t - t0, *t + *h - t0, T, *h, hmin, hmax);
+  }
+  // printf("COOOOOUNT = %d\n", count);
+  if (count == maxNumSteps)
+    return 1;
+  else {
     *t = t0 + T;
     return 0;
   }

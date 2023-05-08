@@ -4,10 +4,10 @@
 #include "LinearAlgebra.h"
 
 // ----------------------------------------------
-// GCRF2Perifocal
+// Perifocal2ECI
 // ----------------------------------------------
 // Purpose:
-//    Transformation matrix from GCRF (Geocentric Celestial Reference Frame) to Perifocal reference frame (z axis peripendicular to the orbit plane and x axis in the perigee direction)
+//    Transformation matrix from Perifocal reference frame (z axis peripendicular to the orbit plane and x axis in the perigee direction) to ECI (Earth-centered interial frame)
 //
 // Parameters:
 //    i: inclination of the orbit [rad]
@@ -15,23 +15,23 @@
 //    omega: argument of perigee [rad]
 //
 // Returns:
-//    Transformation matrix from ITRF to Perifocal
+//    Transformation matrix from Perifocal to ECI
 // ----------------------------------------------
-Matrix GCRF2Perifocal(double i, double Omega, double omega);
+Matrix Perifocal2ECI(double i, double Omega, double omega);
 
 // ----------------------------------------------
-// GCRF2ITRF
+// ECI2ECEF
 // ----------------------------------------------
 // Purpose:
-//    Transformation matrix from GCRF (Geocentric Celestial Reference Frame) to ITRF (International Terrestrial Reference Frame)
+//    Transformation matrix from ECI (Earth-centered inertial) to ECEF (Earth-centered Earth-fixed)
 //
 // Parameters:
 //    mjd_TT: time in Modified Julian date TT (terrestrial time)
 //
 // Returns:
-//    Transformation matrix from ICRF to ITRF
+//    Transformation matrix from ECI to ECEF
 // ----------------------------------------------
-Matrix GCRF2ITRF(double mjd_TT);
+Matrix ECI2ECEF(double mjd_TT);
 
 // ----------------------------------------------
 // MeanObliquity
@@ -107,20 +107,20 @@ double GAST(double mjd_UT1);
 void get_gregorian_date(int year, double day_frac, int& month, double& day);
 
 // ----------------------------------------------
-// get_mjd_TT
+// get_mjd
 // ----------------------------------------------
 // Purpose:
-//    Convert Gregorian date to Modified Julian date TT (terrestrial time)
+//    Convert Gregorian date (in UT1 or TT) to Modified Julian date (in UT1 or TT, respectively)
 //
 // Parameters:
-//    yyyy: year in YYYY format
-//    mm: month
-//    dd: day
+//    yyyy: year in yyyy format
+//    mm: month in mm format
+//    dd: day in dd format
 //
 // Returns:
 //    Modified Julian date TT (terrestrial time)
 // ----------------------------------------------
-double get_mjd_TT(double yyyy, double mm, double dd);
+double get_mjd(double yyyy, double mm, double dd);
 
 // ----------------------------------------------
 // PrecessionMatrix

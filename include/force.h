@@ -5,9 +5,27 @@
 #include "Satellite.h"
 
 typedef struct {
-  int n_max;
-  int m_max;
+  int n_max;        // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
+  int m_max;        // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
+  bool pointEarth;  // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
+  bool sun;         // true if the Sun is included in the spherical harmonics expansion, false otherwise
+  bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
 } args_gravField;
+
+// ----------------------------------------------
+// AccelPointMass
+// ----------------------------------------------
+// Purpose:
+//    Calculate acceleration due to gravity using the point mass approximation of the Earth
+//
+// Parameters:
+//    r: position vector in the inertial reference frame [m]
+//    GM: gravitational parameter of the central body [m^3/s^2]
+//
+// Return value:
+//    acceleration vector in the inertial reference frame [m/s^2]
+// ----------------------------------------------
+Vector AccelPointEarth(const Vector& r, double GM);
 
 // ----------------------------------------------
 // AccelHarmonic
@@ -58,17 +76,34 @@ int gravField(int n, double t, double x[], double f[], void* param);
 //    s0: initial satellite
 //    sT: final satellite
 //    T: integration time
-//    hmin: minimum step size of integration
-//    hmax: maximum step size of integration
+//    h: step size of integration
 //    tol: tolerance for the integration
 //    maxNumSteps: maximum number of steps of integration
-//    n_max: maximum degree of the spherical harmonics expansion (0...N_JDM3 -1)
-//    m_max: maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
+//    param: pointer to the structure containing the parameters of the gravitational field
 //
 // Return value:
 //    0: success
 //    1: failure
 // ----------------------------------------------
-int integrateOrbit(Satellite& s0, Satellite& sT, double T, double hmin, double hmax, double tol, int maxNumSteps, int n_max, int m_max);
+int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* param);
 
+// ----------------------------------------------
+// integrateOrbit
+// ----------------------------------------------
+// Purpose:
+//    Integrates the differential equation for the gravitational field and computes the position and velocity vectors as well as the orbital elements of the 'new satellite' at the end of the integration
+//
+// Parameters:
+//    s0: initial and final satellite
+//    T: integration time
+//    h: step size of integration
+//    tol: tolerance for the integration
+//    maxNumSteps: maximum number of steps of integration
+//    param: pointer to the structure containing the parameters of the gravitational field
+//
+// Return value:
+//    0: success
+//    1: failure
+// ----------------------------------------------
+int integrateOrbit(Satellite& s0, double T, double h, double tol, int maxNumSteps, void* param);
 #endif  // FORCE_H

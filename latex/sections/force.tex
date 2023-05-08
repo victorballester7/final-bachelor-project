@@ -3,12 +3,12 @@
 \begin{document}
 
 \section{Force model}\label{sec:force}
-So far we have only considered the gravitational force acting point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will deep into the details of a more realistic model of the Earth's gravitational field.
+So far we have only considered the gravitational force acting between point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will deep into the details of a more realistic model of the Earth's gravitational field.
 \subsection{Geopotential model}
 \subsubsection{Continuous distribution of mass}
-In \cref{sec:twoBody} we have seen that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the larger one as well as the precense of other forces such as atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun, which we wil talk later on. Even though, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses.
+In \cref{sec:twoBody} we have seen that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the Earth as well as the precense of other forces such as atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun, which we wil talk later on. Even though, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses.
 
-Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this we can discretize the body $\Omega$ in a set of cubes $m_{i,j,k}$ each of volume $\frac{1}{n_xn_yn_z}$ and density $\rho(\frac{i}{n_x},\frac{j}{n_y},\frac{k}{n_z})=:\rho_{i,j,k}$, where $n_x$, $n_y$, and $n_z$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces and it is given by:
+Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this we can discretize the body $\Omega$ in a set of cubes $m_{i,j,k}$ each of volume $\frac{1}{n_xn_yn_z}$ and density $\rho(\frac{i}{n_x},\frac{j}{n_y},\frac{k}{n_z})=:\rho_{i,j,k}$, where $n_x$, $n_y$, and $n_z$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces execred by the cubes (considered as point masses) and it is given by:
 \begin{equation}\label{eq:riemann_sum}
   \vf{g}=-\sum_{i=0}^{n_x}\sum_{j=0}^{n_y}\sum_{k=0}^{n_z}\frac{m_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})=-\sum_{i=0}^{n_x}\sum_{j=0}^{n_y}\sum_{k=0}^{n_z}\frac{\rho_{i,j,k}}{\norm{\vf{r}-\vf{s}_{i,j,k}}^3}(\vf{r}-\vf{s}_{i,j,k})\frac{1}{n_xn_yn_z}
 \end{equation}
@@ -39,10 +39,14 @@ where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
   \end{equation}
   where the last inequality follows for certain $K\in\RR$ by Weierstra\ss\ theorem ($\rho$ is continuous and $\Omega$ is compact). Thus, since $h(\vf{s})=K$ is integrable, because $\Omega$ is bounded, the equality of \cref{eq:exchangeDivInt} is licit.
 \end{proof}
-Physically speaking, the gravitational force being conservative means that the work done by the force is independent of the path taken by the particle. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
-\subsubsection{Laplace equations}
+Physically speaking, the gravitational force $\vf{F}$ being conservative means that the work $W$ done by the force along a path $C$
+\begin{equation}
+  W=\int_C\vf{F}\cdot\dd{\vf{s}}
+\end{equation}
+depends only on the initial and final positions of it. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
+\subsubsection{Laplace equation for \texorpdfstring{$V$}{V}}
 \begin{theorem}
-  Consider distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
+  Consider a distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
   \begin{equation}
     \laplacian V = 0
   \end{equation}
@@ -54,7 +58,7 @@ Physically speaking, the gravitational force being conservative means that the w
     \div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)=\pdv{}{x}\left(\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{y}\left(\frac{y-y'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{z}\left(\frac{z-z'}{\norm{\vf{r}-\vf{s}}^3}\right)=\\
     =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
   \end{multline*}
-  Hence, as in \cref{thm:conservative}, we have that for each $\vf{r}\in\Omega^c$ $\exists\varepsilon,\delta>0$ such that $\forall \vf{\tilde{r}} \in B(\vf{r},\varepsilon)$ we have:
+  Hence, as in \cref{thm:conservative}, we have that for each $\vf{r}\in\Omega^c$ $\exists\varepsilon,\delta>0$ such that $\forall \vf{\tilde{r}} \in B(\vf{r},\varepsilon)\subset\Omega^c$ we have:
   $$
     \abs{\rho(\vf{s})\frac{\norm{\vf{\tilde{r}}-\vf{s}}^2-3{(\tilde{x}-x')}^2}{\norm{\vf{\tilde{r}}-\vf{s}}^5}}\leq \frac{4\abs{\rho(\vf{s})}}{\norm{\vf{\tilde{r}}-\vf{s}}^3}\leq \frac{4\abs{\rho(\vf{s})}}{\delta^3}
   $$
@@ -71,45 +75,99 @@ So far we have seen that the gravitational potential $V$ satisfies the Laplace e
     \displaystyle\lim_{\norm{\vf{r}}\to\infty}V=0
   \end{cases}
 \end{equation}
-If $\Omega$ represents the Earth, then $f=f(\theta,\phi)$ represents is the boundary condition concerning the gravitational potential at the surface of the Earth as a function of the longitude $\theta$ and colatitude $\phi$.
+If $\Omega$ represents the Earth, then $f=f(\theta,\phi)$ is the boundary condition concerning the gravitational potential at the surface of the Earth as a function of the longitude $\theta$ and colatitude $\phi$.
 
-We wil see now that \cref{eq:dirichletProblem} has uniqueness of solutions. To do that we invoke the maximum principle, which we will not prove  (see \cite{evans} for more details).
+We will see now that \cref{eq:dirichletProblem} has a unique solution. To do that we invoke the maximum principle, which we will not prove (see \cite{evans} for more details).
 \begin{theorem}[Maximum principle]
-  Let $U\subseteq \RR^n$ be open and bounded and $u\in\mathcal{C}^2(U)\cap \mathcal{C}(\overline{U})$. Suppose that $u$ is harmonic within $U$, that is, $\laplacian u=0$ in $U$. Then, $\max_{\overline{U}}u=\max_{\partial U}u$.
+  Let $U\subset \RR^n$ be open and bounded and $u\in\mathcal{C}^2(U)\cap \mathcal{C}(\overline{U})$. Suppose that $u$ is harmonic within $U$, that is, $\laplacian u=0$ in $U$. Then, $\max_{\overline{U}}u=\max_{\partial U}u$.
 \end{theorem}
 \begin{corollary}
   The Dirichlet problem of \cref{eq:dirichletProblem} has a unique solution.
 \end{corollary}
 \begin{proof}
-  Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$ and $W=0$ on $\Fr{\Omega}$. Moreover, $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\abs{W}\leq \varepsilon$ on $B(0,n)$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
+  Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$ and $W=0$ on $\Fr{\Omega}$. Moreover, $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\abs{W}\leq \varepsilon$ on $\Fr{B(0,n)}$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
 \end{proof}
 \subsubsection{Expansion in spherical harmonics}\label{sec:laplace_spherical_potential}
-We have just seen that $V$ satisfies the exterior Dirichlet problem for the Laplace equation. In \cref{sec:laplace_spherical} we have seen that a solution to the Laplace equation can be expressed as:
+We have just seen that $V$ satisfies the exterior Dirichlet problem for the Laplace equation. In \cref{sec:laplace_spherical} we saw that a solution to the Laplace equation can be expressed as:
 \begin{equation}\label{eq:prePotential}
   V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-where $a_n,b_n,\tilde{c}_{n,m},\tilde{d}_{n,m}\in\RR$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $a_{n}=0$.
+where $a_n,b_n,\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $a_{n}=0$.
 Finally, if we choose $R_\oplus$ as a reference radius for a spherical model of the Earth, using the boundary condition on $\Fr{\Omega}$
 \begin{equation}
   f(\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n \frac{b_{n}}{{R_\oplus}^{n+1}}(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-and the orthogonality of the spherical harmonics we can deduce that the coefficients $b_n\tilde{c}_{n,m}$ and $b_n\tilde{s}_{n,m}$ are given by:
+and the orthogonality of the spherical harmonics, we can deduce that the coefficients $b_n\tilde{c}_{n,m}$ and $b_n\tilde{s}_{n,m}$ are given by:
 \begin{align}
   b_n\tilde{c}_{n,m} & =\frac{{R_\oplus}^{n+1}}{4\pi}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) Y_{n,m}^\mathrm{c}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta} \\
   b_n\tilde{s}_{n,m} & =\frac{{R_\oplus}^{n+1}}{4\pi}\int_0^{2\pi}\int_0^\pi f(\theta,\phi) Y_{n,m}^\mathrm{s}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta}
 \end{align}
 
-Hence introducing the gravitational constant $G$ and the Earth's mass $M_\oplus$ to the equation, our final expression for the gravitational potential is
+Hence introducing the gravitational constant $G$ and the Earth's mass $M_\oplus$ into the equation, our final expression for the gravitational potential is
 \begin{equation}\label{eq:Potential}
-  V(r,\theta,\phi) =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(C_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+S_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
+  V(r,\theta,\phi) =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(\bar{C}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\bar{S}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-where the coefficients $C_{n,m},S_{n,m}\in\RR$ are given by the formulas:
+where the coefficients $\bar{C}_{n,m},\bar{S}_{n,m}\in\RR$ are given by the formulas:
 \begin{align}
-  C_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{c}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta} \\
-  S_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{s}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta}
+  \bar{C}_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{c}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta} \\
+  \bar{S}_{n,m} & =\frac{1}{4\pi}\frac{R_\oplus}{G M_\oplus}\int_0^{2\pi}\int_0^\pi f(\theta,\phi)  Y_{n,m}^\mathrm{s}(\theta,\phi)\sin\phi\dd{\phi}\dd{\theta}
 \end{align}
 % My coefficients Cnm and Snm are the \bar{Cnm} and \bar{Snm} in Montebruck's book
-here $\delta_{0,m}$ denotes the Kronecker delta. The coefficients $C_{n,m}$, $S_{n,m}$ describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
+
+The coefficients $\bar{C}_{n,m}$, $\bar{S}_{n,m}$ are called \emph{geopotential coefficients} and they describe the dependence on the Earth's internal structure. They are obtained from observation of the perturbations seen in the orbits of other satellites \cite{montenbruck}. Other methods for obtaining such data are through surface gravimetry, which provides precise local and regional information about the gravity field, or through altimeter data, which can be used to provide a model for the geoid of the Earth, that is the shape that the ocean surface would take under the influence of the gravity of Earth, which in turn can be used to obtain the geopotential coefficients.
 \subsubsection{Numerical computation of the gravity acceleration}
-POSAR LES RECURRENCIES I MENCIONAR CUNNINGHAM
+Up to this point, we have only studied the gravitational potential exerted by the non-homogeneous Earth on a satellite. But, in order to integrate the equations of motion of the satellite, we need to compute the gravitational acceleration $\vf{g}=-\grad{V}$ instead. In order to do this in an efficient way, we will make use of the following formulas given in \cite{montenbruck,cunningham}. First, let
+\begin{equation}
+  V_{n,m}(\theta,\phi)={\left(\frac{R_\oplus}{r}\right)}^{n+1} P_{n,m}(\cos\phi)\cos(m \theta)\qquad W_{n,m}(\theta,\phi)={\left(\frac{R_\oplus}{r}\right)}^{n+1} P_{n,m}(\cos\phi)\sin(m \theta)
+\end{equation}
+Thus, we can write:
+\begin{equation}
+  V=\sum_{n=0}^\infty \sum_{m=0}^n \bar{C}_{n,m}N_{n,m} V_{n,m}+\bar{S}_{n,m}N_{n,m} W_{n,m}
+\end{equation}
+Let $C_{n,m}:= \bar{C}_{n,m}N_{n,m}$ and $ S_{n,m}:= \bar{S}_{n,m}N_{n,m}$. If $\vf{g}=(\ddot{x}, \ddot{y}, \ddot{z})$, then:
+\begin{equation}
+  \ddot{x} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{x}_{n,m}\qquad \ddot{y} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{y}_{n,m}\qquad \ddot{z} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{z}_{n,m}
+\end{equation}
+where the \textit{partial} accelerations $x_{n,m}$, $y_{n,m}$, $z_{n,m}$ are given by:
+\begin{align}
+  \ddot{x}_{n,m} & =\begin{cases}
+                      \displaystyle-\frac{GM}{{R_\oplus}^2}C_{n,0}V_{n+1,1}                                                                                              & \text{ if $m=0$} \\[10pt]
+                      \begin{aligned}[b]
+      \displaystyle-\frac{GM}{{R_\oplus}^2}\bigg[C_{n,m}V_{n+1,m+1}+ S_{n,m}W_{n+1,m+1}-\hspace{4cm} \\
+      -  \frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}V_{n+1,m-1}+S_{n,m}W_{n+1,m-1}\right)\bigg]
+    \end{aligned} & \text{ if $m>0$}
+                    \end{cases} \\
+  \ddot{y}_{n,m} & =\begin{cases}
+                      \displaystyle-\frac{GM}{{R_\oplus}^2}C_{n,0}W_{n+1,1}                                                                                              & \text{ if $m=0$} \\[10pt]
+                      \begin{aligned}
+      \displaystyle -\frac{GM}{{R_\oplus}^2}\bigg[C_{n,m}W_{n+1,m+1}-S_{n,m}V_{n+1,m+1}-\hspace{4cm} \\
+      -\frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}W_{n+1,m-1}-S_{n,m}V_{n+1,m-1}\right)\bigg]
+    \end{aligned} & \text{ if $m>0$}
+                    \end{cases} \\
+  \ddot{z}_{n,m} & =-\frac{GM}{{R_\oplus}^2}(n-m+1)\left(C_{n,m}V_{n+1,m}+S_{n,m}W_{n+1,m}\right)
+\end{align}
+and the functions $V_{n,m}$, $W_{n,m}$ are calculated using the following recurrence relations:
+\begin{align*}
+  \begin{cases}
+    \hspace{8pt}\begin{aligned}
+                  V_{n,m} & =\frac{2n-1}{n-m} \frac{R_\oplus}{r}\cos\phi V_{n-1,m}-\frac{n+m-1}{n-m}\frac{{R_\oplus}^2}{r^2}V_{n-2,m} \\[0.1cm]
+                  W_{n,m} & =\frac{2n-1}{n-m} \frac{R_\oplus}{r}\cos\phi W_{n-1,m}-\frac{n+m-1}{n-m}\frac{{R_\oplus}^2}{r^2}W_{n-2,m}
+                \end{aligned} & \text{if $0\leq m\leq n-2$} \\[0.9cm]
+    \begin{aligned}
+      V_{n,n-1} & =(2n-1) \frac{R_\oplus}{r}\cos\phi V_{n-1,n-1} \\[0.1cm]
+      W_{n,n-1} & =(2n-1) \frac{R_\oplus}{r}\cos\phi W_{n-1,n-1}
+    \end{aligned}                                                                                       & \text{if $m=n-1$}                                               \\[0.9cm]
+    \hspace{10.25pt}\begin{aligned}
+                      V_{n,n} & =(2m-1)\frac{R_\oplus}{r}\sin\phi[\cos\theta V_{n-1,n-1}-\sin\theta W_{n-1,n-1}] \\[0.1cm]
+                      W_{n,n} & =(2m-1)\frac{R_\oplus}{r}\sin\phi[\cos\theta W_{n-1,n-1}+\sin\theta V_{n-1,n-1}]
+                    \end{aligned}                 & \text{if $m=n$}
+  \end{cases}
+\end{align*}
+starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0$.
+\subsubsection{Other perturbations}
+atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun,
+POSAR-HO SI AL FINAL FAIG SIMULACIO AMB AIXO, SI NO, NOOOO.
+
+% From  https://physics.stackexchange.com/questions/19477/earth-centered-inertial-eci-reference-frame-as-approximate-inertial-frame-of-r
+ECI coordinate frames are not truly inertial since the Earth itself is accelerating as it travels in its orbit about the Sun. In many cases, it may be assumed that the ECI frame is inertial without adverse effect. However, when computing the gravitational influence of a third body such as the Moon on the dynamics of a spacecraft, the acceleration of the ECI frame must be considered. For example, when computing the acceleration of an Earth-orbiting spacecraft due to the gravitational influence of the Moon, the acceleration of the Earth itself due to the Moon's gravity must be subtracted
 \end{document}
