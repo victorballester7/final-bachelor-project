@@ -261,5 +261,6 @@ double Density_HP(double Mjd_TT, const Vector& r_tod);
 
 Vector AccelMain(double Mjd_TT, const Vector& r, const Vector& v,
                  double Area, double mass, double CR, double CD);
-
+Vector AccelMainCustom(double Mjd_TT, const Vector& r, const Vector& v, int n, int m,
+                       double Area, double mass, double CR, double CD);
 #endif  // include blocker

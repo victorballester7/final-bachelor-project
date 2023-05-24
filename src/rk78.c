@@ -86,7 +86,8 @@ int flow(double *t, double x[], double *h, double T, double hmin, double hmax, d
     *t = t0 + T;
     return 0;
   }
-
+  // printf("------------------------------\n--------------------------\n-----------------------\n");
+  // printf("T = %g, t0 = %g, *t = %g, h = %g, hmin = %g, hmax = %g \n", T, t0, *t, *h, hmin, hmax);
   while (fabs(*t - t0) < fabs(T) && count < maxNumSteps) {
     if (fabs(*t + *h - t0) > fabs(T)) {
       *h = t0 + T - *t;
@@ -97,12 +98,12 @@ int flow(double *t, double x[], double *h, double T, double hmin, double hmax, d
     }
     if (rk78(t, x, h, hmin, hmax, tol, n, field, param)) return 1;
     count++;
-    // printf("t = %lf, t - t0 = %lf, *t + *h - t0 = %lf, T = %lf, h = %lf, hmin = %lf, hmax = %lf \n", *t, *t - t0, *t + *h - t0, T, *h, hmin, hmax);
+    // printf("t = %g, t - t0 = %g, *t + *h - t0 = %g, T = %g, h = %g, hmin = %g, hmax = %g \n", *t, *t - t0, *t + *h - t0, T, *h, hmin, hmax);
   }
   // printf("COOOOOUNT = %d\n", count);
-  if (count == maxNumSteps)
+  if (count == maxNumSteps) {
     return 1;
-  else {
+  } else {
     *t = t0 + T;
     return 0;
   }

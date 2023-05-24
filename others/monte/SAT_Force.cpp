@@ -57,6 +57,7 @@ double Frac(double x) { return x - floor(x); };
 // C_n,m = CS(n,m), S_n,m = CS(m-1,n)
 
 const double R_JGM3 = 6378.1363e3;  // Radius Earth [m]; JGM3
+// const int N_JGM3 = 20;
 const int N_JGM3 = 20;
 const double CS_JGM3[N_JGM3 + 1][N_JGM3 + 1] = {
     {1.000000e+00, 0.000000e+00, 1.543100e-09, 2.680119e-07, -4.494599e-07,
@@ -346,8 +347,16 @@ Vector AccelHarmonic(const Vector& r, const Matrix& E,
   Matrix W(n_max + 2, n_max + 2);  // work array (0..n_max+1,0..n_max+1)
 
   // Body-fixed position
-
   r_bf = E * r;
+  static int count = 0;
+  if (count == 0) {
+    // print matrix E
+    std::cout << "E = " << E << std::endl;
+    std::cout << "r: " << r(0) << " " << r(1) << " " << r(2) << std::endl;
+    std::cout << "r_bf: " << r_bf(0) << " " << r_bf(1) << " " << r_bf(2)
+              << std::endl;
+    count++;
+  }
 
   // Auxiliary quantities
 
@@ -709,10 +718,55 @@ double Density_HP(double Mjd_TT, const Vector& r_tod) {
 //
 //------------------------------------------------------------------------------
 
-Vector AccelMain(double Mjd_TT, const Vector& r, const Vector& v,
-                 double Area, double mass, double CR, double CD) {
+// Vector AccelMain(double Mjd_TT, const Vector& r, const Vector& v,
+//                  double Area, double mass, double CR, double CD) {
+//   double Mjd_UT1;
+//   Vector a(3), r_Sun(3), r_Moon(3);
+//   Vector a0(3);  // created by Víctor
+//   Matrix T(3, 3), E(3, 3);
+
+//   // Acceleration due to harmonic gravity field
+
+//   Mjd_UT1 = Mjd_TT;
+
+//   T = NutMatrix(Mjd_TT) * PrecMatrix(MJD_J2000, Mjd_TT);
+//   E = GHAMatrix(Mjd_UT1) * T;
+
+//   a = AccelHarmonic(r, E, Grav.GM, Grav.R_ref, Grav.CS, Grav.n_max, Grav.m_max);
+//   a0 = a;
+//   std::cout << "a_harmonic = " << a << std::endl;
+//   // Luni-solar perturbations
+
+//   r_Sun = Sun(Mjd_TT);
+//   r_Moon = Moon(Mjd_TT);
+
+//   a += AccelPointMass(r, r_Sun, GM_Sun);
+//   std::cout << "a_sun = " << a - a0 << std::endl;
+//   a0 = a;
+//   a += AccelPointMass(r, r_Moon, GM_Moon);
+//   std::cout << "a_moon = " << a - a0 << std::endl;
+//   a0 = a;
+//   // Solar radiation pressure
+
+//   a += Illumination(r, r_Sun) * AccelSolrad(r, r_Sun, Area, mass, CR, P_Sol, AU);
+//   std::cout << "a_solrad = " << a - a0 << std::endl;
+//   a0 = a;
+//   // Atmospheric drag
+
+//   a += AccelDrag(Mjd_TT, r, v, T, Area, mass, CD);
+//   std::cout << "a_drag = " << a - a0 << std::endl;
+//   a0 = a;
+//   // Acceleration
+
+//   return a;
+// }
+
+// Unncoment the above to see the general definition of the function
+Vector AccelMainCustom(double Mjd_TT, const Vector& r, const Vector& v, int n, int m,
+                       double Area, double mass, double CR, double CD) {
   double Mjd_UT1;
   Vector a(3), r_Sun(3), r_Moon(3);
+  Vector a0(3);  // created by Víctor
   Matrix T(3, 3), E(3, 3);
 
   // Acceleration due to harmonic gravity field
@@ -722,24 +776,59 @@ Vector AccelMain(double Mjd_TT, const Vector& r, const Vector& v,
   T = NutMatrix(Mjd_TT) * PrecMatrix(MJD_J2000, Mjd_TT);
   E = GHAMatrix(Mjd_UT1) * T;
 
-  a = AccelHarmonic(r, E, Grav.GM, Grav.R_ref, Grav.CS, Grav.n_max, Grav.m_max);
+  Matrix P = PrecMatrix(MJD_J2000, Mjd_TT);
+  Matrix N = NutMatrix(Mjd_TT);
+  Matrix GHA = GHAMatrix(Mjd_UT1);
+  // print matrix P, N ,GHA
+  std::cout << "P = ";
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cout << P(i, j) << " ";
+    }
+    std::cout << std::endl;
+  }
+  std::cout << std::endl;
+  std::cout << "N = ";
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cout << N(i, j) << " ";
+    }
+    std::cout << std::endl;
+  }
 
+  std::cout << std::endl;
+  std::cout << "Theta = ";
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      std::cout << GHA(i, j) << " ";
+    }
+    std::cout << std::endl;
+  }
+
+  a = AccelHarmonic(r, E, Grav.GM, Grav.R_ref, Grav.CS, n, m);
+  a0 = a;
+  std::cout << "a_harmonic = " << a << std::endl;
   // Luni-solar perturbations
 
-  r_Sun = Sun(Mjd_TT);
-  r_Moon = Moon(Mjd_TT);
+  // r_Sun = Sun(Mjd_TT);
+  // r_Moon = Moon(Mjd_TT);
 
-  a += AccelPointMass(r, r_Sun, GM_Sun);
-  a += AccelPointMass(r, r_Moon, GM_Moon);
-
+  // a += AccelPointMass(r, r_Sun, GM_Sun);
+  // std::cout << "a_sun = " << a - a0 << std::endl;
+  // a0 = a;
+  // a += AccelPointMass(r, r_Moon, GM_Moon);
+  // std::cout << "a_moon = " << a - a0 << std::endl;
+  // a0 = a;
   // Solar radiation pressure
 
-  a += Illumination(r, r_Sun) * AccelSolrad(r, r_Sun, Area, mass, CR, P_Sol, AU);
+  // a += Illumination(r, r_Sun) * AccelSolrad(r, r_Sun, Area, mass, CR, P_Sol, AU);
+  // std::cout << "a_solrad = " << a - a0 << std::endl;
+  // a0 = a;
+  // // Atmospheric drag
 
-  // Atmospheric drag
-
-  a += AccelDrag(Mjd_TT, r, v, T, Area, mass, CD);
-
+  // a += AccelDrag(Mjd_TT, r, v, T, Area, mass, CD);
+  // std::cout << "a_drag = " << a - a0 << std::endl;
+  // a0 = a;
   // Acceleration
 
   return a;

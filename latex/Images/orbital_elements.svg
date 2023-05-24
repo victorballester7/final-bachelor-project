@@ -25,11 +25,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="1.3208755"
-     inkscape:cx="566.29107"
-     inkscape:cy="270.65382"
-     inkscape:window-width="1920"
-     inkscape:window-height="1080"
+     inkscape:zoom="0.93400002"
+     inkscape:cx="506.42397"
+     inkscape:cy="495.71733"
+     inkscape:window-width="1896"
+     inkscape:window-height="1185"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -191,12 +191,14 @@
      stroke-width="2.48823"
      d="m 420.58905,333.38364 a 28.61008,14.04245 0 1 0 -22.70996,12.39738"
      stroke="#17ab34"
-     id="path322" />
+     id="path322"
+     style="stroke:#128327;stroke-opacity:1" />
   <use
      transform="rotate(2,-9705.9513,11570.129)"
      fill="#17ab34"
      xlink:href="#arrow"
-     id="use324" />
+     id="use324"
+     style="fill:#128327;fill-opacity:1" />
   <path
      fill="#f0f0a0"
      stroke-width="1.89795"
@@ -250,13 +252,13 @@
      stroke-width="2.10754"
      stroke="#007d00"
      id="path340"
-     style="fill:none;fill-opacity:1;stroke:#00bec9;stroke-opacity:1" />
+     style="fill:none;fill-opacity:1;stroke:#93c100;stroke-opacity:1" />
   <use
      transform="rotate(-123,366.74597,83.051775)"
      fill="#007d00"
      xlink:href="#arrow"
      id="use342"
-     style="fill:#00bec9;fill-opacity:1" />
+     style="fill:#93c100;fill-opacity:1" />
   <circle
      r="7.9618902"
      cx="459.02975"
@@ -265,46 +267,52 @@
   <switch
      id="switch354"
      transform="translate(222.46057,77.087794)"
-     style="font-size:18px;font-family:'Lucida Sans Unicode'">
+     style="font-size:18px;font-family:'Lucida Sans Unicode';fill:#128327;fill-opacity:1">
     <text
        x="17.318008"
        fill="#17ab34"
        y="307.79498"
        id="trsvg17-nl"
-       systemLanguage="nl"><tspan
-         id="trsvg1-nl">Lengte van de klimmende knoop</tspan></text>
+       systemLanguage="nl"
+       style="fill:#128327;fill-opacity:1"><tspan
+         id="trsvg1-nl"
+         style="fill:#128327;fill-opacity:1">Lengte van de klimmende knoop</tspan></text>
     <text
        x="17.318008"
        fill="#17ab34"
        y="307.79498"
        id="trsvg17-ca"
-       systemLanguage="ca"><tspan
-         id="trsvg1-ca">Longitud del node ascendent</tspan></text>
+       systemLanguage="ca"
+       style="fill:#128327;fill-opacity:1"><tspan
+         id="trsvg1-ca"
+         style="fill:#128327;fill-opacity:1">Longitud del node ascendent</tspan></text>
     <text
        x="17.318008"
        fill="#17ab34"
        y="307.79498"
        id="trsvg17-es"
-       systemLanguage="es"><tspan
-         id="trsvg1-es">longitud del nodo ascendente</tspan></text>
+       systemLanguage="es"
+       style="fill:#128327;fill-opacity:1"><tspan
+         id="trsvg1-es"
+         style="fill:#128327;fill-opacity:1">longitud del nodo ascendente</tspan></text>
     <text
        x="93.846298"
        fill="#17ab34"
        y="286.91705"
        id="trsvg17"
-       style="text-align:center;text-anchor:middle"><tspan
+       style="text-align:center;text-anchor:middle;fill:#128327;fill-opacity:1"><tspan
          sodipodi:role="line"
          id="tspan4837"
          x="93.846298"
          y="286.91705"><tspan
            id="trsvg1"
-           style="text-align:center;text-anchor:middle">Longitude of</tspan></tspan><tspan
+           style="text-align:center;text-anchor:middle;fill:#128327;fill-opacity:1">Longitude of</tspan></tspan><tspan
          sodipodi:role="line"
          id="tspan4839"
          x="93.846298"
          y="309.41705"><tspan
            id="tspan4841"
-           style="text-align:center;text-anchor:middle">ascending node</tspan></tspan></text>
+           style="text-align:center;text-anchor:middle;fill:#128327;fill-opacity:1">ascending node</tspan></tspan></text>
   </switch>
   <switch
      id="switch364"
@@ -384,99 +392,99 @@
        xml:space="preserve"><tspan
          x="105.43943"
          y="185.21548"
-         id="tspan24908">True<tspan
+         id="tspan4170">True<tspan
    y="185.21548"
-   id="tspan24910"> </tspan></tspan><tspan
+   id="tspan4172"> </tspan></tspan><tspan
          x="105.43943"
          y="207.71549"
-         id="tspan24912">anomaly</tspan></text>
+         id="tspan4174">anomaly</tspan></text>
   </switch>
   <switch
      id="switch374-9"
      transform="translate(418.5146,116.64604)"
-     style="font-size:18px;font-family:'Lucida Sans Unicode';fill:#ccc500;fill-opacity:1">
+     style="font-size:18px;font-family:'Lucida Sans Unicode';fill:#00bec9;fill-opacity:1">
     <text
        x="69.097427"
        fill="#c20a0a"
        y="185.21548"
        id="trsvg19-nl-2"
        systemLanguage="nl"
-       style="fill:#ccc500;fill-opacity:1"><tspan
+       style="fill:#00bec9;fill-opacity:1"><tspan
          id="trsvg3-nl-0"
-         style="fill:#ccc500;fill-opacity:1">Ware anomalie</tspan></text>
+         style="fill:#00bec9;fill-opacity:1">Ware anomalie</tspan></text>
     <text
        x="69.097427"
        fill="#c20a0a"
        y="185.21548"
        id="trsvg19-ca-2"
        systemLanguage="ca"
-       style="fill:#ccc500;fill-opacity:1"><tspan
+       style="fill:#00bec9;fill-opacity:1"><tspan
          id="trsvg3-ca-3"
-         style="fill:#ccc500;fill-opacity:1">Anomalia veritable</tspan></text>
+         style="fill:#00bec9;fill-opacity:1">Anomalia veritable</tspan></text>
     <text
        x="69.097427"
        fill="#c20a0a"
        y="185.21548"
        id="trsvg19-es-7"
        systemLanguage="es"
-       style="fill:#ccc500;fill-opacity:1"><tspan
+       style="fill:#00bec9;fill-opacity:1"><tspan
          id="trsvg3-es-5"
-         style="fill:#ccc500;fill-opacity:1">anomolía verdadera</tspan></text>
+         style="fill:#00bec9;fill-opacity:1">anomolía verdadera</tspan></text>
     <text
        x="105.43943"
        fill="#c20a0a"
        y="185.21548"
        id="trsvg19-9"
-       style="text-align:center;text-anchor:middle;white-space:pre;inline-size:110.364;display:inline;fill:#ccc500;fill-opacity:1"
+       style="text-align:center;text-anchor:middle;white-space:pre;inline-size:110.364;display:inline;fill:#00bec9;fill-opacity:1"
        xml:space="preserve"><tspan
          x="105.43943"
          y="185.21548"
-         id="tspan24914">Argument of<tspan
+         id="tspan4176">Argument of<tspan
    y="185.21548"
-   id="tspan24916">  </tspan></tspan><tspan
+   id="tspan4178">  </tspan></tspan><tspan
          x="105.43943"
          y="207.71549"
-         id="tspan24918">latitude</tspan></text>
+         id="tspan4180">latitude</tspan></text>
   </switch>
   <switch
      id="switch384"
      transform="translate(214.13276,77.087794)"
-     style="font-size:18px;font-family:'Lucida Sans Unicode';fill:#00bec9;fill-opacity:1">
+     style="font-size:18px;font-family:'Lucida Sans Unicode';fill:#93c100;fill-opacity:1">
     <text
        x="283.70532"
        fill="#007d00"
        y="412.63339"
        id="trsvg20-nl"
        systemLanguage="nl"
-       style="fill:#00bec9;fill-opacity:1"><tspan
+       style="fill:#93c100;fill-opacity:1"><tspan
          id="trsvg4-nl"
-         style="fill:#00bec9;fill-opacity:1">Inclinatie</tspan></text>
+         style="fill:#93c100;fill-opacity:1">Inclinatie</tspan></text>
     <text
        x="283.70532"
        fill="#007d00"
        y="412.63339"
        id="trsvg20-ca"
        systemLanguage="ca"
-       style="fill:#00bec9;fill-opacity:1"><tspan
+       style="fill:#93c100;fill-opacity:1"><tspan
          id="trsvg4-ca"
-         style="fill:#00bec9;fill-opacity:1">Inclinació</tspan></text>
+         style="fill:#93c100;fill-opacity:1">Inclinació</tspan></text>
     <text
        x="283.70532"
        fill="#007d00"
        y="412.63339"
        id="trsvg20-es"
        systemLanguage="es"
-       style="fill:#00bec9;fill-opacity:1"><tspan
+       style="fill:#93c100;fill-opacity:1"><tspan
          id="trsvg4-es"
-         style="fill:#00bec9;fill-opacity:1">inclinación</tspan></text>
+         style="fill:#93c100;fill-opacity:1">inclinación</tspan></text>
     <text
        x="283.70532"
        fill="#007d00"
        y="412.63339"
        id="trsvg20"
-       style="fill:#00bec9;fill-opacity:1"><tspan
+       style="fill:#93c100;fill-opacity:1"><tspan
          id="trsvg4"
-         style="fill:#00bec9;fill-opacity:1">Inclination</tspan></text>
+         style="fill:#93c100;fill-opacity:1">Inclination</tspan></text>
   </switch>
   <switch
      id="switch394"
@@ -587,43 +595,6 @@
          id="trsvg8">Satellite</tspan></text>
   </switch>
   <switch
-     id="switch428"
-     transform="translate(214.13276,77.087794)"
-     style="font-size:18px;font-family:'Lucida Sans Unicode'">
-    <path
-       style="fill:none;stroke:#cc7000;stroke-width:2.12806;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
-       d="m 400.83884,323.88041 93.62907,-89.58065"
-       id="path620"
-       transform="translate(-214.13276,-77.087794)" />
-    <text
-       x="67.469009"
-       y="368.44458"
-       transform="rotate(8.5048218,21.883804,65.563895)"
-       id="trsvg24-nl"
-       systemLanguage="nl"><tspan
-         id="trsvg9-nl">Referentievlak</tspan></text>
-    <text
-       x="67.469009"
-       y="368.44458"
-       transform="rotate(8.5048218,21.883804,65.563895)"
-       id="trsvg24-ca"
-       systemLanguage="ca"><tspan
-         id="trsvg9-ca">Pla de referència</tspan></text>
-    <text
-       x="67.469009"
-       y="368.44458"
-       transform="rotate(8.5048218,21.883804,65.563895)"
-       id="trsvg24-es"
-       systemLanguage="es"><tspan
-         id="trsvg9-es">plano de referencia</tspan></text>
-    <text
-       x="67.469009"
-       y="368.44458"
-       transform="rotate(8.5048218,21.883804,65.563895)"
-       id="trsvg24"><tspan
-         id="trsvg9">Equator</tspan></text>
-  </switch>
-  <switch
      id="switch438"
      transform="translate(214.13276,77.087794)"
      style="font-size:18px;font-family:'Lucida Sans Unicode'">
@@ -716,17 +687,17 @@
      ns1:text="$\Omega$"
      transform="matrix(3.2091353,0,0,3.2091353,-248.12958,-14.763061)"
      id="g1926"
-     style="fill:#17ab34;fill-opacity:1">
+     style="fill:#128327;fill-opacity:1">
     <g
        fill="#000000"
        fill-opacity="1"
        id="g1924"
-       style="fill:#17ab34;fill-opacity:1">
+       style="fill:#128327;fill-opacity:1">
       <path
          d="M 6.75,-1.609375 H 6.5 c -0.046875,0.25 -0.09375,0.484375 -0.1875,0.71875 -0.046875,0.15625 -0.078125,0.25 -0.65625,0.25 H 4.859375 C 5,-1.203125 5.296875,-1.6875 5.75,-2.34375 c 0.46875,-0.703125 0.875,-1.390625 0.875,-2.1875 0,-1.375 -1.34375,-2.5 -3.03125,-2.5 -1.703125,0 -3.03125,1.140625 -3.03125,2.5 0,0.796875 0.40625,1.484375 0.875,2.1875 0.4375,0.65625 0.75,1.140625 0.890625,1.703125 H 1.53125 C 0.953125,-0.640625 0.921875,-0.734375 0.875,-0.875 0.78125,-1.109375 0.734375,-1.359375 0.6875,-1.609375 h -0.25 L 0.765625,0 h 1.59375 c 0.21875,0 0.25,0 0.25,-0.203125 0,-0.703125 -0.3125,-1.578125 -0.53125,-2.21875 -0.21875,-0.578125 -0.5,-1.359375 -0.5,-2.109375 0,-1.59375 1.109375,-2.28125 2.015625,-2.28125 0.953125,0 2.015625,0.71875 2.015625,2.28125 0,0.75 -0.28125,1.5 -0.5625,2.3125 -0.15625,0.421875 -0.46875,1.328125 -0.46875,2.015625 C 4.578125,0 4.609375,0 4.828125,0 h 1.59375 z m 0,0"
          transform="translate(178.585,110.99)"
          id="path1922"
-         style="fill:#17ab34;fill-opacity:1" />
+         style="fill:#128327;fill-opacity:1" />
     </g>
   </g>
   <g
@@ -749,17 +720,17 @@
      ns1:text="$i$"
      transform="matrix(2.7655003,0,0,2.7655003,21.625956,147.31536)"
      id="g2434"
-     style="fill:#00bec9;fill-opacity:1">
+     style="fill:#93c100;fill-opacity:1">
     <g
        fill="#000000"
        fill-opacity="1"
        id="g2432"
-       style="fill:#00bec9;fill-opacity:1">
+       style="fill:#93c100;fill-opacity:1">
       <path
          d="m 2.828125,-6.234375 c 0,-0.203125 -0.140625,-0.359375 -0.359375,-0.359375 -0.28125,0 -0.546875,0.265625 -0.546875,0.53125 0,0.1875 0.140625,0.359375 0.375,0.359375 0.234375,0 0.53125,-0.234375 0.53125,-0.53125 z m -0.75,3.75 c 0.109375,-0.28125 0.109375,-0.3125 0.21875,-0.578125 0.078125,-0.203125 0.125,-0.34375 0.125,-0.53125 0,-0.4375 -0.3125,-0.8125 -0.8125,-0.8125 -0.9375,0 -1.3125,1.453125 -1.3125,1.53125 0,0.109375 0.09375,0.109375 0.109375,0.109375 0.109375,0 0.109375,-0.03125 0.15625,-0.1875 0.28125,-0.9375 0.671875,-1.234375 1.015625,-1.234375 0.078125,0 0.25,0 0.25,0.3125 0,0.21875 -0.078125,0.421875 -0.109375,0.53125 -0.078125,0.25 -0.53125,1.40625 -0.6875,1.84375 -0.109375,0.25 -0.234375,0.578125 -0.234375,0.796875 0,0.46875 0.34375,0.8125 0.8125,0.8125 0.9375,0 1.3125,-1.4375 1.3125,-1.53125 0,-0.109375 -0.09375,-0.109375 -0.125,-0.109375 -0.09375,0 -0.09375,0.03125 -0.140625,0.1875 -0.1875,0.625 -0.515625,1.234375 -1.015625,1.234375 -0.171875,0 -0.25,-0.09375 -0.25,-0.328125 0,-0.25 0.0625,-0.390625 0.296875,-1 z m 0,0"
          transform="translate(178.585,110.99)"
          id="path2430"
-         style="fill:#00bec9;fill-opacity:1" />
+         style="fill:#93c100;fill-opacity:1" />
     </g>
   </g>
   <g
@@ -949,7 +920,7 @@
        sodipodi:nodetypes="cccscccscccc" />
   </g>
   <path
-     style="fill:none;fill-opacity:1;stroke:#ccc500;stroke-width:2.64931627;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     style="fill:none;fill-opacity:1;stroke:#00bec9;stroke-width:2.64931627;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
      id="path19939"
      sodipodi:type="arc"
      sodipodi:cx="155.69086"
@@ -962,28 +933,65 @@
      d="m 195.15335,505.71832 a 86.349258,39.351307 0 0 1 40.40168,49.96353 86.349258,39.351307 0 0 1 -105.82989,22.56795"
      transform="matrix(0.63865919,-0.76948972,0.56925656,0.82215994,0,0)"
      sodipodi:open="true" />
+  <switch
+     id="switch428"
+     transform="translate(214.13276,77.087794)"
+     style="font-size:18px;font-family:'Lucida Sans Unicode'">
+    <path
+       style="fill:none;stroke:#cc7000;stroke-width:2.12806;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart)"
+       d="m 400.83884,323.88041 93.62907,-89.58065"
+       id="path620"
+       transform="translate(-214.13276,-77.087794)" />
+    <text
+       x="67.469009"
+       y="368.44458"
+       transform="rotate(8.5048218,21.883804,65.563895)"
+       id="trsvg24-nl"
+       systemLanguage="nl"><tspan
+         id="trsvg9-nl">Referentievlak</tspan></text>
+    <text
+       x="67.469009"
+       y="368.44458"
+       transform="rotate(8.5048218,21.883804,65.563895)"
+       id="trsvg24-ca"
+       systemLanguage="ca"><tspan
+         id="trsvg9-ca">Pla de referència</tspan></text>
+    <text
+       x="67.469009"
+       y="368.44458"
+       transform="rotate(8.5048218,21.883804,65.563895)"
+       id="trsvg24-es"
+       systemLanguage="es"><tspan
+         id="trsvg9-es">plano de referencia</tspan></text>
+    <text
+       x="67.469009"
+       y="368.44458"
+       transform="rotate(8.5048218,21.883804,65.563895)"
+       id="trsvg24"><tspan
+         id="trsvg9">Equator</tspan></text>
+  </switch>
   <use
      transform="rotate(148.18522,167.77891,191.91919)"
      fill="#c20a0a"
      xlink:href="#arrow"
      id="use338-3"
-     style="fill:#ccc500;fill-opacity:1" />
+     style="fill:#00bec9;fill-opacity:1" />
   <g
      ns1:text="$u$"
      transform="matrix(3.0856023,0,0,3.0856023,-77.892702,-69.900235)"
      id="g22450"
-     style="fill:#ccc500;fill-opacity:1">
+     style="fill:#01bec9;fill-opacity:1">
     <g
        fill="#000000"
        fill-opacity="1"
        id="g22448"
-       style="fill:#ccc500;fill-opacity:1"
+       style="fill:#01bec9;fill-opacity:1"
        transform="translate(-0.43373371,2.0819218)">
       <path
          d="M 3.484375,-0.5625 C 3.59375,-0.15625 3.953125,0.109375 4.375,0.109375 4.71875,0.109375 4.953125,-0.125 5.109375,-0.4375 5.28125,-0.796875 5.40625,-1.40625 5.40625,-1.421875 c 0,-0.109375 -0.078125,-0.109375 -0.109375,-0.109375 -0.109375,0 -0.109375,0.046875 -0.140625,0.1875 -0.140625,0.5625 -0.328125,1.234375 -0.75,1.234375 -0.203125,0 -0.3125,-0.125 -0.3125,-0.453125 0,-0.21875 0.125,-0.6875 0.203125,-1.046875 L 4.578125,-2.6875 C 4.609375,-2.828125 4.703125,-3.203125 4.75,-3.359375 4.796875,-3.59375 4.890625,-3.96875 4.890625,-4.03125 c 0,-0.171875 -0.140625,-0.265625 -0.28125,-0.265625 -0.046875,0 -0.3125,0.015625 -0.390625,0.34375 -0.1875,0.734375 -0.625,2.484375 -0.75,3 -0.015625,0.046875 -0.40625,0.84375 -1.140625,0.84375 -0.515625,0 -0.609375,-0.453125 -0.609375,-0.8125 0,-0.5625 0.28125,-1.34375 0.53125,-2.03125 0.125,-0.3125 0.171875,-0.453125 0.171875,-0.640625 0,-0.4375 -0.3125,-0.8125 -0.8125,-0.8125 -0.953125,0 -1.3125,1.453125 -1.3125,1.53125 0,0.109375 0.09375,0.109375 0.109375,0.109375 0.109375,0 0.109375,-0.03125 0.15625,-0.1875 0.25,-0.859375 0.640625,-1.234375 1.015625,-1.234375 0.09375,0 0.25,0.015625 0.25,0.328125 0,0.234375 -0.109375,0.53125 -0.171875,0.671875 -0.375,1 -0.578125,1.609375 -0.578125,2.09375 0,0.953125 0.6875,1.203125 1.21875,1.203125 0.65625,0 1.015625,-0.453125 1.1875,-0.671875 z m 0,0"
          transform="translate(178.585,110.99)"
          id="path22446"
-         style="fill:#ccc500;fill-opacity:1" />
+         style="fill:#01bec9;fill-opacity:1" />
     </g>
   </g>
 </svg>

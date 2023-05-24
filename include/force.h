@@ -5,27 +5,46 @@
 #include "Satellite.h"
 
 typedef struct {
-  int n_max;        // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
-  int m_max;        // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
-  bool pointEarth;  // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
-  bool sun;         // true if the Sun is included in the spherical harmonics expansion, false otherwise
-  bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
+  int n_max;         // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
+  int m_max;         // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
+  double mdj_tt;     // modified julian date of the terrestrial time (TT)
+  bool pointEarth;   // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
+  bool sun;          // true if the Sun is included in the spherical harmonics expansion, false otherwise
+  bool moon;         // true if the Moon is included in the spherical harmonics expansion, false otherwise
+  bool solar_press;  // true if solar radiation pressure is included, false otherwise
 } args_gravField;
 
 // ----------------------------------------------
 // AccelPointMass
 // ----------------------------------------------
 // Purpose:
-//    Calculate acceleration due to gravity using the point mass approximation of the Earth
+//    Calculate acceleration of the satellite at position r due the gravity exerced by a point mass located at s
 //
 // Parameters:
-//    r: position vector in the inertial reference frame [m]
+//    r: position vector of the satellite in the inertial reference frame [m]
+//    s: position vector of the point mass in the inertial reference frame [m]
 //    GM: gravitational parameter of the central body [m^3/s^2]
 //
 // Return value:
 //    acceleration vector in the inertial reference frame [m/s^2]
 // ----------------------------------------------
-Vector AccelPointEarth(const Vector& r, double GM);
+Vector AccelPointMass(const Vector& r, const Vector& s, double GM);
+
+// ----------------------------------------------
+// AccelPointMass
+// ----------------------------------------------
+// Purpose:
+//    Calculate acceleration of the satellite at position r due the gravity exerced by a point mass located at s
+//
+// Parameters:
+//    r: position vector of the satellite in the inertial reference frame [m]
+//    s: position vector of the point mass in the inertial reference frame [m]
+//    GM: gravitational parameter of the central body [m^3/s^2]
+//
+// Return value:
+//    acceleration vector in the inertial reference frame [m/s^2]
+// ----------------------------------------------
+Vector AccelPointMass(const Vector& r, double GM);
 
 // ----------------------------------------------
 // AccelHarmonic
@@ -95,6 +114,7 @@ int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol,
 //
 // Parameters:
 //    s0: initial and final satellite
+//    mjd_tt_0: initial time of the integration
 //    T: integration time
 //    h: step size of integration
 //    tol: tolerance for the integration

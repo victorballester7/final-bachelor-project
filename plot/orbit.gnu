@@ -17,7 +17,9 @@ set zlabel 'z';
 set key outside bottom center; 
 
 # define the data file and block separator
-datafile = 'data/tle/orbit_STARLINK.txt'
+datafile = ARG1
+# datafile = 'data/tle/orbit_STARLINK.txt'
+
 
 # count the number of blocks in the file
 stats datafile using 2:3 nooutput
@@ -32,5 +34,6 @@ nblocks = STATS_blocks
 #   if (i < nblocks-1) { plotcmd = sprintf("%s %s", plotcmd, separator) }
 # }
 # plot plotcmd
-splot for[i=0:nblocks-1] datafile index i using 1:2:3  with lines linecolor i+1
-# splot for[i=0:nblocks-1] datafile index i using 1:2:3 title columnheader(1) pointtype 7 pointsize 1 linecolor i+1
+splot datafile index 0 using 1:2:3 title columnheader(1) pointtype 7 pointsize 1 linecolor 1, \
+      for[i=1:nblocks-1] datafile index i using 1:2:3  with lines linecolor i+1
+# splot for[i=1:nblocks-1] datafile index i using 1:2:3  with lines linecolor i+1

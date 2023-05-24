@@ -211,4 +211,32 @@ void PolarMotion(double mjd_TT, double& xp, double& yp);
 // ----------------------------------------------
 Matrix PolarMotionMatrix(double mjd_TT);
 
+// ----------------------------------------------
+// Sun
+// ----------------------------------------------
+// Purpose:
+//    Calculate position vector of the Sun in the J2000.0 reference frame
+//
+// Parameters:
+//    Mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Position vector of the Sun in the J2000.0 reference frame [m]
+// ----------------------------------------------
+Vector Sun(double Mjd_TT);
+
+// ----------------------------------------------
+// Moon
+// ----------------------------------------------
+// Purpose:
+//    Calculate position vector of the Moon in the J2000.0 reference frame
+//
+// Parameters:
+//    Mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Position vector of the Moon in the J2000.0 reference frame [m]
+// ----------------------------------------------
+Vector Moon(double Mjd_TT);
+
 #endif  // REFERENCESYSTEMS_H

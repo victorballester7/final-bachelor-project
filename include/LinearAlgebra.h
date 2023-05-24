@@ -22,11 +22,13 @@ class Vector {
   double dot(const Vector& v_) const;    // Return dot product with v_
   Vector cross(const Vector& v_) const;  // Return cross product with v_
 
-  double operator()(int i) const;                                        // Access element i (const), i = 0, ..., n-1
-  double& operator()(int i);                                             // Access element i (non-const), i = 0, ..., n-1
-  Vector& operator=(const Vector v_);                                    // Assignment
-  Vector operator+(const Vector& v_) const;                              // Vector addition
-  Vector operator-(const Vector& v_) const;                              // Vector subtraction
+  double operator()(int i) const;            // Access element i (const), i = 0, ..., n-1
+  double& operator()(int i);                 // Access element i (non-const), i = 0, ..., n-1
+  Vector& operator=(const Vector v_);        // Assignment
+  Vector operator+(const Vector& v_) const;  // Vector addition
+  Vector operator+=(const Vector& v_);       // Vector addition
+  Vector
+  operator-(const Vector& v_) const;                                     // Vector subtraction
   Vector operator*(double a) const;                                      // Scalar multiplication from the left
   Vector operator/(double a) const;                                      // Scalar division
   bool operator==(const Vector& v_) const;                               // Vector equality
@@ -74,6 +76,8 @@ class Matrix {
 
   Matrix operator*(const Matrix& M_) const;  // Matrix multiplication
   Vector operator*(const Vector& v) const;   // Matrix-vector multiplication
+
+  friend std::ostream& operator<<(std::ostream& os, const Matrix& Mat);  // Print matrix to output stream
 
  private:
   int m;       // First dimension (number of rows)

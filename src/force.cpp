@@ -8,11 +8,16 @@
 #include "../include/constants.h"
 #include "../include/rk78.h"
 
-Vector AccelPointEarth(const Vector& r, double GM) {
-  // std::cout << "AccelPointEarth" << std::endl;
-  double r3 = pow(r.norm(), 3);
-  return r * (-GM / r3);
+Vector AccelPointMass(const Vector& r, const Vector& s, double GM) {
+  // std::cout << "AccelPointMass" << std::endl;
+  // relative distance between big body and small body
+  Vector r_rel = r - s;
+  double r2 = r_rel.dot(r_rel);
+  return r * (-GM / r2);
 }
+
+// Vector AccelSolarPressure() {
+// }
 
 Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, const Matrix& CS, int n_max, int m_max) {
   double r_sqr, rho, Fac;  // Auxiliary quantities
@@ -27,6 +32,13 @@ Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, 
 
   // Body-fixed position
   r_bf = E * r;
+  static int count = 0;
+  if (count == 0) {
+    std::cout << "E = " << E << std::endl;
+    std::cout << "r: " << r << std::endl;
+    std::cout << "r_bf: " << r_bf << std::endl;
+    count++;
+  }
 
   // Auxiliary quantities
   r_sqr = r_bf.dot(r_bf);  // Square of distance
@@ -98,30 +110,41 @@ Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, 
 int gravField(int n, double t, double x[], double f[], void* param) {
   if (n != 6) return 1;
   for (int i = 0; i < 3; i++) f[i] = x[i + 3];  // dx/dt = v_x, dy/dt = v_y, dz/dt = v_z
+  double mdj_tt = t / 86400.0;
   args_gravField* prm = (args_gravField*)param;
+  Vector r = Vector(x[0], x[1], x[2]);
   Vector v_dot;
   if (prm->pointEarth)
-    v_dot = AccelPointEarth(Vector(x[0], x[1], x[2]), GM_EARTH);
+    v_dot = AccelPointMass(r, Vector(0, 0, 0), GM_EARTH);
   else
-    v_dot = AccelHarmonic(Vector(x[0], x[1], x[2]), ECI2ECEF(t), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
+    v_dot = AccelHarmonic(r, ECI2ECEF(mdj_tt), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
+  static int count = 0;
+  // std::cout << "count = " << count << std::endl;
+  if (count == 0) {
+    std::cout << "v = " << Vector(x[3], x[4], x[5]) << std::endl;
+    std::cout << "v_dot = " << v_dot << std::endl;
+    count++;
+  }
+  // if (prm->sun) v_dot += AccelPointMass(r,  GM_SUN);
+  // if (prm->moon) v_dot += AccelPointMass(r, GM_MOON);
   for (int i = 0; i < 3; i++) f[i + 3] = v_dot(i);
   return 0;
 }
 
-int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* prm) {
-  int n = 6;
-  double x[6] = {s0.r_ECI(0), s0.r_ECI(1), s0.r_ECI(2), s0.v_ECI(0), s0.v_ECI(1), s0.v_ECI(2)};
-  double hmin = h * 0.5, hmax = h * 2.0;
+// int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* prm) {
+//   int n = 6;
+//   double x[6] = {s0.r_ECI(0), s0.r_ECI(1), s0.r_ECI(2), s0.v_ECI(0), s0.v_ECI(1), s0.v_ECI(2)};
+//   double hmin = h * 0.5, hmax = h * 2.0;
 
-  double t = s0.mjd_TT * 86400.0;
-  if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
-  sT.mjd_TT = t / 86400.0;
+//   double t = s0.mjd_TT * 86400.0;
+//   if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
+//   sT.mjd_TT = t / 86400.0;
 
-  sT.r_ECI = Vector(x[0], x[1], x[2]);
-  sT.v_ECI = Vector(x[3], x[4], x[5]);
-  sT.set_orbital_elements(sT.r_ECI, sT.v_ECI);
-  return 0;
-}
+//   sT.r_ECI = Vector(x[0], x[1], x[2]);
+//   sT.v_ECI = Vector(x[3], x[4], x[5]);
+//   sT.set_orbital_elements(sT.r_ECI, sT.v_ECI);
+//   return 0;
+// }
 
 int integrateOrbit(Satellite& s, double T, double h, double tol, int maxNumSteps, void* prm) {
   int n = 6;
@@ -129,11 +152,17 @@ int integrateOrbit(Satellite& s, double T, double h, double tol, int maxNumSteps
   double hmin = h * 0.5, hmax = h * 2.0;
 
   double t = s.mjd_TT * 86400.0;
+  // std::cout << "r_ECI = " << s.r_ECI << std::endl;
+  // std::cout << "v_ECI = " << s.v_ECI << std::endl;
+  // set precision
+  std::cout.precision(16);
+  std::cout << "t (mjd_tt) = " << t / 86400 << std::endl;
   if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
 
   s.mjd_TT = t / 86400.0;
   s.r_ECI = Vector(x[0], x[1], x[2]);
   s.v_ECI = Vector(x[3], x[4], x[5]);
+
   s.set_orbital_elements(s.r_ECI, s.v_ECI);
   return 0;
 }

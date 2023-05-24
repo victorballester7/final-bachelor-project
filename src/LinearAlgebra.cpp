@@ -107,6 +107,13 @@ Vector Vector::operator+(const Vector& v_) const {
   return u;
 }
 
+Vector Vector::operator+=(const Vector& v_) {
+  if (n != v_.n)
+    throw std::invalid_argument("Vector::operator+: dimension mismatch");
+  for (int i = 0; i < n; i++)
+    v[i] += v_.v[i];
+  return *this;
+}
 Vector Vector::operator-(const Vector& v_) const {
   if (n != v_.n)
     throw std::invalid_argument("Vector::operator-: dimension mismatch");
@@ -362,4 +369,13 @@ Vector Matrix::operator*(const Vector& v_) const {
       result(i) += M[i][j] * v_(j);
   }
   return result;
+}
+
+std::ostream& operator<<(std::ostream& os, const Matrix& M) {
+  for (int i = 0; i < M.m; i++) {
+    for (int j = 0; j < M.n; j++)
+      os << M.M[i][j] << " ";
+    os << std::endl;
+  }
+  return os;
 }

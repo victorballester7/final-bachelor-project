@@ -1,5 +1,7 @@
 // Finally, here is the `main.cpp` file that creates a `TLE` object and prints out the satellite's position and velocity at the epoch time:
 
+#include <stdlib.h>
+
 #include <fstream>
 #include <iostream>
 
@@ -8,10 +10,14 @@
 #include "../include/force.h"
 #include "../include/misc.h"
 
-int main() {
+int main(int argc, char const *argv[]) {
   // read TLE data from data/tle/stations.txt
+  if (argc != 2) {
+    std::cout << "Usage: ./main <satellite>" << std::endl;
+    return 1;
+  }
   std::string line0, line1, line2;
-  std::string satellite = "STARLINK";
+  std::string satellite = argv[1];
   std::string filename = "data/tle/" + satellite + ".txt";
   std::ifstream file_in(filename);
 
@@ -73,85 +79,81 @@ int main() {
   // }
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
 
+  // /*
   int n_lines = numLines(filename);
-  // printf("Number of lines: %d\n", n_lines);
-  std::ofstream file_out;
-  file_out.open("data/tle/orbit_" + satellite + ".txt");
-  if (!file_out.is_open()) {
+  std::ofstream file_out, file_out2;
+  file_out.open("data/tle/errors_" + satellite + ".txt");
+  file_out2.open("data/tle/orbit_" + satellite + ".txt");
+  if (!file_out.is_open() || !file_out2.is_open()) {
     std::cout << "Error opening file" << std::endl;
     return 1;
   }
-  file_out << "# real positions of the satellite in ECI coordinates" << std::endl;
-  for (int j = 0; j < n_lines; j += 2) {
-    // std::getline(file_in, line0);
-    std::getline(file_in, line1);
-    std::getline(file_in, line2);
-
-    Satellite tle("NUTSAT" + std::to_string(j / 2), line1, line2);
-    file_out << tle.r_ECI(0) << " " << tle.r_ECI(1) << " " << tle.r_ECI(2) << std::endl;
-  }
-  file_out << "\n\n# integrated positions of the satellite in ECI coordinates" << std::endl;
-
-  args_gravField args = {8, 8, true, false, false};  // n_max, m_max, pointEarth, sun, moon
-  double tol = 1e-8;
-  double h = 100;
-  int maxNumSteps = 10000;
-  file_in.clear();
-  file_in.seekg(0, std::ios::beg);
-
   std::getline(file_in, line1);
   std::getline(file_in, line2);
-  Satellite s("NUTSAT", line1, line2);
-  s.print();
-  file_out << s.r_ECI(0) << " " << s.r_ECI(1) << " " << s.r_ECI(2) << std::endl;
-  for (int j = 2; j < n_lines; j += 2) {
-    // std::getline(file_in, line0);
+  Satellite s(satellite, line1, line2);
+  std::cout << "Position satellite " << 0 << ": " << s.r_ECI << std::endl;
+
+  file_in.clear();
+  file_in.seekg(0, std::ios::beg);
+  // printf("\n\n");
+  args_gravField args = {8, 8, s.mjd_TT, false, false, false};  // n_max, m_max, pointEarth, sun, moon
+  double tol = 1e-8;
+  double h, T, t0 = s.mjd_TT, error;
+  int maxNumSteps = 10000;
+  int steps = 100;
+  int numTLEs = 15;
+  // comparing Omega
+  // for (int i = 0; i < n_lines / 2; i++) {
+  for (int i = 0; i < numTLEs; i++) {
     std::getline(file_in, line1);
     std::getline(file_in, line2);
 
-    Satellite tmp("NUTSAT", line1, line2);
-
-    // std::cout << "time of integration: " << tmp.mjd_TT - s.mjd_TT << std::endl;
-
-    if (integrateOrbit(s, (tmp.mjd_TT - s.mjd_TT) * 86400, h, tol, maxNumSteps, &args)) {
+    Satellite tle(satellite + std::to_string(i), line1, line2);
+    T = (tle.mjd_TT - s.mjd_TT) * 86400;
+    if (T < 1.e-2) continue;
+    h = T / steps;
+    if (integrateOrbit(s, T, h, tol, maxNumSteps, &args)) {
       std::cout << "Integration failed" << std::endl;
       return 1;
     }
-    file_out << s.r_ECI(0) << " " << s.r_ECI(1) << " " << s.r_ECI(2) << std::endl;
+    // file_out << s.mjd_TT - t0 << " " << tle.Omega << " " << s.Omega << std::endl;
+    // file_out << s.i << " " << tle.Omega << " " << s.Omega << std::endl;
+    // std::cout << s.r_ECI(0) << " " << s.r_ECI(1) << " " << s.r_ECI(2) << std::endl;
+    // std::cout << time_posXYZ(i, 1) << " " << time_posXYZ(i, 2) << " " << time_posXYZ(i, 3) << std::endl;
+    // for (int j = 0; j < 3; j++) error += fabs(s.r_ECI(j) - tle.r_ECI(j));                            // error in L1 norm
+    for (int j = 0; j < 3; j++) error += (s.r_ECI(j) - tle.r_ECI(j)) * (s.r_ECI(j) - tle.r_ECI(j));  // error in L2 norm
+    error = sqrt(error);
+    std::cout << "Position satellite " << i << ": " << tle.r_ECI << std::endl;
+    file_out << s.mjd_TT - t0 << " " << error << std::endl;
   }
+  // */
 
-  // args_gravField args = {8, 8, true, false, false};  // n_max, m_max, pointEarth, sun, moon
-  // Satellite s_forward, s_backward;
-  // double tol = 1e-8;
-  // int maxNumSteps = 1000;
-  // double time_of_integration = 16000;
+  // int n_lines = numLines(filename);
+  // // comparing Omega
+  // // for (int i = 0; i < n_lines / 2; i++) {
+  // for (int i = 0; i < n_lines / 2; i++) {
+  //   std::getline(file_in, line1);
+  //   std::getline(file_in, line2);
 
-  // if (integrateOrbit(tle, s_forward, time_of_integration, tol, maxNumSteps, &args)) {
-  //   printf("Integration failed\n");
-  //   return 1;
+  //   Satellite tle(satellite + std::to_string(i), line1, line2);
+  //   std::cout << "Position satellite " << i << ": " << tle.r_ECI << std::endl;
   // }
 
-  // if (integrateOrbit(tle, s_backward, -time_of_integration, tol, maxNumSteps, &args)) {
-  //   printf("Integration failed\n");
-  //   return 1;
+  // for (int j = 0; j < 3; j++) error += fabs(s.r_ECI(j) - time_posXYZ(i, j + 1));
+  // file_out << s.mjd_TT - t0 << " " << error << std::endl;
+  // while (s.mjd_TT < time_posXYZ(numTLEs - 1, 0) - tol) {
+  //   i++;
+  //   error = 0;
+  //   T = (time_posXYZ(i, 0) - s.mjd_TT) * 86400;
+  //   h = T / steps;
+  //   if (integrateOrbit(s, T, h, tol, maxNumSteps, &args)) {
+  //     std::cout << "Integration failed" << std::endl;
+  //     return 1;
+  //   }
+  //   // std::cout << s.mjd_TT << " " << time_posXYZ(i, 0) << std::endl;
+
+  //   // printf("%d %f %f\n", i, s.mjd_TT, error);
   // }
-
-  // printf("\n\n");
-  // s_forward.print();
-
-  // printf("\n\n");
-  // s_backward.print();
-
-  // std::cout << "Mean motion (forward): " << s_forward.n << std::endl;
-  // std::cout << "Mean motion (backward): " << s_backward.n << std::endl;
-
-  // double diff1M = (s_forward.n - s_backward.n) / (2 * time_of_integration);
-  // double diff2M = (s_forward.n - 2 * tle.n + s_backward.n) / (time_of_integration * time_of_integration);
-
-  // std::cout << "First derivative mean motion (integrated): " << diff1M << std::endl;
-  // std::cout << "First derivative mean motion ('analytical'): " << tle.dn << std::endl;
-  // std::cout << "Second derivative mean motion (integrated): " << diff2M << std::endl;
-  // std::cout << "Second derivative mean motion ('analytical'): " << tle.ddn << std::endl;
 
   return 0;
 }

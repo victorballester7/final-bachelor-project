@@ -10,6 +10,14 @@ Matrix Perifocal2ECI(double i, double Omega, double omega) {
 
 Matrix ECI2ECEF(double mjd_TT) {
   // double mjd_UT1 = mjd_TT;  // we assume that UT1 = TT
+  static int count = 0;
+  if (count == 0) {
+    count++;
+    std::cout << "P = " << PrecessionMatrix(mjd_TT) << std::endl;
+    std::cout << "N = " << NutationMatrix(mjd_TT) << std::endl;
+    std::cout << "R = " << RotationMatrix(mjd_TT) << std::endl;
+    std::cout << "Polar = " << PolarMotionMatrix(mjd_TT) << std::endl;
+  }
   return PolarMotionMatrix(mjd_TT) * RotationMatrix(mjd_TT) * NutationMatrix(mjd_TT) * PrecessionMatrix(mjd_TT);
 }
 
@@ -43,7 +51,12 @@ double EqEquinoxes(double mjd_TT) {
   double dpsi, deps;  // Nutation angles
 
   NutationAngles(mjd_TT, dpsi, deps);
-
+  static int count = 0;
+  if (count == 0) {
+    count++;
+    std::cout << "dpsi = " << dpsi << std::endl;
+    std::cout << "meanObli = " << MeanObliquity(mjd_TT) << std::endl;
+  }
   // Equation of the equinoxes
   return dpsi * cos(MeanObliquity(mjd_TT));
 };
@@ -54,19 +67,43 @@ double GMST(double mjd_UT1) {
 
   // Mean Sidereal Time
   mjd_UT1_0 = floor(mjd_UT1);
+  static int count = 0;
   UT1 = 86400.0 * (mjd_UT1 - mjd_UT1_0);  // seconds in UT1 of that day [s]
   T_0 = (mjd_UT1_0 - MJD_J2000) / 36525.0;
   T = (mjd_UT1 - MJD_J2000) / 36525.0;
 
-  gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s]
+  // gmst = 24110.54841 + 8640184.812866 * T + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s] - How I think it should be (https://gssc.esa.int/navipedia/index.php/CEP_to_ITRF)
+  gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s] - Montenbruck
 
-  return fmod(gmst * SEC_TO_RAD, 2 * PI);
+  if (count == 0) {
+    count++;
+    // change precision output
+    std::cout.precision(15);
+    std::cout << "mjd_UT1 = " << mjd_UT1 << std::endl;
+    std::cout << "mjd_UT1_0 = " << mjd_UT1_0 << std::endl;
+    std::cout << "mjd_UT1 - mjd_UT1_0 = " << mjd_UT1 - mjd_UT1_0 << std::endl;
+    std::cout << "UT1 = " << UT1 << std::endl;
+    std::cout << "T_0 = " << T_0 << std::endl;
+    std::cout << "T = " << T << std::endl;
+    std::cout << "gmst = " << gmst << std::endl;
+    std::cout << "gmst_alternative = " << modf(gmst / 86400.0, &gmst) * 2 * PI << std::endl;
+  }
+  // first we extract the fractional part of the gmst (which is the fraction of a day (or revolution)), and then we convert it to radians. The passing reference gmst is just to avoid a warning, but here we don't need it (it would be the integer part of gmst).
+  return modf(gmst / 86400.0, &gmst) * 2 * PI;  // [rad] - Correction based on Montenbruck
+  // return fmod(gmst * SEC_TO_RAD, 2 * PI);
 }
 
 double GAST(double mjd_TT) {
   // we assume UT1 = UTC
   double incr = (32.184 + 37.0) / 86400.0;  // TT-UT1 [days]
   double mjd_UT1 = mjd_TT - incr;
+  static int count = 0;
+  if (count == 0) {
+    count++;
+    std::cout << "equinox = " << EqEquinoxes(mjd_TT) << std::endl;
+    std::cout << "gmstGAST = " << GMST(mjd_TT) << std::endl;
+    std::cout << "mjd_TTGAST = " << mjd_TT << std::endl;
+  }
   return fmod(GMST(mjd_UT1) + EqEquinoxes(mjd_TT), 2 * PI);
 }
 
@@ -110,6 +147,17 @@ Matrix PrecessionMatrix(double mjd_TT) {
   z = zeta + (0.79280 + 0.000205 * T) * T * T * SEC_TO_RAD;
   theta = (2004.3109 - (0.42665 + 0.041833 * T) * T) * T * SEC_TO_RAD;
 
+  static int count = 0;
+
+  if (count == 0) {
+    count++;
+    std::cout << "MJD_TT: " << mjd_TT << std::endl;
+    std::cout << "T: " << T << std::endl;
+    std::cout << "zeta: " << zeta << std::endl;
+    std::cout << "z: " << z << std::endl;
+    std::cout << "theta: " << theta << std::endl;
+  }
+
   // Precession matrix
   Matrix R(3, -z), S(2, theta), V(3, -zeta);
   return R * S * V;
@@ -122,122 +170,9 @@ void NutationAngles(double mjd_TT, double& dpsi, double& deps) {
   const double T3 = T2 * T;
   const double rev = 360.0 * 3600.0;  // arcsec/revolution
 
-  const int N_coeff = 106;
-  const long C[N_coeff][9] =
-      {
-          //
-          // l  l' F  D Om    dpsi    *T     deps     *T       #
-          //
-          {0, 0, 0, 0, 1, -1719960, -1742, 920250, 89},  //   1
-          {0, 0, 0, 0, 2, 20620, 2, -8950, 5},           //   2
-          {-2, 0, 2, 0, 1, 460, 0, -240, 0},             //   3
-          {2, 0, -2, 0, 0, 110, 0, 0, 0},                //   4
-          {-2, 0, 2, 0, 2, -30, 0, 10, 0},               //   5
-          {1, -1, 0, -1, 0, -30, 0, 0, 0},               //   6
-          {0, -2, 2, -2, 1, -20, 0, 10, 0},              //   7
-          {2, 0, -2, 0, 1, 10, 0, 0, 0},                 //   8
-          {0, 0, 2, -2, 2, -131870, -16, 57360, -31},    //   9
-          {0, 1, 0, 0, 0, 14260, -34, 540, -1},          //  10
-          {0, 1, 2, -2, 2, -5170, 12, 2240, -6},         //  11
-          {0, -1, 2, -2, 2, 2170, -5, -950, 3},          //  12
-          {0, 0, 2, -2, 1, 1290, 1, -700, 0},            //  13
-          {2, 0, 0, -2, 0, 480, 0, 10, 0},               //  14
-          {0, 0, 2, -2, 0, -220, 0, 0, 0},               //  15
-          {0, 2, 0, 0, 0, 170, -1, 0, 0},                //  16
-          {0, 1, 0, 0, 1, -150, 0, 90, 0},               //  17
-          {0, 2, 2, -2, 2, -160, 1, 70, 0},              //  18
-          {0, -1, 0, 0, 1, -120, 0, 60, 0},              //  19
-          {-2, 0, 0, 2, 1, -60, 0, 30, 0},               //  20
-          {0, -1, 2, -2, 1, -50, 0, 30, 0},              //  21
-          {2, 0, 0, -2, 1, 40, 0, -20, 0},               //  22
-          {0, 1, 2, -2, 1, 40, 0, -20, 0},               //  23
-          {1, 0, 0, -1, 0, -40, 0, 0, 0},                //  24
-          {2, 1, 0, -2, 0, 10, 0, 0, 0},                 //  25
-          {0, 0, -2, 2, 1, 10, 0, 0, 0},                 //  26
-          {0, 1, -2, 2, 0, -10, 0, 0, 0},                //  27
-          {0, 1, 0, 0, 2, 10, 0, 0, 0},                  //  28
-          {-1, 0, 0, 1, 1, 10, 0, 0, 0},                 //  29
-          {0, 1, 2, -2, 0, -10, 0, 0, 0},                //  30
-          {0, 0, 2, 0, 2, -22740, -2, 9770, -5},         //  31
-          {1, 0, 0, 0, 0, 7120, 1, -70, 0},              //  32
-          {0, 0, 2, 0, 1, -3860, -4, 2000, 0},           //  33
-          {1, 0, 2, 0, 2, -3010, 0, 1290, -1},           //  34
-          {1, 0, 0, -2, 0, -1580, 0, -10, 0},            //  35
-          {-1, 0, 2, 0, 2, 1230, 0, -530, 0},            //  36
-          {0, 0, 0, 2, 0, 630, 0, -20, 0},               //  37
-          {1, 0, 0, 0, 1, 630, 1, -330, 0},              //  38
-          {-1, 0, 0, 0, 1, -580, -1, 320, 0},            //  39
-          {-1, 0, 2, 2, 2, -590, 0, 260, 0},             //  40
-          {1, 0, 2, 0, 1, -510, 0, 270, 0},              //  41
-          {0, 0, 2, 2, 2, -380, 0, 160, 0},              //  42
-          {2, 0, 0, 0, 0, 290, 0, -10, 0},               //  43
-          {1, 0, 2, -2, 2, 290, 0, -120, 0},             //  44
-          {2, 0, 2, 0, 2, -310, 0, 130, 0},              //  45
-          {0, 0, 2, 0, 0, 260, 0, -10, 0},               //  46
-          {-1, 0, 2, 0, 1, 210, 0, -100, 0},             //  47
-          {-1, 0, 0, 2, 1, 160, 0, -80, 0},              //  48
-          {1, 0, 0, -2, 1, -130, 0, 70, 0},              //  49
-          {-1, 0, 2, 2, 1, -100, 0, 50, 0},              //  50
-          {1, 1, 0, -2, 0, -70, 0, 0, 0},                //  51
-          {0, 1, 2, 0, 2, 70, 0, -30, 0},                //  52
-          {0, -1, 2, 0, 2, -70, 0, 30, 0},               //  53
-          {1, 0, 2, 2, 2, -80, 0, 30, 0},                //  54
-          {1, 0, 0, 2, 0, 60, 0, 0, 0},                  //  55
-          {2, 0, 2, -2, 2, 60, 0, -30, 0},               //  56
-          {0, 0, 0, 2, 1, -60, 0, 30, 0},                //  57
-          {0, 0, 2, 2, 1, -70, 0, 30, 0},                //  58
-          {1, 0, 2, -2, 1, 60, 0, -30, 0},               //  59
-          {0, 0, 0, -2, 1, -50, 0, 30, 0},               //  60
-          {1, -1, 0, 0, 0, 50, 0, 0, 0},                 //  61
-          {2, 0, 2, 0, 1, -50, 0, 30, 0},                //  62
-          {0, 1, 0, -2, 0, -40, 0, 0, 0},                //  63
-          {1, 0, -2, 0, 0, 40, 0, 0, 0},                 //  64
-          {0, 0, 0, 1, 0, -40, 0, 0, 0},                 //  65
-          {1, 1, 0, 0, 0, -30, 0, 0, 0},                 //  66
-          {1, 0, 2, 0, 0, 30, 0, 0, 0},                  //  67
-          {1, -1, 2, 0, 2, -30, 0, 10, 0},               //  68
-          {-1, -1, 2, 2, 2, -30, 0, 10, 0},              //  69
-          {-2, 0, 0, 0, 1, -20, 0, 10, 0},               //  70
-          {3, 0, 2, 0, 2, -30, 0, 10, 0},                //  71
-          {0, -1, 2, 2, 2, -30, 0, 10, 0},               //  72
-          {1, 1, 2, 0, 2, 20, 0, -10, 0},                //  73
-          {-1, 0, 2, -2, 1, -20, 0, 10, 0},              //  74
-          {2, 0, 0, 0, 1, 20, 0, -10, 0},                //  75
-          {1, 0, 0, 0, 2, -20, 0, 10, 0},                //  76
-          {3, 0, 0, 0, 0, 20, 0, 0, 0},                  //  77
-          {0, 0, 2, 1, 2, 20, 0, -10, 0},                //  78
-          {-1, 0, 0, 0, 2, 10, 0, -10, 0},               //  79
-          {1, 0, 0, -4, 0, -10, 0, 0, 0},                //  80
-          {-2, 0, 2, 2, 2, 10, 0, -10, 0},               //  81
-          {-1, 0, 2, 4, 2, -20, 0, 10, 0},               //  82
-          {2, 0, 0, -4, 0, -10, 0, 0, 0},                //  83
-          {1, 1, 2, -2, 2, 10, 0, -10, 0},               //  84
-          {1, 0, 2, 2, 1, -10, 0, 10, 0},                //  85
-          {-2, 0, 2, 4, 2, -10, 0, 10, 0},               //  86
-          {-1, 0, 4, 0, 2, 10, 0, 0, 0},                 //  87
-          {1, -1, 0, -2, 0, 10, 0, 0, 0},                //  88
-          {2, 0, 2, -2, 1, 10, 0, -10, 0},               //  89
-          {2, 0, 2, 2, 2, -10, 0, 0, 0},                 //  90
-          {1, 0, 0, 2, 1, -10, 0, 0, 0},                 //  91
-          {0, 0, 4, -2, 2, 10, 0, 0, 0},                 //  92
-          {3, 0, 2, -2, 2, 10, 0, 0, 0},                 //  93
-          {1, 0, 2, -2, 0, -10, 0, 0, 0},                //  94
-          {0, 1, 2, 0, 1, 10, 0, 0, 0},                  //  95
-          {-1, -1, 0, 2, 1, 10, 0, 0, 0},                //  96
-          {0, 0, -2, 0, 1, -10, 0, 0, 0},                //  97
-          {0, 0, 2, -1, 2, -10, 0, 0, 0},                //  98
-          {0, 1, 0, 2, 0, -10, 0, 0, 0},                 //  99
-          {1, 0, -2, -2, 0, -10, 0, 0, 0},               // 100
-          {0, -1, 2, 0, 1, -10, 0, 0, 0},                // 101
-          {1, 1, 0, -2, 1, -10, 0, 0, 0},                // 102
-          {1, 0, -2, 2, 0, -10, 0, 0, 0},                // 103
-          {2, 0, 0, 2, 0, 10, 0, 0, 0},                  // 104
-          {0, 0, 2, 4, 2, -10, 0, 0, 0},                 // 105
-          {0, 1, 0, 1, 0, 10, 0, 0, 0}                   // 106
-      };
+  int nut_coeffs = 106;  // number of coefficients in nutation model (must be <= 106)
 
   // Variables
-
   double l, lp, F, D, Om;
   double arg;
 
@@ -258,7 +193,7 @@ void NutationAngles(double mjd_TT, double& dpsi, double& deps) {
   // Nutation in longitude and obliquity [rad]
 
   deps = dpsi = 0.0;
-  for (int i = 0; i < N_coeff; i++) {
+  for (int i = 0; i < nut_coeffs; i++) {
     arg = (C[i][0] * l + C[i][1] * lp + C[i][2] * F + C[i][3] * D + C[i][4] * Om) * SEC_TO_RAD;
     dpsi += (C[i][5] + C[i][6] * T) * sin(arg);
     deps += (C[i][7] + C[i][8] * T) * cos(arg);
@@ -303,6 +238,9 @@ void PolarMotion(double mjd_TT, double& xp, double& yp) {
   double day = floor(mjd_UTC);
   xp = eop[index + 1][4] * (mjd_UTC - day) - eop[index][4] * (mjd_UTC - day - 1);
   yp = eop[index + 1][5] * (mjd_UTC - day) - eop[index][5] * (mjd_UTC - day - 1);
+
+  xp *= SEC_TO_RAD;
+  yp *= SEC_TO_RAD;
 }
 
 Matrix PolarMotionMatrix(double mjd_TT) {
@@ -314,4 +252,76 @@ Matrix PolarMotionMatrix(double mjd_TT) {
   // Transformation from ITRS to GCRS
   Matrix R(2, -xp), S(1, -yp);
   return R * S;
+}
+
+Vector Sun(double Mjd_TT) {
+  // Constants
+
+  const double eps = 23.43929111 * DEG_TO_RAD;      // Obliquity of J2000 ecliptic
+  const double T = (Mjd_TT - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+
+  // Variables
+
+  double L, M, r;
+  Vector r_Sun(3);
+
+  // // Mean anomaly, ecliptic longitude and radius
+
+  // M = pi2 * Frac(0.9931267 + 99.9973583 * T);  // [rad]
+  // L = pi2 * Frac(0.7859444 + M / pi2 + (6892.0 * sin(M) + 72.0 * sin(2.0 * M)) / 1296.0e3);  // [rad]
+  // r = 149.619e9 - 2.499e9 * cos(M) - 0.021e9 * cos(2 * M);             // [m]
+
+  // // Equatorial position vector
+
+  // r_Sun = R_x(-eps) * Vector(r * cos(L), r * sin(L), 0.0);
+
+  return r_Sun;
+}
+
+Vector Moon(double Mjd_TT) {
+  // Constants
+
+  const double eps = 23.43929111 * DEG_TO_RAD;      // Obliquity of J2000 ecliptic
+  const double T = (Mjd_TT - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+
+  // Variables
+
+  double L_0, l, lp, F, D, dL, S, h, N;
+  double L, B, R, cosB;
+  Vector r_Moon(3);
+
+  // // Mean elements of lunar orbit
+
+  // L_0 = Frac(0.606433 + 1336.851344 * T);      // Mean longitude [rev]
+  //                                              // w.r.t. J2000 equinox
+  // l = pi2 * Frac(0.374897 + 1325.552410 * T);  // Moon's mean anomaly [rad]
+  // lp = pi2 * Frac(0.993133 + 99.997361 * T);   // Sun's mean anomaly [rad]
+  // D = pi2 * Frac(0.827361 + 1236.853086 * T);  // Diff. long. Moon-Sun [rad]
+  // F = pi2 * Frac(0.259086 + 1342.227825 * T);  // Argument of latitude
+
+  // // Ecliptic longitude (w.r.t. equinox of J2000)
+
+  // dL = +22640 * sin(l) - 4586 * sin(l - 2 * D) + 2370 * sin(2 * D) + 769 * sin(2 * l) - 668 * sin(lp) - 412 * sin(2 * F) - 212 * sin(2 * l - 2 * D) - 206 * sin(l + lp - 2 * D) + 192 * sin(l + 2 * D) - 165 * sin(lp - 2 * D) - 125 * sin(D) - 110 * sin(l + lp) + 148 * sin(l - lp) - 55 * sin(2 * F - 2 * D);
+
+  // L = pi2 * Frac(L_0 + dL / 1296.0e3);  // [rad]
+
+  // // Ecliptic latitude
+
+  // S = F + (dL + 412 * sin(2 * F) + 541 * sin(lp)) / Arcs;
+  // h = F - 2 * D;
+  // N = -526 * sin(h) + 44 * sin(l + h) - 31 * sin(-l + h) - 23 * sin(lp + h) + 11 * sin(-lp + h) - 25 * sin(-2 * l + F) + 21 * sin(-l + F);
+
+  // B = (18520.0 * sin(S) + N) / Arcs;  // [rad]
+
+  // cosB = cos(B);
+
+  // // Distance [m]
+
+  // R = 385000e3 - 20905e3 * cos(l) - 3699e3 * cos(2 * D - l) - 2956e3 * cos(2 * D) - 570e3 * cos(2 * l) + 246e3 * cos(2 * l - 2 * D) - 205e3 * cos(lp - 2 * D) - 171e3 * cos(l + 2 * D) - 152e3 * cos(l + lp - 2 * D);
+
+  // // Equatorial coordinates
+
+  // r_Moon = R_x(-eps) * Vector(R * cos(L) * cosB, R * sin(L) * cosB, R * sin(B));
+
+  return r_Moon;
 }

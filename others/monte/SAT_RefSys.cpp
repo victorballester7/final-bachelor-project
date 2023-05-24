@@ -192,7 +192,11 @@ Matrix PrecMatrix(double Mjd_1, double Mjd_2) {
           dT / Arcs;
 
   // Precession matrix
-
+  std::cout << "MJD_TT: " << Mjd_2 << std::endl;
+  std::cout << "T: " << dT << std::endl;
+  std::cout << "zeta: " << zeta << std::endl;
+  std::cout << "z: " << z << std::endl;
+  std::cout << "theta: " << theta << std::endl;
   return R_z(-z) * R_y(theta) * R_z(-zeta);
 }
 
@@ -468,7 +472,8 @@ double EqnEquinox(double Mjd_TT) {
   NutAngles(Mjd_TT, dpsi, deps);
 
   // Equation of the equinoxes
-
+  std::cout << "dpsi = " << dpsi << std::endl;
+  std::cout << "meanObli = " << MeanObliquity(Mjd_TT) << std::endl;
   return dpsi * cos(MeanObliquity(Mjd_TT));
 };
 
@@ -499,12 +504,18 @@ double GMST(double Mjd_UT1) {
   // Mean Sidereal Time
 
   Mjd_0 = floor(Mjd_UT1);
+  std::cout.precision(15);
+  std::cout << "mjd_UT1 = " << Mjd_UT1 << std::endl;
+  std::cout << "mjd_UT1_0 = " << Mjd_0 << std::endl;
   UT1 = Secs * (Mjd_UT1 - Mjd_0);  // [s]
   T_0 = (Mjd_0 - MJD_J2000) / 36525.0;
   T = (Mjd_UT1 - MJD_J2000) / 36525.0;
 
   gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s]
-
+  std::cout << "UT1 = " << UT1 << std::endl;
+  std::cout << "T_0 = " << T_0 << std::endl;
+  std::cout << "T = " << T << std::endl;
+  std::cout << "gmst = " << gmst << std::endl;
   return pi2 * Frac(gmst / Secs);  // [rad], 0..2pi
 }
 
@@ -524,6 +535,9 @@ double GMST(double Mjd_UT1) {
 //------------------------------------------------------------------------------
 
 double GAST(double Mjd_UT1) {
+  std::cout << "equinox = " << EqnEquinox(Mjd_UT1) << std::endl;
+  std::cout << "gmstGAST = " << GMST(Mjd_UT1) << std::endl;
+  std::cout << "mjd_TTGAST = " << Mjd_UT1 << std::endl;
   return Modulo(GMST(Mjd_UT1) + EqnEquinox(Mjd_UT1), pi2);
 }
 

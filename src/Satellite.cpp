@@ -120,8 +120,10 @@ void Satellite::set_position_velocity() {
   double y = a * sqrt(1 - e * e) * sin(E);
   double z = 0;
 
-  double vx = -sqrt(GM_EARTH / a) * sin(E) / (1 - e * cos(E));
-  double vy = sqrt(GM_EARTH / a) * sqrt(1 - e * e) * cos(E) / (1 - e * cos(E));
+  double vx = -n * a * sin(E) / (1 - e * cos(E));
+  // double vx = -sqrt(GM_EARTH / a) * sin(E) / (1 - e * cos(E));
+  // double vy = sqrt(GM_EARTH / a) * sqrt(1 - e * e) * cos(E) / (1 - e * cos(E));
+  double vy = n * a * sqrt(1 - e * e) * cos(E) / (1 - e * cos(E));
   double vz = 0;
 
   r_peri = Vector(x, y, z);

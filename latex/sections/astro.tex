@@ -411,9 +411,9 @@ In \cref{fig:polar_motion_matrix} we can see a graphical representation of these
 \end{align}
 where $T=\frac{\text{JD}_{TT} - 2451545}{36525}$ are the Julian centuries that have elapsed since the J2000 epoch. The values for nutations $\Delta \psi$ and $\Delta \varepsilon$ can be expanded into \cite{montenbruck}:
 \begin{equation}
-  \Delta\psi = \sum_{i=1}^106 {(\Delta\psi)}_i\sin \phi_i\qquad \Delta\varepsilon = \sum_{i=1}^106 {(\Delta\varepsilon)}_i\cos \phi_i
+  \Delta\psi = \sum_{i=1}^{106} {(\Delta\psi)}_i\sin \phi_i\qquad \Delta\varepsilon = \sum_{i=1}^{106} {(\Delta\varepsilon)}_i\cos \phi_i
 \end{equation}
-where $\phi_i=p_{\ell,i}\ell'+ p_{\ell',i}\ell''+p_{F,i}F+p_{D,i}D+p_{\Omega,i}\Omega$ are integer coefficients and the other variables are the Moon's mean anomaly ($\ell$), the Sun's mean anomaly $(\ell')$, the mean distance of the Moon from the ascending node ($F$), the difference between the mean longitudes of the Sun and the Moon ($D$), and the mean longitude of the ascending node of the Moon ($\Omega$). We will not go into detail about these variables, there are explicit expressions for them in \cite{montenbruck} as a function of $T=\frac{\text{JD}_{TT} - 2451545}{36525}$:
+where $\phi_i=p_{\ell,i}\ell+ p_{\ell',i}\ell'+p_{F,i}F+p_{D,i}D+p_{\Omega,i}\Omega$ are integer coefficients and the other variables are the Moon's mean anomaly ($\ell$), the Sun's mean anomaly $(\ell')$, the mean distance of the Moon from the ascending node ($F$), the difference between the mean longitudes of the Sun and the Moon ($D$), and the mean longitude of the ascending node of the Moon ($\Omega$). We will not go into detail about these variables, there are explicit expressions for them in \cite{montenbruck} as a function of $T=\frac{\text{JD}_{TT} - 2451545}{36525}$:
 \begin{align}
   \ell   & = 134^\circ 57' 46.733'' + 477198^\circ 52' 02.633'' T + 31.310'' T^2 + 0.064'' T^3 \\
   \ell'  & = 357^\circ 31' 39.804'' + 35999^\circ 03'01.224'' T - 0.577'' T^2 - 0.012'' T^3    \\
