@@ -117,7 +117,7 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   if (prm->pointEarth)
     v_dot = AccelPointMass(r, Vector(0, 0, 0), GM_EARTH);
   else
-    v_dot = AccelHarmonic(r, ECI2ECEF(mdj_tt), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
+    v_dot = AccelHarmonic(r, J20002ECEF(mdj_tt), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
   static int count = 0;
   // std::cout << "count = " << count << std::endl;
   if (count == 0) {
@@ -130,21 +130,6 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   for (int i = 0; i < 3; i++) f[i + 3] = v_dot(i);
   return 0;
 }
-
-// int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* prm) {
-//   int n = 6;
-//   double x[6] = {s0.r_ECI(0), s0.r_ECI(1), s0.r_ECI(2), s0.v_ECI(0), s0.v_ECI(1), s0.v_ECI(2)};
-//   double hmin = h * 0.5, hmax = h * 2.0;
-
-//   double t = s0.mjd_TT * 86400.0;
-//   if (flow(&t, x, &h, T, hmin, hmax, tol, maxNumSteps, n, gravField, prm)) return 1;
-//   sT.mjd_TT = t / 86400.0;
-
-//   sT.r_ECI = Vector(x[0], x[1], x[2]);
-//   sT.v_ECI = Vector(x[3], x[4], x[5]);
-//   sT.set_orbital_elements(sT.r_ECI, sT.v_ECI);
-//   return 0;
-// }
 
 int integrateOrbit(Satellite& s, double T, double h, double tol, int maxNumSteps, void* prm) {
   int n = 6;

@@ -8,7 +8,10 @@
 const double PI = M_PI;
 // const double RAD_TO_DEG = 180. / PI;
 const double DEG_TO_RAD = PI / 180.;
-const double SEC_TO_RAD = PI / (180. * 3600.);
+const double ARCSEC_TO_RAD = PI / (180. * 3600.);
+const double DEG_TO_ARCSEC = 3600.;
+const double HOUR_TO_SEC = 3600.;
+const double SEC_TO_ARCSEC = 15.;  // Same with the minuts and hours (this is because 15 * 24 = 360)
 const double REV_TO_RAD = 2. * PI;
 const double DAY_TO_SEC = 24. * 3600.;
 

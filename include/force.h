@@ -92,30 +92,9 @@ int gravField(int n, double t, double x[], double f[], void* param);
 //    Integrates the differential equation for the gravitational field and computes the position and velocity vectors as well as the orbital elements of the 'new satellite' at the end of the integration
 //
 // Parameters:
-//    s0: initial satellite
-//    sT: final satellite
-//    T: integration time
-//    h: step size of integration
-//    tol: tolerance for the integration
-//    maxNumSteps: maximum number of steps of integration
-//    param: pointer to the structure containing the parameters of the gravitational field
-//
-// Return value:
-//    0: success
-//    1: failure
-// ----------------------------------------------
-int integrateOrbit(Satellite& s0, Satellite& sT, double T, double h, double tol, int maxNumSteps, void* param);
-
-// ----------------------------------------------
-// integrateOrbit
-// ----------------------------------------------
-// Purpose:
-//    Integrates the differential equation for the gravitational field and computes the position and velocity vectors as well as the orbital elements of the 'new satellite' at the end of the integration
-//
-// Parameters:
 //    s0: initial and final satellite
 //    mjd_tt_0: initial time of the integration
-//    T: integration time
+//    T: integration time [s]
 //    h: step size of integration
 //    tol: tolerance for the integration
 //    maxNumSteps: maximum number of steps of integration

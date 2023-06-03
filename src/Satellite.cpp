@@ -50,10 +50,9 @@ Satellite::Satellite(const std::string& line0, const std::string& line1, const s
   solve_kepler_equation();                     // Solve kepler equation to get the eccentric anomaly
   nu = acos((cos(E) - e) / (1 - e * cos(E)));  // True anomaly
   if (E > PI) nu = 2 * PI - nu;
-  set_position_velocity();  // Set position and velocity vectors
-
   get_gregorian_date(epoch_year, epoch_day, MM, D);
   mjd_TT = get_mjd(epoch_year, MM, D);
+  set_position_velocity(mjd_TT);  // Set position and velocity vectors
 }
 
 void Satellite::print() const {
@@ -91,7 +90,7 @@ void Satellite::print() const {
 
 // Vector Satellite::get_position_ITRF() const {
 //   // Rotation matrix from GCRF to ITRF
-//   Matrix R = ECI2ECEF(mjd_TT);
+//   Matrix R = J20002ECEF(mjd_TT);
 //   return R * get_position_GCRF();
 // }
 
@@ -115,7 +114,7 @@ int Satellite::solve_kepler_equation() {
   return 0;
 }
 
-void Satellite::set_position_velocity() {
+void Satellite::set_position_velocity(double mdj_tt) {
   double x = a * (cos(E) - e);
   double y = a * sqrt(1 - e * e) * sin(E);
   double z = 0;
@@ -129,8 +128,14 @@ void Satellite::set_position_velocity() {
   r_peri = Vector(x, y, z);
   v_peri = Vector(vx, vy, vz);
 
-  r_ECI = Perifocal2ECI(i, Omega, omega) * r_peri;
-  v_ECI = Perifocal2ECI(i, Omega, omega) * v_peri;
+  r_TEME = Perifocal2ECI(i, Omega, omega) * r_peri;
+  v_TEME = Perifocal2ECI(i, Omega, omega) * v_peri;
+
+  std::cout << "r_TEME = " << r_TEME << std::endl;
+  std::cout << "v_TEME = " << v_TEME << std::endl;
+
+  r_ECI = ECI2TEME(mdj_tt).transpose() * r_TEME;
+  v_ECI = ECI2TEME(mdj_tt).transpose() * v_TEME;
 }
 
 void Satellite::set_orbital_elements(Vector r, Vector v) {

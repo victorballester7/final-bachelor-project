@@ -8,17 +8,21 @@ Matrix Perifocal2ECI(double i, double Omega, double omega) {
   return R * S * T;
 }
 
-Matrix ECI2ECEF(double mjd_TT) {
+Matrix J20002ECEF(double mjd_TT) {
   // double mjd_UT1 = mjd_TT;  // we assume that UT1 = TT
   static int count = 0;
   if (count == 0) {
     count++;
-    std::cout << "P = " << PrecessionMatrix(mjd_TT) << std::endl;
-    std::cout << "N = " << NutationMatrix(mjd_TT) << std::endl;
-    std::cout << "R = " << RotationMatrix(mjd_TT) << std::endl;
-    std::cout << "Polar = " << PolarMotionMatrix(mjd_TT) << std::endl;
+    // std::cout << "P = " << PrecessionMatrix(mjd_TT) << std::endl;
+    // std::cout << "N = " << NutationMatrix(mjd_TT) << std::endl;
+    // std::cout << "R = " << RotationMatrix(mjd_TT) << std::endl;
+    // std::cout << "Polar = " << PolarMotionMatrix(mjd_TT) << std::endl;
   }
   return PolarMotionMatrix(mjd_TT) * RotationMatrix(mjd_TT) * NutationMatrix(mjd_TT) * PrecessionMatrix(mjd_TT);
+}
+
+Matrix ECI2TEME(double mjd_TT) {
+  return EquinoxMatrix(mjd_TT) * NutationMatrix(mjd_TT) * PrecessionMatrix(mjd_TT);
 }
 
 // double TT2JDcenturies_TT(double t) {
@@ -44,7 +48,7 @@ double TT2UTC(double mjd_tt) {
 double MeanObliquity(double mjd_TT) {
   const double T = (mjd_TT - MJD_J2000) / 36525.0;
 
-  return DEG_TO_RAD * (23.43929111 - (46.8150 + (0.00059 - 0.001813 * T) * T) * T / 3600.0);
+  return DEG_TO_RAD * (23.43929111 - (46.8150 + (0.00059 - 0.001813 * T) * T) * T / DEG_TO_ARCSEC);
 }
 
 double EqEquinoxes(double mjd_TT) {
@@ -54,16 +58,20 @@ double EqEquinoxes(double mjd_TT) {
   static int count = 0;
   if (count == 0) {
     count++;
-    std::cout << "dpsi = " << dpsi << std::endl;
-    std::cout << "meanObli = " << MeanObliquity(mjd_TT) << std::endl;
+    std::cout << "dpsi = " << dpsi / DEG_TO_RAD << std::endl;
+    std::cout << "deps = " << deps / DEG_TO_RAD << std::endl;
+    std::cout << "meanObli = " << MeanObliquity(mjd_TT) / DEG_TO_RAD << std::endl;
+    std::cout << "MeanObliquity(mjd_TT) + deps = " << (MeanObliquity(mjd_TT) + deps) / DEG_TO_RAD << std::endl;
   }
+
   // Equation of the equinoxes
   return dpsi * cos(MeanObliquity(mjd_TT));
 };
 
 double GMST(double mjd_UT1) {
   // Variables
-  double mjd_UT1_0, UT1, T_0, T, gmst;
+  double mjd_UT1_0, UT1, T, gmst;
+  double T_0;
 
   // Mean Sidereal Time
   mjd_UT1_0 = floor(mjd_UT1);
@@ -72,8 +80,12 @@ double GMST(double mjd_UT1) {
   T_0 = (mjd_UT1_0 - MJD_J2000) / 36525.0;
   T = (mjd_UT1 - MJD_J2000) / 36525.0;
 
-  // gmst = 24110.54841 + 8640184.812866 * T + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s] - How I think it should be (https://gssc.esa.int/navipedia/index.php/CEP_to_ITRF)
-  gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s] - Montenbruck
+  // gmst = 24110.54841 + 8640184.812866 * T_0 + 1.002737909350795 * UT1 + (0.093104 - 6.2e-6 * T) * T * T;  // [s] - Montenbruck (bad)
+  // gmst = 24110.54841 + 8640184.812866 * T + (0.093104 - 6.2e-6 * T) * T * T + 1.002737909350795 * DEG_TO_ARCSEC * UT1;  // [s] - How I think it should be (https://gssc.esa.int/navipedia/index.php/CEP_to_ITRF) + Vallado
+
+  // gmst = 100.4606184 + 36000.77005361 * T + 0.00038793 * T * T - 2.6e-8 * T * T * T + 1.002737909350795 * UT1;  // [deg] - Vallado
+
+  gmst = 67310.54841 + (876600.0 * HOUR_TO_SEC + 8640184.812866) * T + 0.093104 * T * T - 6.2e-6 * T * T * T;  // [s] - Vallado
 
   if (count == 0) {
     count++;
@@ -83,25 +95,30 @@ double GMST(double mjd_UT1) {
     std::cout << "mjd_UT1_0 = " << mjd_UT1_0 << std::endl;
     std::cout << "mjd_UT1 - mjd_UT1_0 = " << mjd_UT1 - mjd_UT1_0 << std::endl;
     std::cout << "UT1 = " << UT1 << std::endl;
-    std::cout << "T_0 = " << T_0 << std::endl;
+    // std::cout << "T_0 = " << T_0 << std::endl;
     std::cout << "T = " << T << std::endl;
     std::cout << "gmst = " << gmst << std::endl;
-    std::cout << "gmst_alternative = " << modf(gmst / 86400.0, &gmst) * 2 * PI << std::endl;
+    std::cout << "gmst_to_deg = " << fmod(gmst * SEC_TO_ARCSEC * ARCSEC_TO_RAD, 360.) << std::endl;
   }
   // first we extract the fractional part of the gmst (which is the fraction of a day (or revolution)), and then we convert it to radians. The passing reference gmst is just to avoid a warning, but here we don't need it (it would be the integer part of gmst).
-  return modf(gmst / 86400.0, &gmst) * 2 * PI;  // [rad] - Correction based on Montenbruck
-  // return fmod(gmst * SEC_TO_RAD, 2 * PI);
+  // return modf(gmst / 86400.0, &gmst) * 2 * PI;  // [rad] - Correction based on Montenbruck
+  // we sum 2*PI to make sure that the result is positive. Otherwise, the fmod function can also return a negative value.
+  return fmod(fmod(gmst, 86400.) * SEC_TO_ARCSEC * ARCSEC_TO_RAD + 2 * PI, 2 * PI);  // [rad] - Vallado
+
+  // return fmod(gmst * SEC_TO_ARCSEC * ARCSEC_TO_RAD, 2 * PI);  // [rad] - My version (I checked that it is the same as the one above)
+  // return fmod(gmst * DEG_TO_RAD, 2 * PI);  // [rad] - My version (I checked that it is the same as the one above)
 }
 
 double GAST(double mjd_TT) {
   // we assume UT1 = UTC
   double incr = (32.184 + 37.0) / 86400.0;  // TT-UT1 [days]
   double mjd_UT1 = mjd_TT - incr;
+  mjd_UT1 = get_mjd(2004, 4, 6.3274067829);
   static int count = 0;
   if (count == 0) {
     count++;
-    std::cout << "equinox = " << EqEquinoxes(mjd_TT) << std::endl;
-    std::cout << "gmstGAST = " << GMST(mjd_TT) << std::endl;
+    std::cout << "equinox = " << EqEquinoxes(mjd_TT) / DEG_TO_RAD << std::endl;
+    std::cout << "gmstGAST = " << GMST(mjd_UT1) / DEG_TO_RAD << std::endl;
     std::cout << "mjd_TTGAST = " << mjd_TT << std::endl;
   }
   return fmod(GMST(mjd_UT1) + EqEquinoxes(mjd_TT), 2 * PI);
@@ -132,30 +149,38 @@ double get_mjd(double yyyy, double mm, double dd) {
   }
   a = floor(yyyy / 100);
   b = yyyy + 0.01 * mm + 0.0001 * dd >= 1582.1015 ? 2 - a + floor(a / 4) : 0;  // Gregorian reform correction
-  return floor(365.25 * (yyyy + 4716)) + floor(30.6001 * (mm + 1)) + dd + b - 1524.5 - 2400000.5;
+  double year_part = floor(365.25 * (yyyy + 4716)) - 2400000.5;                // we do this in order not to lose precision
+  return year_part + floor(30.6001 * (mm + 1)) + dd + b - 1524.5;
 }
 
 Matrix PrecessionMatrix(double mjd_TT) {
   // Constants
   const double T = (mjd_TT - MJD_J2000) / 36525.0;
 
+  std::cout << "T_prec = " << T << std::endl;
+
   // Variables
   double zeta, z, theta;
 
   // Precession angles
-  zeta = (2306.2181 + (0.30188 + 0.017998 * T) * T) * T * SEC_TO_RAD;
-  z = zeta + (0.79280 + 0.000205 * T) * T * T * SEC_TO_RAD;
-  theta = (2004.3109 - (0.42665 + 0.041833 * T) * T) * T * SEC_TO_RAD;
+  zeta = (2306.2181 + (0.30188 + 0.017998 * T) * T) * T * ARCSEC_TO_RAD;
+  theta = (2004.3109 - (0.42665 + 0.041833 * T) * T) * T * ARCSEC_TO_RAD;
+  // z = zeta + (0.79280 + 0.000205 * T) * T * T * ARCSEC_TO_RAD;  // montenbruck
+  z = (2306.2181 + (1.09468 + 0.018203 * T) * T) * T * ARCSEC_TO_RAD;  // vallado, I checked and it's the same as montenbruck
+
+  std::cout << "zeta = " << zeta / DEG_TO_RAD << std::endl;
+  std::cout << "z = " << z / DEG_TO_RAD << std::endl;
+  std::cout << "theta = " << theta / DEG_TO_RAD << std::endl;
 
   static int count = 0;
 
   if (count == 0) {
     count++;
-    std::cout << "MJD_TT: " << mjd_TT << std::endl;
-    std::cout << "T: " << T << std::endl;
-    std::cout << "zeta: " << zeta << std::endl;
-    std::cout << "z: " << z << std::endl;
-    std::cout << "theta: " << theta << std::endl;
+    // std::cout << "MJD_TT: " << mjd_TT << std::endl;
+    // std::cout << "T: " << T << std::endl;
+    // std::cout << "zeta: " << zeta << std::endl;
+    // std::cout << "z: " << z << std::endl;
+    // std::cout << "theta: " << theta << std::endl;
   }
 
   // Precession matrix
@@ -194,12 +219,12 @@ void NutationAngles(double mjd_TT, double& dpsi, double& deps) {
 
   deps = dpsi = 0.0;
   for (int i = 0; i < nut_coeffs; i++) {
-    arg = (C[i][0] * l + C[i][1] * lp + C[i][2] * F + C[i][3] * D + C[i][4] * Om) * SEC_TO_RAD;
+    arg = (C[i][0] * l + C[i][1] * lp + C[i][2] * F + C[i][3] * D + C[i][4] * Om) * ARCSEC_TO_RAD;
     dpsi += (C[i][5] + C[i][6] * T) * sin(arg);
     deps += (C[i][7] + C[i][8] * T) * cos(arg);
   };
-  dpsi = 1.0E-5 * dpsi * SEC_TO_RAD;
-  deps = 1.0E-5 * deps * SEC_TO_RAD;
+  dpsi = 1.0E-5 * dpsi * ARCSEC_TO_RAD;
+  deps = 1.0E-5 * deps * ARCSEC_TO_RAD;
 }
 
 Matrix NutationMatrix(double mjd_TT) {
@@ -212,11 +237,19 @@ Matrix NutationMatrix(double mjd_TT) {
   NutationAngles(mjd_TT, dpsi, deps);
 
   // Transformation from mean to true equator and equinox
-  Matrix R(1, -eps - deps), S(3, dpsi), T(1, eps);
+  Matrix R(1, -eps - deps), S(3, -dpsi), T(1, eps);
   return R * S * T;
 }
 
+Matrix EquinoxMatrix(double mjd_TT) {
+  return Matrix(3, EqEquinoxes(mjd_TT));
+}
+
 Matrix RotationMatrix(double mjd_TT) {
+  // we assume UT1 = UTC
+  // double incr = (32.184 + 37.0) / 86400.0;  // TT-UT1 [days]
+  // double mjd_UT1 = mjd_TT - incr;
+  // // return Matrix(3, GMST(mjd_UT1)) * Matrix(3, EqEquinoxes(mjd_TT));
   return Matrix(3, GAST(mjd_TT));
 }
 
@@ -239,8 +272,8 @@ void PolarMotion(double mjd_TT, double& xp, double& yp) {
   xp = eop[index + 1][4] * (mjd_UTC - day) - eop[index][4] * (mjd_UTC - day - 1);
   yp = eop[index + 1][5] * (mjd_UTC - day) - eop[index][5] * (mjd_UTC - day - 1);
 
-  xp *= SEC_TO_RAD;
-  yp *= SEC_TO_RAD;
+  xp *= ARCSEC_TO_RAD;
+  yp *= ARCSEC_TO_RAD;
 }
 
 Matrix PolarMotionMatrix(double mjd_TT) {

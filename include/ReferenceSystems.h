@@ -7,7 +7,7 @@
 // Perifocal2ECI
 // ----------------------------------------------
 // Purpose:
-//    Transformation matrix from Perifocal reference frame (z axis peripendicular to the orbit plane and x axis in the perigee direction) to ECI (Earth-centered interial frame)
+//    Transformation matrix from Perifocal reference frame (z axis peripendicular to the orbit plane and x axis in the perigee direction) to ECI (Earth-centered interial frame) of J2000
 //
 // Parameters:
 //    i: inclination of the orbit [rad]
@@ -20,10 +20,10 @@
 Matrix Perifocal2ECI(double i, double Omega, double omega);
 
 // ----------------------------------------------
-// ECI2ECEF
+// J20002ECEF
 // ----------------------------------------------
 // Purpose:
-//    Transformation matrix from ECI (Earth-centered inertial) to ECEF (Earth-centered Earth-fixed)
+//    Transformation matrix from ECI (Earth-centered inertial) of J2000 to ECEF (Earth-centered Earth-fixed)
 //
 // Parameters:
 //    mjd_TT: time in Modified Julian date TT (terrestrial time)
@@ -31,7 +31,21 @@ Matrix Perifocal2ECI(double i, double Omega, double omega);
 // Returns:
 //    Transformation matrix from ECI to ECEF
 // ----------------------------------------------
-Matrix ECI2ECEF(double mjd_TT);
+Matrix J20002ECEF(double mjd_TT);
+
+// ----------------------------------------------
+// ECI2TEME
+// ----------------------------------------------
+// Purpose:
+//    Transformation matrix from TEME (True Equator Mean Equinox) to ECI (Earth-centered inertial) of J2000
+//
+// Parameters:
+//    mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Transformation matrix from TEME to ECI
+// ----------------------------------------------
+Matrix ECI2TEME(double mjd_TT);
 
 // ----------------------------------------------
 // MeanObliquity
@@ -82,12 +96,12 @@ double GMST(double mjd_UT1);
 //    Calculate Greenwich apparent sidereal time
 //
 // Parameters:
-//    mjd_UT1: time in Modified Julian date UT1 (universal time)
+//    mjd_TT: time in Modified Julian date TT (terrestrial time)
 //
 // Returns:
 //    Greenwich apparent sidereal time [rad]
 // ----------------------------------------------
-double GAST(double mjd_UT1);
+double GAST(double mjd_TT);
 
 // ----------------------------------------------
 // get_gregorian_date
@@ -168,18 +182,32 @@ void NutationAngles(double mjd_TT, double& dpsi, double& deps);
 Matrix NutationMatrix(double mjd_TT);
 
 // ----------------------------------------------
+// EquinoxMatrix
+// ----------------------------------------------
+// Purpose:
+//    Calculate equinox matrix that aligns the mean equator with the true equator of the given time
+//
+// Parameters:
+//    mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Equinox matrix
+// ----------------------------------------------
+Matrix EquinoxMatrix(double mjd_TT);
+
+// ----------------------------------------------
 // RotationMatrix
 // ----------------------------------------------
 // Purpose:
-//    Calculate rotation matrix that aligns the true vernal equinox with th 'mean' (up to polar motion) prime meridian of the given time
+//    Calculate rotation matrix that aligns the true vernal equinox with the 'mean' (up to polar motion) prime meridian of the given time
 //
 // Parameters:
-//    mjd_UT1: time in Modified Julian date UT1 (universal time)
+//    mjd_TT: time in Modified Julian date TT (terrestrial time)
 //
 // Returns:
 //    Rotation matrix
 // ----------------------------------------------
-Matrix RotationMatrix(double mjd_UT1);
+Matrix RotationMatrix(double mjd_TT);
 
 // ----------------------------------------------
 // PolarMotion

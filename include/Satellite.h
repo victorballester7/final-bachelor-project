@@ -43,6 +43,8 @@ class Satellite {
   // Position and velocity
   Vector r_peri;  // position vector in perifocal coordinates [m]
   Vector v_peri;  // velocity vector in perifocal coordinates [m/s]
+  Vector r_TEME;  // position vector in TEME coordinates [m]
+  Vector v_TEME;  // velocity vector in TEME coordinates [m/s]
   Vector r_ECI;   // position vector in ECI coordinates [m]
   Vector v_ECI;   // velocity vector in ECI coordinates [m/s]
 
@@ -53,8 +55,8 @@ class Satellite {
  private:
   std::string line1;
   std::string line2;
-  int solve_kepler_equation();   // Solve Kepler's equation using Newton's method
-  void set_position_velocity();  // Calculate position and velocity vectors in perifocal coordinates
+  int solve_kepler_equation();                // Solve Kepler's equation using Newton's method
+  void set_position_velocity(double mdj_tt);  // Calculate position and velocity vectors in perifocal coordinates
   // Vector get_position_ITRF() const;
   // Vector get_position_GCRF() const;
 };
