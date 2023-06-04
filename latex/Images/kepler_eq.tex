@@ -2,7 +2,7 @@
 \usepackage{../preamble}
 
 \begin{document}
-\begin{tikzpicture}[every node/.style={scale=0.75}]
+\begin{tikzpicture}[every node/.style={scale=0.95}]
   \begin{axis}[
       xmin=-3.2,xmax=1.2,ymin=-0.2,ymax=2.2,
       axis lines=middle,
@@ -36,7 +36,7 @@
     \draw[domain=0:67,samples=100] plot ({0.1*cos(\x)}, {0.1*sin(\x)});
     \node[anchor=south] at (0.15,0) {$\nu$};
     \draw[domain=0:45,samples=100] plot ({0.1*cos(\x)-1}, {0.1*sin(\x)});
-    \node[anchor=south] at (-0.75,0) {$E$};
+    \node[anchor=south] at (-0.7,0) {$E$};
 
 
     \node[anchor=south east] at (0.25,0.5) {$\vf{r}$};
