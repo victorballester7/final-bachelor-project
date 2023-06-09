@@ -8,7 +8,8 @@ PLOT="plot"
 filename="errors"
 
 # list of all satellite names available
-satellites=("STARLINK" "NUTSAT" "TDR-3")
+satellites=("STARLINK" "NUTSAT" "TDR-3" "ISS")
+default_sat="ISS"
 
 
 make $BIN/main
@@ -19,16 +20,20 @@ if [ -z "$1" ]; then
     sat_string+="$i "
   done
   echo $sat_string
-  echo "Executing the default command: ./execute.sh STARLINK"
-  ./$BIN/main STARLINK
-  datafile="data/tle/${filename}_STARLINK.txt"
+  echo "Executing the default command: ./execute.sh $default_sat"
+  python3 src/getRV.py $default_sat
+  ./$BIN/main $default_sat
+  datafile="data/${filename}/${default_sat}_${filename}.txt"
+  # datafile="data/sgp4/${default_sat}.txt"
   echo "Plotting..."
   gnuplot -p -c $PLOT/$filename.gnu $datafile
 else
   make $BIN/main
   echo "Executing the command: ./execute.sh $1"
+  python3 src/getRV.py $1
   ./$BIN/main $1
-  datafile="data/tle/${filename}_$1.txt"
+  datafile="data/${filename}/${1}_${filename}.txt"
+  # datafile="data/sgp4/${1}.txt"
   echo "Plotting..."
   gnuplot -p -c $PLOT/$filename.gnu $datafile
 fi

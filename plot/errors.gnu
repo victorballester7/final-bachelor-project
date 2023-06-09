@@ -12,7 +12,6 @@ set yrange [*:*]
 
 # define the data file and block separator
 datafile = ARG1
-# datafile = 'data/tle/errors_STARLINK.txt'
 
 # Set the style of the data points and lines
 set style data points

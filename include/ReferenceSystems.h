@@ -48,6 +48,48 @@ Matrix J20002ECEF(double mjd_TT);
 Matrix ECI2TEME(double mjd_TT);
 
 // ----------------------------------------------
+// UTC2UT1
+// ----------------------------------------------
+// Purpose:
+//    Calculate UT1 (universal time) from UTC (coordinated universal time)
+//
+// Parameters:
+//    mjd_utc: time in Modified Julian date UTC (coordinated universal time)
+//
+// Returns:
+//    UT1 (universal time) [s] in Modified Julian date
+// ----------------------------------------------
+double UTC2UT1(double mjd_utc);
+
+// ----------------------------------------------
+// TT2UTC
+// ----------------------------------------------
+// Purpose:
+//    Calculate UTC (coordinated universal time) from TT (terrestrial time)
+//
+// Parameters:
+//    mjd_tt: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    UTC (coordinated universal time) [s] in Modified Julian date
+// ----------------------------------------------
+double TT2UTC(double mjd_tt);
+
+// ----------------------------------------------
+// UTC2TT
+// ----------------------------------------------
+// Purpose:
+//    Calculate TT (terrestrial time) from UTC (coordinated universal time)
+//
+// Parameters:
+//    mjd_utc: time in Modified Julian date UTC (coordinated universal time)
+//
+// Returns:
+//    TT (terrestrial time) [s] in Modified Julian date
+// ----------------------------------------------
+double UTC2TT(double mjd_utc);
+
+// ----------------------------------------------
 // MeanObliquity
 // ----------------------------------------------
 // Purpose:
@@ -251,7 +293,7 @@ Matrix PolarMotionMatrix(double mjd_TT);
 // Returns:
 //    Position vector of the Sun in the J2000.0 reference frame [m]
 // ----------------------------------------------
-Vector Sun(double Mjd_TT);
+Vector Sun(double mjd_TT);
 
 // ----------------------------------------------
 // Moon
@@ -265,6 +307,6 @@ Vector Sun(double Mjd_TT);
 // Returns:
 //    Position vector of the Moon in the J2000.0 reference frame [m]
 // ----------------------------------------------
-Vector Moon(double Mjd_TT);
+Vector Moon(double mjd_TT);
 
 #endif  // REFERENCESYSTEMS_H

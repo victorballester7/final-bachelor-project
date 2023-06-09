@@ -12,7 +12,7 @@
 % \usepackage{hycolor} % implements options of colors for hyperref (it ables the user to use colors from xcolor package)
 \usepackage[capitalise,nameinlink]{cleveref} % for clever references. That is, for example, for automatically write "Definition 2.13" instead of only "2.13".
 \usepackage{graphicx} % for options like \definecolor{}{}{}, \textcolor{}{},...
-% \usepackage[usenames,x11names]{xcolor} % to customize RGB colors.
+\usepackage[usenames,x11names]{xcolor} % to customize RGB colors.
 % \usepackage{colortbl} % for colors in tables.
 \usepackage{tcolorbox} % for coloring boxes.
 \usepackage{colortbl} % for coloring tables.
@@ -33,6 +33,9 @@
 
 \setlength\multlinegap{0pt} % disable the margins on \begin{multline} command
 
+\captionsetup[figure]{font=footnotesize,labelfont={footnotesize,bf}}
+\captionsetup[table]{font=footnotesize,labelfont={footnotesize,bf}}
+
 %%%%%%%%%%%%%%% Colors %%%%%%%%%%%%%%%
 \definecolor{color_blue1}{RGB}{190,190,255}
 \definecolor{color_blue2}{RGB}{100,100,255}
@@ -47,7 +50,7 @@
 %% for references (hyperref)
 \hypersetup{
   colorlinks = true,
-  linkcolor = red, % color of internal links (sections, pages, etc.) 
+  linkcolor = Blue4, % color of internal links (sections, pages, etc.) 
   filecolor = cyan, % color for URLs which open local files
   citecolor = green!70!black, %	color for bibliographical citations in text.     
   urlcolor = cyan, % color of URL links (mail, web) 

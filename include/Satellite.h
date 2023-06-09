@@ -13,6 +13,7 @@ class Satellite {
   // line2: second line of TLE data
   Satellite() = default;
   Satellite(const std::string& line0, const std::string& line1, const std::string& line2);
+  Satellite(double& mjd_utc, Vector& r_teme, Vector& v_teme);  // satellite from position and velocity vectors
 
   std::string sat_name;
   // Orbital elements
@@ -56,7 +57,7 @@ class Satellite {
   std::string line1;
   std::string line2;
   int solve_kepler_equation();                // Solve Kepler's equation using Newton's method
-  void set_position_velocity(double mdj_tt);  // Calculate position and velocity vectors in perifocal coordinates
+  void set_position_velocity(double mjd_tt);  // Calculate position and velocity vectors in perifocal coordinates
   // Vector get_position_ITRF() const;
   // Vector get_position_GCRF() const;
 };

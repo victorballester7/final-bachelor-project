@@ -1,0 +1,70 @@
+# Get the position and velocity of each TLE from a file
+from sgp4.api import Satrec
+import sys
+import os
+
+
+if len(sys.argv) != 2:
+  print("Usage: python3 getRV.py <satellite_name>")
+  sys.exit(1)
+
+satellite_name = sys.argv[1]
+script_dir = os.path.dirname(os.path.abspath(__file__))
+filename_in = os.path.join(
+    script_dir + "/../data/tle/",
+    satellite_name + ".txt")
+filename_out = os.path.join(
+    script_dir + "/../data/teme/",
+    satellite_name + "_teme.txt")
+filename_out_2 = os.path.join(
+    script_dir + "/../data/sgp4/",
+    satellite_name + ".txt")
+
+with open(filename_in, "r") as f:
+  lines = f.readlines()
+
+L = []
+
+for i in range(0, len(lines)):
+  if i % 2 == 0:
+    line1 = lines[i]
+    line2 = lines[i + 1]
+    satellite = Satrec.twoline2rv(line1, line2)
+    jd = satellite.jdsatepoch
+    jd_frac = satellite.jdsatepochF
+    e, r, v = satellite.sgp4(jd, jd_frac)
+    mdjd = jd - 2400000.5
+    L.append([mdjd, jd_frac, r, v])
+
+with open(filename_out, "w") as f:
+  for i in L:
+    f.write(
+        str(i[0] + i[1]) + " " +
+        str(i[2][0] * 1000) + " " +
+        str(i[2][1] * 1000) + " " +
+        str(i[2][2] * 1000) + " " +
+        str(i[3][0] * 1000) + " " +
+        str(i[3][1] * 1000) + " " +
+        str(i[3][2] * 1000) + "\n")
+
+
+# propagate with sgp4
+satellite = Satrec.twoline2rv(lines[0], lines[1])
+jd = satellite.jdsatepoch
+jd_frac = satellite.jdsatepochF
+I = []
+for i in range(2, len(lines)):
+  if i % 2 == 0:
+    line1 = lines[i]
+    line2 = lines[i + 1]
+    satellite_aux = Satrec.twoline2rv(line1, line2)
+    T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
+    e, r, v = satellite.sgp4(jd, jd_frac + T)
+    e, r0, v0 = satellite_aux.sgp4(
+        satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
+    err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
+    I.append([T, err])
+
+with open(filename_out_2, "w") as f:
+  for i in I:
+    f.write(str(i[0]) + " " + str(i[1]) + "\n")

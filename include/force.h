@@ -5,13 +5,16 @@
 #include "Satellite.h"
 
 typedef struct {
-  int n_max;         // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
-  int m_max;         // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
-  double mdj_tt;     // modified julian date of the terrestrial time (TT)
-  bool pointEarth;   // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
-  bool sun;          // true if the Sun is included in the spherical harmonics expansion, false otherwise
-  bool moon;         // true if the Moon is included in the spherical harmonics expansion, false otherwise
-  bool solar_press;  // true if solar radiation pressure is included, false otherwise
+  int n_max;        // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
+  int m_max;        // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
+  double mjd_tt;    // modified julian date of the terrestrial time (TT)
+  bool pointEarth;  // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
+  bool sun;         // true if the Sun is included in the spherical harmonics expansion, false otherwise
+  bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
+  bool solar_rad;   // true if solar radiation pressure is included, false otherwise
+  bool atmo_drag;   // true if solar radiation pressure is included, false otherwise
+  double A;         // cross-sectional area of the satellite [m^2]
+  double m;         // mass of the satellite [kg]
 } args_gravField;
 
 // ----------------------------------------------
@@ -31,20 +34,36 @@ typedef struct {
 Vector AccelPointMass(const Vector& r, const Vector& s, double GM);
 
 // ----------------------------------------------
-// AccelPointMass
+// AccelSolarRad
 // ----------------------------------------------
 // Purpose:
-//    Calculate acceleration of the satellite at position r due the gravity exerced by a point mass located at s
+//    Calculate acceleration of the satellite at position r due the solar radiation pressure
 //
 // Parameters:
 //    r: position vector of the satellite in the inertial reference frame [m]
-//    s: position vector of the point mass in the inertial reference frame [m]
-//    GM: gravitational parameter of the central body [m^3/s^2]
+//    r_Sun: position vector of the Sun in the inertial reference frame [m]
+//    Area: cross-sectional area of the satellite [m^2]
+//    mass: mass of the satellite [kg]
 //
 // Return value:
 //    acceleration vector in the inertial reference frame [m/s^2]
 // ----------------------------------------------
-Vector AccelPointMass(const Vector& r, double GM);
+Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area, double mass);
+
+// ----------------------------------------------
+// Illumination
+// ----------------------------------------------
+// Purpose:
+//    Calculate the fraction of the satellite's surface illuminated by the Sun
+//
+// Parameters:
+//    r: position vector of the satellite in the inertial reference frame [m]
+//    r_Sun: position vector of the Sun in the inertial reference frame [m]
+//
+// Return value:
+//   0: satellite is in the shadow of the Earth
+//   1: satellite is fully illuminated by the Sun
+double Illumination(const Vector& r, const Vector& r_Sun);
 
 // ----------------------------------------------
 // AccelHarmonic

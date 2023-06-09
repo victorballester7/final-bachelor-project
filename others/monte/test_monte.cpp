@@ -13,10 +13,10 @@ int main(void) {
   Matrix E(id, M, M);
   /* Cridem Monte */
   // vfM = AccelHarmonic(rM, E, Grav.GM, Grav.R_ref, Grav.CS, 8 /*n_max*/, 8 /*m_max*/);
-  double mdj_tt = 59945.33310694993;
+  double mjd_tt = 59945.33310694993;
   int n_max = 8;
   int m_max = n_max;
-  vfM = AccelMainCustom(mdj_tt, rM, vfM, n_max, m_max, 0, 0, 0, 0);
+  vfM = AccelMainCustom(mjd_tt, rM, vfM, n_max, m_max, 0, 0, 0, 0);
   printf("Monte tallat a %dx%d:\n\t%.16G %.16G %.16G\n", n_max, m_max, vfM(0), vfM(1), vfM(2));
   return 0;
 }

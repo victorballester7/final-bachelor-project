@@ -55,6 +55,15 @@ Satellite::Satellite(const std::string& line0, const std::string& line1, const s
   set_position_velocity(mjd_TT);  // Set position and velocity vectors
 }
 
+Satellite::Satellite(double& mjd_utc, Vector& r_teme, Vector& v_teme) {
+  r_TEME = r_teme;
+  v_TEME = v_teme;
+  mjd_TT = UTC2TT(mjd_utc);
+  Matrix A = ECI2TEME(mjd_TT).transpose();
+  r_ECI = A * r_TEME;
+  v_ECI = A * v_TEME;
+}
+
 void Satellite::print() const {
   std::cout << sat_name << std::endl
             << std::endl;
@@ -114,7 +123,7 @@ int Satellite::solve_kepler_equation() {
   return 0;
 }
 
-void Satellite::set_position_velocity(double mdj_tt) {
+void Satellite::set_position_velocity(double mjd_tt) {
   double x = a * (cos(E) - e);
   double y = a * sqrt(1 - e * e) * sin(E);
   double z = 0;
@@ -134,8 +143,8 @@ void Satellite::set_position_velocity(double mdj_tt) {
   std::cout << "r_TEME = " << r_TEME << std::endl;
   std::cout << "v_TEME = " << v_TEME << std::endl;
 
-  r_ECI = ECI2TEME(mdj_tt).transpose() * r_TEME;
-  v_ECI = ECI2TEME(mdj_tt).transpose() * v_TEME;
+  r_ECI = ECI2TEME(mjd_tt).transpose() * r_TEME;
+  v_ECI = ECI2TEME(mjd_tt).transpose() * v_TEME;
 }
 
 void Satellite::set_orbital_elements(Vector r, Vector v) {
