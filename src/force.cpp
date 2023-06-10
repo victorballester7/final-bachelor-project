@@ -8,6 +8,11 @@
 #include "../include/constants.h"
 #include "../include/rk78.h"
 
+Vector AccelPointEarth(const Vector& r) {
+  double r3 = pow(r.norm(), 3.);
+  return r * (-GM_EARTH / r3);
+}
+
 Vector AccelPointMass(const Vector& r, const Vector& s, double GM) {
   // relative distance between big body and small body
   Vector r_rel = s - r;
@@ -245,7 +250,7 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   Vector r = Vector(x[0], x[1], x[2]);
   Vector v_dot = Vector(0, 0, 0);
   if (prm->pointEarth)
-    v_dot += AccelPointMass(r, Vector(0, 0, 0), GM_EARTH);
+    v_dot += AccelPointEarth(r);
   else
     v_dot += AccelHarmonic(r, J20002ECEF(mjd_tt), GM_EARTH, R_JGM3, CS_JGM3, prm->n_max, prm->m_max);
   Vector r_sun = Sun(mjd_tt);

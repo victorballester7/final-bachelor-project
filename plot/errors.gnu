@@ -18,7 +18,7 @@ set style data points
 set style line 1 lc rgb '#0060ad' pt 7 ps 0.5
 
 # Plot the data from the datafile
-plot datafile using 1:2 with linespoints ls 1 lc 1 title "Error in L1"
+plot datafile using 1:2 with linespoints ls 1 lc 1 title "Error between TLE and integrated orbit"
 
 # Uncomment the line below if you want to display the graph window
 # pause -1

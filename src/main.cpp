@@ -20,16 +20,19 @@ int main(int argc, char const *argv[]) {
   }
   std::string satellite = argv[1];
   // Read TEME data from file
-  std::string filename_in = "data/teme/" + satellite + "_teme.txt";
+  // std::string filename_in = "data/teme/" + satellite + "_tles.txt";
+  // std::string filename_in = "data/teme/" + satellite + "_1h_interval.txt";
+  std::string filename_in = "data/teme/" + satellite + "_1min_interval.txt";
   std::string filename_out = "data/errors/" + satellite + "_errors.txt";
+  std::string filename_out_orbit = "data/orbit/" + satellite + "_orbit.txt";
   std::ifstream file_in(filename_in);
-  std::ofstream file_out(filename_out);
-  if (!file_in.is_open() || !file_out.is_open()) {
+  std::ofstream file_out(filename_out), file_out_orbit(filename_out_orbit);
+  if (!file_in.is_open() || !file_out.is_open() || !file_out_orbit.is_open()) {
     std::cout << "Error opening file" << std::endl;
     return 1;
   }
 
-  int TLEs = 10;
+  int TLEs = 1000;
   std::string line;
   double mjd_utc;
   double x, y, z, vx, vy, vz;
@@ -42,12 +45,14 @@ int main(int argc, char const *argv[]) {
   Vector r_teme = Vector(x, y, z);
   Vector v_teme = Vector(vx, vy, vz);
   Satellite s = Satellite(mjd_utc, r_teme, v_teme);
+  r_teme.print();
+  v_teme.print();
   s.r_ECI.print();
   s.v_ECI.print();
 
   args_gravField args = {8, 8, s.mjd_TT, true, false, false, false, false, 10000., 450000.};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area, mass
-  double tol = 1e-6;
-  double h, T, t0 = s.mjd_TT, t1, error;
+  double tol = 1e-12;
+  double h, T, t0 = s.mjd_TT, error, temp, t1;
   int maxNumSteps = 1000;
   int inter_steps = 100;
   for (int i = 0; i < TLEs; i++) {
@@ -56,25 +61,22 @@ int main(int argc, char const *argv[]) {
     iss >> mjd_utc >> x >> y >> z >> vx >> vy >> vz;
     r_teme = Vector(x, y, z);
     v_teme = Vector(vx, vy, vz);
-    t1 = UTC2TT(mjd_utc);
+    Satellite t = Satellite(mjd_utc, r_teme, v_teme);
     // set precision
     std::cout.precision(16);
-    T = (t1 - t0) * 86400;
+    T = (t.mjd_TT - s.mjd_TT) * 86400;
+    std::cout << "T = " << T << std::endl;
     if (T > 1) {  // t0 and t1 are different
-      printf("i = %d, T = %f\n", i, T);
       h = T / inter_steps;
       if (integrateOrbit(s, T, h, tol, maxNumSteps, &args)) {
         std::cout << "Integration failed" << std::endl;
         return 1;
       }
-      printf("i = %d, T = %f\n", i, T);
     }
-    std::cout << "error = " << i << ECI2TEME(s.mjd_TT) * s.r_ECI - r_teme << std::endl;
-    error = (s.r_ECI - ECI2TEME(t1).transpose() * r_teme).norm();
-    // error = (ECI2TEME(s.mjd_TT) * s.r_ECI - r_teme).norm();
-    file_out << t1 - t0 << " " << error << std::endl;
+    file_out_orbit << s.r_ECI(0) << " " << s.r_ECI(1) << " " << s.r_ECI(2) << " " << s.v_ECI(0) << " " << s.v_ECI(1) << " " << s.v_ECI(2) << " " << s.r_ECI.norm() - R_JGM3 << std::endl;
 
-    // Vector error2 = ECI2TEME(s.mjd_TT) * s.r_ECI - r_teme;
+    error = (s.r_ECI - t.r_ECI).norm();
+    file_out << t.mjd_TT - t0 << " " << error << std::endl;
 
     // // plot only error in z
     // file_out << t1 - t0 << " " << s.r_ECI.norm() - R_JGM3 << std::endl;

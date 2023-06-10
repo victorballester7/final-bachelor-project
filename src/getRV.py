@@ -15,10 +15,16 @@ filename_in = os.path.join(
     satellite_name + ".txt")
 filename_out = os.path.join(
     script_dir + "/../data/teme/",
-    satellite_name + "_teme.txt")
+    satellite_name + "_tles.txt")
 filename_out_2 = os.path.join(
     script_dir + "/../data/sgp4/",
     satellite_name + ".txt")
+filename_out_3 = os.path.join(
+    script_dir + "/../data/teme/",
+    satellite_name + "_1h_interval.txt")
+filename_out_4 = os.path.join(
+    script_dir + "/../data/teme/",
+    satellite_name + "_1min_interval.txt")
 
 with open(filename_in, "r") as f:
   lines = f.readlines()
@@ -48,23 +54,65 @@ with open(filename_out, "w") as f:
         str(i[3][2] * 1000) + "\n")
 
 
-# propagate with sgp4
+# propagate with sgp4 in a 1h interval
 satellite = Satrec.twoline2rv(lines[0], lines[1])
 jd = satellite.jdsatepoch
 jd_frac = satellite.jdsatepochF
 I = []
-for i in range(2, len(lines)):
-  if i % 2 == 0:
-    line1 = lines[i]
-    line2 = lines[i + 1]
-    satellite_aux = Satrec.twoline2rv(line1, line2)
-    T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
-    e, r, v = satellite.sgp4(jd, jd_frac + T)
-    e, r0, v0 = satellite_aux.sgp4(
-        satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
-    err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
-    I.append([T, err])
+for i in range(0, 50):
+  e, r, v = satellite.sgp4(jd, jd_frac + i / 24)
+  I.append([i / 24, r[0], r[1], r[2], v[0], v[1], v[2]])
 
-with open(filename_out_2, "w") as f:
+mjd = jd - 2400000.5
+with open(filename_out_3, "w") as f:
   for i in I:
-    f.write(str(i[0]) + " " + str(i[1]) + "\n")
+    f.write(str(mjd + jd_frac + i[0]) + " " +
+            str(i[1] * 1000) + " " +
+            str(i[2] * 1000) + " " +
+            str(i[3] * 1000) + " " +
+            str(i[4] * 1000) + " " +
+            str(i[5] * 1000) + " " +
+            str(i[6] * 1000) + "\n")
+
+
+# propagate with sgp4 in a 1min interval
+satellite = Satrec.twoline2rv(lines[0], lines[1])
+jd = satellite.jdsatepoch
+jd_frac = satellite.jdsatepochF
+I = []
+for i in range(0, 1000):
+  e, r, v = satellite.sgp4(jd, jd_frac + i / (24 * 60))
+  I.append([i / (24 * 60), r[0], r[1], r[2], v[0], v[1], v[2]])
+
+mjd = jd - 2400000.5
+with open(filename_out_4, "w") as f:
+  for i in I:
+    f.write(str(mjd + jd_frac + i[0]) + " " +
+            str(i[1] * 1000) + " " +
+            str(i[2] * 1000) + " " +
+            str(i[3] * 1000) + " " +
+            str(i[4] * 1000) + " " +
+            str(i[5] * 1000) + " " +
+            str(i[6] * 1000) + "\n")
+
+
+# # propagate with sgp4 and compare with the original tles
+# satellite = Satrec.twoline2rv(lines[0], lines[1])
+# jd = satellite.jdsatepoch
+# jd_frac = satellite.jdsatepochF
+# I = []
+# for i in range(2, len(lines)):
+#   if i % 2 == 0:
+#     line1 = lines[i]
+#     line2 = lines[i + 1]
+#     satellite_aux = Satrec.twoline2rv(line1, line2)
+#     T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
+#     e, r, v = satellite.sgp4(jd, jd_frac + T)
+#     e, r0, v0 = satellite_aux.sgp4(
+#         satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
+#     err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
+#     I.append([T, err])
+
+# with open(filename_out_2, "w") as f:
+#   for i in I:
+#     f.write(str(i[0]) + " " + str(i[1]) + "\n")

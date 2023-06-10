@@ -18,6 +18,20 @@ typedef struct {
 } args_gravField;
 
 // ----------------------------------------------
+// AccelPointEarth
+// ----------------------------------------------
+// Purpose:
+//    Calculate acceleration of the satellite at position r due the gravity exerced by the Earth considered as a point mass
+//
+// Parameters:
+//    r: position vector of the satellite in the inertial reference frame [m]
+//
+// Return value:
+//    acceleration vector in the inertial reference frame [m/s^2]
+// ----------------------------------------------
+Vector AccelPointEarth(const Vector& r);
+
+// ----------------------------------------------
 // AccelPointMass
 // ----------------------------------------------
 // Purpose:
