@@ -33,15 +33,15 @@ all: $(BIN)/$(TARGET)
 
 # We link all the object files together to create the executable
 $(BIN)/$(TARGET): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o $@ $(LIBS)
+	@$(CXX) $(CXXFLAGS) $^ -o $@ $(LIBS)
 
 # We compile the .cpp files
 $(BIN)/%.o: $(SRC)/%.cpp
-	$(CXX) $(CXXFLAGS) -I$(INCLUDE) -c $< -o $@ $(LIBS)
+	@$(CXX) $(CXXFLAGS) -I$(INCLUDE) -c $< -o $@ $(LIBS)
 
 # We compile the .c files
 $(BIN)/%.o: $(SRC)/%.c
-	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@ $(LIBS)
+	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@ $(LIBS)
 
 clean:
-	rm -f $(BIN)/*.o $(BIN)/$(TARGET)
+	@rm -f $(BIN)/*.o $(BIN)/$(TARGET)

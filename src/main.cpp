@@ -14,17 +14,44 @@
 
 int main(int argc, char const *argv[]) {
   // read TLE data from data/tle/stations.txt
-  if (argc != 2) {
-    std::cout << "Usage: ./main <satellite>" << std::endl;
+  if (argc != 7) {
+    std::cout << "Usage: ./main <satellite> <t/f pointEarth> <t/f sun> <t/f moon> <t/f solarRad> <t/f atmoDrag>" << std::endl;
     return 1;
   }
   std::string satellite = argv[1];
+
+  args_gravField args = {8, 8, false, false, false, false, false, 10000., 450000.};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area, mass
+
+  if (argv[2][0] == 't') args.pointEarth = true;
+  if (argv[3][0] == 't') args.sun = true;
+  if (argv[4][0] == 't') args.moon = true;
+  if (argv[5][0] == 't') args.solar_rad = true;
+  if (argv[6][0] == 't') args.atmo_drag = true;
+
+  std::string end_name = "";
+
+  if (args.pointEarth)
+    end_name += "_pointEarth";
+  else
+    end_name += "_sphHarm";
+
+  if (args.sun)
+    end_name += "_sun";
+  if (args.moon)
+    end_name += "_moon";
+  if (args.solar_rad)
+    end_name += "_solarRad";
+  if (args.atmo_drag)
+    end_name += "_atmoDrag";
+
+  end_name += ".txt";
+
   // Read TEME data from file
   // std::string filename_in = "data/teme/" + satellite + "_tles.txt";
   // std::string filename_in = "data/teme/" + satellite + "_1h_interval.txt";
   std::string filename_in = "data/teme/" + satellite + "_1min_interval.txt";
-  std::string filename_out = "data/errors/" + satellite + "_errors.txt";
-  std::string filename_out_orbit = "data/orbit/" + satellite + "_orbit.txt";
+  std::string filename_out = "data/errors/" + satellite + end_name;
+  std::string filename_out_orbit = "data/orbit/" + satellite + end_name;
   std::ifstream file_in(filename_in);
   std::ofstream file_out(filename_out), file_out_orbit(filename_out_orbit);
   if (!file_in.is_open() || !file_out.is_open() || !file_out_orbit.is_open()) {
@@ -32,10 +59,14 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
 
-  int TLEs = 1000;
+  std::cout << "This is a SAAAAAAAAAAAAAAMPLEEEEEEEEEEEEEEE" << std::endl;
+  std::cout.precision(16);
+  std::cout << Sun(53827.) << std::endl;
+
+  int TLEs = 10000;
   std::string line;
   double mjd_utc;
-  double x, y, z, vx, vy, vz;
+  double x, y, z, vx, vy, vz, errTLE;
   std::getline(file_in, line);
   std::istringstream iss(line);
   iss >> mjd_utc >> x >> y >> z >> vx >> vy >> vz;
@@ -45,27 +76,24 @@ int main(int argc, char const *argv[]) {
   Vector r_teme = Vector(x, y, z);
   Vector v_teme = Vector(vx, vy, vz);
   Satellite s = Satellite(mjd_utc, r_teme, v_teme);
-  r_teme.print();
-  v_teme.print();
-  s.r_ECI.print();
-  s.v_ECI.print();
 
-  args_gravField args = {8, 8, s.mjd_TT, true, false, false, false, false, 10000., 450000.};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area, mass
   double tol = 1e-12;
-  double h, T, t0 = s.mjd_TT, error, temp, t1;
+  double h, T, t0 = s.mjd_TT, error, temp, t1, height;
   int maxNumSteps = 1000;
-  int inter_steps = 100;
+  int inter_steps = 1;
+  std::cout << "t0 = " << t0 << std::endl;
   for (int i = 0; i < TLEs; i++) {
     std::getline(file_in, line);
     std::istringstream iss(line);
-    iss >> mjd_utc >> x >> y >> z >> vx >> vy >> vz;
+    iss >> mjd_utc >> x >> y >> z >> vx >> vy >> vz >> errTLE;
     r_teme = Vector(x, y, z);
     v_teme = Vector(vx, vy, vz);
     Satellite t = Satellite(mjd_utc, r_teme, v_teme);
     // set precision
     std::cout.precision(16);
     T = (t.mjd_TT - s.mjd_TT) * 86400;
-    std::cout << "T = " << T << std::endl;
+    // std::cout << "i = " << i << " "
+    //           << "T = " << T << std::endl;
     if (T > 1) {  // t0 and t1 are different
       h = T / inter_steps;
       if (integrateOrbit(s, T, h, tol, maxNumSteps, &args)) {
@@ -73,13 +101,18 @@ int main(int argc, char const *argv[]) {
         return 1;
       }
     }
-    file_out_orbit << s.r_ECI(0) << " " << s.r_ECI(1) << " " << s.r_ECI(2) << " " << s.v_ECI(0) << " " << s.v_ECI(1) << " " << s.v_ECI(2) << " " << s.r_ECI.norm() - R_JGM3 << std::endl;
 
-    error = (s.r_ECI - t.r_ECI).norm();
-    file_out << t.mjd_TT - t0 << " " << error << std::endl;
+    Vector r_ECI = s.r_ECI / 1000;  // km
+    Vector v_ECI = s.v_ECI / 1000;  // km/s
+
+    // height = Height(NutationMatrix(s.mjd_TT) * PrecessionMatrix(s.mjd_TT) * r_ECI);
+    file_out_orbit << r_ECI(0) << " " << r_ECI(1) << " " << r_ECI(2) << " " << v_ECI(0) << " " << v_ECI(1) << " " << v_ECI(2) << " " << r_ECI.norm() - R_Earth / 1000 << std::endl;
+
+    error = (s.r_ECI - t.r_ECI).norm() / 1000;
+    file_out << t.mjd_TT - t0 << " " << error << " " << errTLE << std::endl;
 
     // // plot only error in z
-    // file_out << t1 - t0 << " " << s.r_ECI.norm() - R_JGM3 << std::endl;
+    // file_out << t1 - t0 << " " << s.r_ECI.norm() - R_Earth << std::endl;
   }
   // int LINE = 0;
   // // we are not interested in the first 66 lines

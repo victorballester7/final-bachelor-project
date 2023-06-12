@@ -92,12 +92,12 @@ double EqEquinoxes(double mjd_TT) {
 
 double GMST(double mjd_UT1) {
   // Variables
-  double mjd_UT1_0, UT1, T, gmst;
+  double T, gmst;
   // double T_0;
 
   // Mean Sidereal Time
-  mjd_UT1_0 = floor(mjd_UT1);
-  UT1 = 86400.0 * (mjd_UT1 - mjd_UT1_0);  // seconds in UT1 of that day [s]
+  // mjd_UT1_0 = floor(mjd_UT1);
+  // UT1 = 86400.0 * (mjd_UT1 - mjd_UT1_0);  // seconds in UT1 of that day [s]
   // T_0 = (mjd_UT1_0 - MJD_J2000) / 36525.0;
   T = (mjd_UT1 - MJD_J2000) / 36525.0;
 
@@ -341,6 +341,37 @@ Matrix PolarMotionMatrix(double mjd_TT) {
   return R * S;
 }
 
+double Height(Vector r_PN) {
+  const double eps = 10e-7;  // Convergence criterion
+
+  const double X = r_PN(0);  // Cartesian coordinates
+  const double Y = r_PN(1);
+  const double Z = r_PN(2);
+  const double rho2 = X * X + Y * Y;  // Square of distance from z-axis
+
+  // Iteration for obtaining dZ
+
+  double dZ, dZ_new, sinPhi;
+  double ZdZ, Nh, N;
+
+  dZ = e2 * Z;
+  while (true) {
+    ZdZ = Z + dZ;
+    Nh = sqrt(rho2 + ZdZ * ZdZ);
+    sinPhi = ZdZ / Nh;  // Sine of geodetic latitude
+    N = R_Earth / sqrt(1.0 - e2 * sinPhi * sinPhi);
+    dZ_new = N * e2 * sinPhi;
+    if (fabs(dZ - dZ_new) < eps) break;
+    dZ = dZ_new;
+  }
+
+  // Longitude, latitude, altitude
+  // lon = atan2(Y, X);
+  // lat = atan2(ZdZ, sqrt(rho2));
+  // h = Nh - N;
+  return Nh - N;
+}
+
 Vector Sun(double mjd_tt) {
   // we asume mjd_ut1 = mjd_tt
 
@@ -357,7 +388,16 @@ Vector Sun(double mjd_tt) {
 
   // Ecliptic longitude
   L = lM + (1.914666471 * sin(M) + 0.019994643 * sin(2.0 * M)) * DEG_TO_RAD;  // [rad]
-
+  static int count = 0;
+  if (count == 0) {
+    std::cout << "T: " << T << std::endl;
+    std::cout << "eps: " << eps / DEG_TO_RAD << std::endl;
+    std::cout << "lM: " << fmod(lM, 2 * PI) / DEG_TO_RAD << std::endl;
+    std::cout << "M: " << fmod(M, 2 * PI) / DEG_TO_RAD << std::endl;
+    std::cout << "r: " << r / AU << std::endl;
+    std::cout << "L: " << fmod(L, 2 * PI) / DEG_TO_RAD << std::endl;
+    count++;
+  }
   // Equatorial position vector
   r_Sun = Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0);
 
@@ -391,7 +431,7 @@ Vector Moon(double mjd_TT) {
 
   // Distance [m]
 
-  R = R_JGM3 / sin(P);
+  R = R_Earth / sin(P);
 
   // Equatorial coordinates
 

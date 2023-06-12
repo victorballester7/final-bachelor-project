@@ -1,0 +1,2065 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg:svg
+   version="1.1"
+   width="100%"
+   height="100%"
+   viewBox="-432 -432 864 864"
+   id="svg877"
+   sodipodi:docname="satellite_orbits.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview879"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.77257963"
+     inkscape:cx="247.22371"
+     inkscape:cy="457.55801"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg877" />
+  <script />
+  <svg:title
+     id="title2">Comparison of several satellite navigation system orbits</svg:title>
+  <svg:desc
+     xml:lang="en"
+     id="desc4">Comparison of geostationary, GPS, GLONASS, Galileo and BeiDou (medium earth orbit satellites), International Space Station, Hubble Space Telescope, Iridium Constellation and graveyard orbits with the Van Allen radiation belts and the nominal size of the earth, drawn by CMG Lee. Earth bitmap is https://commons.wikimedia.org/wiki/File:North_pole_february_ice-pack_1978-2002.png by Geo Swan. The Moon's orbit is around 9 times larger (in radius and length) than geostationary orbit. The animation runs at 1 hour per second. In the SVG file, hover over an orbit or its label to highlight it, and click to load its Wikipedia article.</svg:desc>
+  <svg:desc
+     xml:lang="es"
+     id="desc6">Comparación de las órbitas geoestacionaria, GPS, GLONASS, Galileo y BeiDou (satélites de órbita media), Estación Espacial Internacional, Telescopio Espacial Hubble, Constelación Iridium y órbita cementerio con los cinturones de radiación de Van Allen y el tamaño nominal de la tierra, ilustración de CMG Lee. Bitmap de la Tierra https://commons.wikimedia.org/wiki/File:North_pole_february_ice-pack_1978-2002.png by Geo Swan. La órbita de la Luna es cerca de 9 veces más grande (en radio y largo) que la órbita geoestacionaria. Esta animación se mueve a 1 hora por segundo. En el archivo SVG, se puede posicionar el mouse sobre una órbita o su nombre para resaltarla y hacer clic para ir a su respectivo articulo en la Wikipedia.</svg:desc>
+  <svg:desc
+     xml:lang="fr"
+     id="desc8">Comparaison des orbites géostationnaire, GPS, GLONASS, Galileo et BeiDou (satellites d'orbite intermédiare), Station Spatiale Internationale, Hubble, Iridium et orbite de rebut avec les ceintures de radiation de Van Allen et la taille nominale de la Terre, illustration de CMG Lee. Bitmap de la Terre Bitmap de la Tierra https://commons.wikimedia.org/wiki/File:North_pole_february_ice-pack_1978-2002.png par Geo Swan. L'orbite de la Lune est près de 9 fois plus grande que l'orbite géostationnaire. Cette animation progresse à un rythme d'une heure par seconde. Au format SVG, il est possible de positionner son curseur sur une orbite ou son nom pour la mettre en surbrillance, et de la cliquer pour accéder à son article Wikipédia.</svg:desc>
+  <svg:desc
+     id="desc10">Comparison of geostationary, GPS, GLONASS, Galileo and BeiDou (medium earth orbit satellites), International Space Station, Hubble Space Telescope, Iridium Constellation and graveyard orbits with the Van Allen radiation belts and the nominal size of the earth, drawn by CMG Lee. Earth bitmap is https://commons.wikimedia.org/wiki/File:North_pole_february_ice-pack_1978-2002.png by Geo Swan. The Moon's orbit is around 9 times larger (in radius and length) than geostationary orbit. The animation runs at 1 hour per second. In the SVG file, hover over an orbit or its label to highlight it, and click to load its Wikipedia article.</svg:desc>
+  <svg:style
+     type="text/css"
+     id="style12">
+.main { font-family:Helvetica,Arial,sans-serif; font-size:40px; text-anchor:end;
+        fill:none; stroke-opacity:0.75; stroke-width:2; stroke-linecap:round; cursor:default; }
+.main:hover   { fill-opacity:0.2; stroke-opacity:0.2; }
+.active:hover { fill-opacity:1;   stroke-opacity:1; stroke-width:3; }
+.nofade       { fill-opacity:1;   stroke-opacity:1; pointer-events:none; }
+.vab  { font-style:italic; font-weight:bold; font-size:24px; text-anchor:middle; stroke:none; }
+.rule { fill:none; stroke-width:1; }
+path, ellipse { pointer-events:none; }
+text { stroke:none; }
+a    { outline:none; }
+@keyframes         rot { from { transform:         rotate(360deg); }
+                         to   { transform:         rotate(0deg);   } }
+@-moz-keyframes    rot { from { -moz-transform:    rotate(360deg); }
+                         to   { -moz-transform:    rotate(0deg);   } }
+@-webkit-keyframes rot { from { -webkit-transform: rotate(360deg); }
+                         to   { -webkit-transform: rotate(0deg);   } }
+.rot_sun { animation:         rot 8766s  linear infinite;
+           -moz-animation:    rot 8766s  linear infinite;
+           -webkit-animation: rot 8766s  linear infinite; }
+.rot_gra { animation:         rot 24.19s linear infinite;
+           -moz-animation:    rot 24.19s linear infinite;
+           -webkit-animation: rot 24.19s linear infinite; }
+.rot_geo { animation:         rot 23.93s linear infinite;
+           -moz-animation:    rot 23.93s linear infinite;
+           -webkit-animation: rot 23.93s linear infinite; }
+.rot_gal { animation:         rot 14.37s linear infinite;
+           -moz-animation:    rot 14.37s linear infinite;
+           -webkit-animation: rot 14.37s linear infinite; }
+.rot_com { animation:         rot 12.62s linear infinite;
+           -moz-animation:    rot 12.62s linear infinite;
+           -webkit-animation: rot 12.62s linear infinite; }
+.rot_gps { animation:         rot 11.97s linear infinite;
+           -moz-animation:    rot 11.97s linear infinite;
+           -webkit-animation: rot 11.97s linear infinite; }
+.rot_glo { animation:         rot 11.25s linear infinite;
+           -moz-animation:    rot 11.25s linear infinite;
+           -webkit-animation: rot 11.25s linear infinite; }
+.rot_iri { animation:         rot  1.7s  linear infinite;
+           -moz-animation:    rot  1.7s  linear infinite;
+           -webkit-animation: rot  1.7s  linear infinite; }
+.rot_hub { animation:         rot  1.6s  linear infinite;
+           -moz-animation:    rot  1.6s  linear infinite;
+           -webkit-animation: rot  1.6s  linear infinite; }
+.rot_iss { animation:         rot  1.5s  linear infinite;
+           -moz-animation:    rot  1.5s  linear infinite;
+           -webkit-animation: rot  1.5s  linear infinite; }
+.rot_min { animation:         rot  1s    linear infinite;
+           -moz-animation:    rot  1s    linear infinite;
+           -webkit-animation: rot  1s    linear infinite; }
+.rot_hr  { animation:         rot  12s   linear infinite;
+           -moz-animation:    rot  12s   linear infinite;
+           -webkit-animation: rot  12s   linear infinite; }
+ </svg:style>
+  <svg:defs
+     id="defs48">
+    <svg:radialGradient
+       id="gradient_shade"
+       cx="0"
+       cy="0"
+       r="86.135201"
+       fx="-21.855198"
+       fy="-21.855198"
+       gradientUnits="userSpaceOnUse">
+      <svg:stop
+         offset="10%"
+         stop-color="#000000"
+         stop-opacity="0"
+         id="stop14" />
+      <svg:stop
+         offset="99%"
+         stop-color="#000000"
+         stop-opacity="0.75"
+         id="stop16" />
+    </svg:radialGradient>
+    <svg:radialGradient
+       id="gradient_vab"
+       cx="0"
+       cy="0"
+       r="1000"
+       fx="0"
+       fy="0"
+       gradientUnits="userSpaceOnUse">
+      <svg:stop
+         offset="7.4%"
+         stop-color="#ff9900"
+         stop-opacity="0"
+         id="stop19" />
+      <svg:stop
+         offset="9.4%"
+         stop-color="#ff9900"
+         stop-opacity="0.3"
+         id="stop21" />
+      <svg:stop
+         offset="10.4%"
+         stop-color="#ff9900"
+         stop-opacity="0.3"
+         id="stop23" />
+      <svg:stop
+         offset="12.4%"
+         stop-color="#ff9900"
+         stop-opacity="0"
+         id="stop25" />
+      <svg:stop
+         offset="19.4%"
+         stop-color="#9999ff"
+         stop-opacity="0"
+         id="stop27" />
+      <svg:stop
+         offset="21.4%"
+         stop-color="#9999ff"
+         stop-opacity="0.2"
+         id="stop29" />
+      <svg:stop
+         offset="66.4%"
+         stop-color="#9999ff"
+         stop-opacity="0"
+         id="stop31" />
+    </svg:radialGradient>
+    <svg:path
+       id="km"
+       class="rule"
+       d="M 10,0 V -10 M 20,0 V -10 M 30,0 V -10 M 40,0 V -10 M 50,0 V -20 M 60,0 V -10 M 70,0 V -10 M 80,0 V -10 M 90,0 V -10 M 100,0 V -30" />
+    <svg:path
+       id="mi"
+       class="rule"
+       d="M 16.1,0 V 10 M 32.2,0 V 10 M 48.3,0 V 10 M 64.4,0 V 10 M 80.5,0 V 20 M 96.6,0 V 10 M 112.7,0 V 10 M 128.8,0 V 10 M 144.9,0 V 10 M 161,0 V 30" />
+    <svg:circle
+       id="satellite"
+       cx="0"
+       cy="0"
+       r="3" />
+    <svg:path
+       id="tick"
+       d="M 0,-50 V -60" />
+    <svg:g
+       id="tick_3"
+       stroke="#cccccc">
+      <svg:use
+         xlink:href="#tick"
+         stroke="#999999"
+         id="use38" />
+      <svg:use
+         xlink:href="#tick"
+         transform="rotate(30)"
+         id="use40" />
+      <svg:use
+         xlink:href="#tick"
+         transform="rotate(60)"
+         id="use42" />
+    </svg:g>
+    <svg:clipPath
+       id="clip_earth">
+      <svg:ellipse
+         cx="0"
+         cy="0"
+         rx="100"
+         ry="100"
+         id="ellipse45" />
+    </svg:clipPath>
+  </svg:defs>
+  <svg:circle
+     cx="0"
+     cy="0"
+     r="99999"
+     fill="#ffffff"
+     fill-opacity="1"
+     id="circle50"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:g
+     id="vab"
+     class="active vab"
+     style="font-family:Helvetica, Arial, sans-serif;fill:none;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="url(#gradient_vab)"
+       id="ellipse52"
+       style="fill:url(#gradient_vab)"
+       r="1000" />
+    <svg:switch
+       id="switch126">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Van_Allen_radiation_belt"
+         id="a70">
+        <svg:switch
+           id="switch60">
+          <svg:text
+             x="-6"
+             y="-109"
+             fill="#cc6600"
+             id="trsvg122-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg1-ko">밴앨런대</svg:tspan><svg:tspan
+               x="-6"
+               y="-86"
+               id="trsvg2-ko">내층</svg:tspan></svg:text>
+          <svg:text
+             x="-6"
+             y="-109"
+             fill="#cc6600"
+             id="trsvg122"><svg:tspan
+               id="trsvg1">Inner   Van</svg:tspan><svg:tspan
+               x="-6"
+               y="-86"
+               id="trsvg2">Allen   belt</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch68">
+          <svg:text
+             x="80"
+             y="358"
+             fill="#9999cc"
+             id="trsvg123-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg3-ko">밴앨런대</svg:tspan><svg:tspan
+               x="80"
+               y="380"
+               id="trsvg4-ko">외층</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="358"
+             fill="#9999cc"
+             id="trsvg123"><svg:tspan
+               id="trsvg3">Outer Van</svg:tspan><svg:tspan
+               x="80"
+               y="380"
+               id="trsvg4">Allen belt</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/Cinturones_de_Van_Allen"
+         id="a88">
+        <svg:switch
+           id="switch78">
+          <svg:text
+             x="-6"
+             y="-117"
+             fill="#cc6600"
+             id="trsvg124-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg5-ko">밴앨런대</svg:tspan><svg:tspan
+               x="10"
+               y="-94"
+               id="trsvg6-ko">내층</svg:tspan></svg:text>
+          <svg:text
+             x="-6"
+             y="-117"
+             fill="#cc6600"
+             id="trsvg124"><svg:tspan
+               id="trsvg5">Cinturón   de Van</svg:tspan><svg:tspan
+               x="10"
+               y="-94"
+               id="trsvg6">Allen   interior</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch86">
+          <svg:text
+             x="100"
+             y="358"
+             fill="#9999cc"
+             id="trsvg125-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg7-ko">밴앨런대</svg:tspan><svg:tspan
+               x="100"
+               y="380"
+               id="trsvg8-ko">외층</svg:tspan></svg:text>
+          <svg:text
+             x="100"
+             y="358"
+             fill="#9999cc"
+             id="trsvg125"><svg:tspan
+               id="trsvg7">Cinturón de Van</svg:tspan><svg:tspan
+               x="100"
+               y="380"
+               id="trsvg8">Allen exterior</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Ceinture_de Van_Allen"
+         id="a106">
+        <svg:switch
+           id="switch96">
+          <svg:text
+             x="-6"
+             y="-117"
+             fill="#cc6600"
+             id="trsvg126-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg9-ko">밴앨런대</svg:tspan><svg:tspan
+               x="10"
+               y="-94"
+               id="trsvg10-ko">내층</svg:tspan></svg:text>
+          <svg:text
+             x="-6"
+             y="-117"
+             fill="#cc6600"
+             id="trsvg126"><svg:tspan
+               id="trsvg9">Ceinture de Van</svg:tspan><svg:tspan
+               x="10"
+               y="-94"
+               id="trsvg10">Allen intérieure</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch104">
+          <svg:text
+             x="100"
+             y="358"
+             fill="#9999cc"
+             id="trsvg127-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg11-ko">밴앨런대</svg:tspan><svg:tspan
+               x="100"
+               y="380"
+               id="trsvg12-ko">외층</svg:tspan></svg:text>
+          <svg:text
+             x="100"
+             y="358"
+             fill="#9999cc"
+             id="trsvg127"><svg:tspan
+               id="trsvg11">Ceinture de Van</svg:tspan><svg:tspan
+               x="100"
+               y="380"
+               id="trsvg12">Allen extérieure</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Van_Allen_radiation_belt"
+         id="a124">
+        <svg:switch
+           id="switch114">
+          <svg:text
+             x="-6"
+             y="-109"
+             fill="#cc6600"
+             id="trsvg128-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg13-ko">밴앨런대</svg:tspan><svg:tspan
+               x="-6"
+               y="-86"
+               id="trsvg14-ko">내층</svg:tspan></svg:text>
+          <svg:text
+             x="-6"
+             y="-109"
+             fill="#cc6600"
+             id="trsvg128"><svg:tspan
+               id="trsvg13">Inner   Van</svg:tspan><svg:tspan
+               x="-6"
+               y="-86"
+               id="trsvg14">Allen   belt</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch122">
+          <svg:text
+             x="80"
+             y="358"
+             fill="#9999cc"
+             id="trsvg129-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg15-ko">밴앨런대</svg:tspan><svg:tspan
+               x="80"
+               y="380"
+               id="trsvg16-ko">외층</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="358"
+             fill="#9999cc"
+             id="trsvg129"><svg:tspan
+               id="trsvg15">Outer Van</svg:tspan><svg:tspan
+               x="80"
+               y="380"
+               id="trsvg16">Allen belt</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="grave"
+     class="active"
+     stroke="#cc9999"
+     fill="#cc9999"
+     text-anchor="end"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-425 H 140"
+       id="path129" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse131"
+       r="425" />
+    <svg:g
+       class="rot_gra"
+       id="g135"
+       style="-moz-animation:rot 24.19s linear infinite;-webkit-animation:rot 24.19s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-425)"
+         id="use133" />
+    </svg:g>
+    <svg:switch
+       id="switch177">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Graveyard_orbit"
+         id="a145">
+        <svg:switch
+           id="switch143">
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg130-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg17-ko">묘지 궤도</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg18-ko">(정지위성궤도+300 km)</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg130"><svg:tspan
+               id="trsvg17">Graveyard orbit</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg18">(GEO+300 km)</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/%C3%93rbita_cementerio"
+         id="a155">
+        <svg:switch
+           id="switch153">
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg131-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg19-ko">Órbita cementerio</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg20-ko">(정지위성궤도+300 km)</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg131"><svg:tspan
+               id="trsvg19">Órbita cementerio</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg20">(GEO+300 km)</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Orbite_de_rebut"
+         id="a165">
+        <svg:switch
+           id="switch163">
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg132-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg21-ko">Orbite de rebut</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg22-ko">(정지위성궤도+300 km)</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg132"><svg:tspan
+               id="trsvg21">Orbite de rebut</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg22">(GEO+300 km)</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Graveyard_orbit"
+         id="a175">
+        <svg:switch
+           id="switch173">
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg133-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg23-ko">묘지 궤도</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg24-ko">(정지위성궤도+300 km)</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-400"
+             id="trsvg133"><svg:tspan
+               id="trsvg23">Graveyard orbit</svg:tspan><svg:tspan
+               x="430"
+               y="-366"
+               font-size="28px"
+               id="trsvg24">(GEO+300 km)</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="geo"
+     class="active"
+     stroke="#666666"
+     fill="#666666"
+     text-anchor="start"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-422 H -170"
+       id="path180" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse182"
+       r="422" />
+    <svg:g
+       class="rot_geo"
+       id="g188"
+       style="-moz-animation:rot 23.93s linear infinite;-webkit-animation:rot 23.93s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-422)"
+         id="use184" />
+      <svg:path
+         d="M 0,0 V -422"
+         stroke-dasharray="1, 4"
+         id="path186" />
+    </svg:g>
+    <svg:switch
+       id="switch230">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Geostationary_orbit"
+         id="a198">
+        <svg:switch
+           id="switch196">
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg134-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg25-ko">정지위성궤도</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg26-ko" /></svg:text>
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg134"><svg:tspan
+               id="trsvg25">Geostationary</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg26">Earth orbit</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/%C3%93rbita_geoestacionaria"
+         id="a208">
+        <svg:switch
+           id="switch206">
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg135-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg27-ko">정지위성궤도</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg28-ko" /></svg:text>
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg135"><svg:tspan
+               id="trsvg27">Órbita Geo-</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg28">estacionaria</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Orbite_g%C3%A9ostationnaire"
+         id="a218">
+        <svg:switch
+           id="switch216">
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg136-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg29-ko">정지위성궤도</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg30-ko" /></svg:text>
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg136"><svg:tspan
+               id="trsvg29">Orbite géo-</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg30">stationnaire</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Geostationary_orbit"
+         id="a228">
+        <svg:switch
+           id="switch226">
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg137-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg31-ko">정지위성궤도</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg32-ko" /></svg:text>
+          <svg:text
+             x="-425"
+             y="-400"
+             id="trsvg137"><svg:tspan
+               id="trsvg31">Geostationary</svg:tspan><svg:tspan
+               x="-425"
+               y="-365"
+               id="trsvg32">Earth orbit</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="galileo"
+     class="active"
+     stroke="#009999"
+     fill="#009999"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-296 H -145"
+       id="path233" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse235"
+       r="296" />
+    <svg:g
+       class="rot_gal"
+       id="g239"
+       style="-moz-animation:rot 14.37s linear infinite;-webkit-animation:rot 14.37s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-296)"
+         id="use237" />
+    </svg:g>
+    <svg:switch
+       id="switch273">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Galileo_(satellite_navigation)"
+         id="a247">
+        <svg:switch
+           id="switch245">
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg138-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg33-ko">갈릴레오</svg:tspan></svg:text>
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg138"><svg:tspan
+               id="trsvg33">Galileo</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/Galileo_(navegaci%C3%B3n_por_sat%C3%A9lite)"
+         id="a255">
+        <svg:switch
+           id="switch253">
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg139-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg34-ko">갈릴레오</svg:tspan></svg:text>
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg139"><svg:tspan
+               id="trsvg34">Galileo</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Galileo_(syst%C3%A8me_de_positionnement)"
+         id="a263">
+        <svg:switch
+           id="switch261">
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg140-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg35-ko">갈릴레오</svg:tspan></svg:text>
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg140"><svg:tspan
+               id="trsvg35">Galileo</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Galileo_(satellite_navigation)"
+         id="a271">
+        <svg:switch
+           id="switch269">
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg141-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg36-ko">갈릴레오</svg:tspan></svg:text>
+          <svg:text
+             x="-145"
+             y="-296"
+             id="trsvg141"><svg:tspan
+               id="trsvg36">Galileo</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="beidou"
+     class="active"
+     stroke="#cc9900"
+     fill="#cc9900"
+     text-anchor="end"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-276 H 230"
+       id="path276" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse278"
+       r="276" />
+    <svg:g
+       class="rot_com"
+       id="g282"
+       style="-moz-animation:rot 12.62s linear infinite;-webkit-animation:rot 12.62s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-276)"
+         id="use280" />
+    </svg:g>
+    <svg:switch
+       id="switch324">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/BeiDou"
+         id="a292">
+        <svg:switch
+           id="switch290">
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg142-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg37-ko">베이더우</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg38-ko">중궤도 위성</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg142"><svg:tspan
+               id="trsvg37">BeiDou</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg38">MEO satellites</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/Beidou"
+         id="a302">
+        <svg:switch
+           id="switch300">
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg143-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg39-ko">베이더우</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg40-ko">중궤도 위성</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg143"><svg:tspan
+               id="trsvg39">BeiDou</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg40">Satélites MEO</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Beidou"
+         id="a312">
+        <svg:switch
+           id="switch310">
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg144-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg41-ko">베이더우</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg42-ko">중궤도 위성</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg144"><svg:tspan
+               id="trsvg41">BeiDou</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg42">Satellites MEO</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/BeiDou"
+         id="a322">
+        <svg:switch
+           id="switch320">
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg145-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg43-ko">베이더우</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg44-ko">중궤도 위성</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-295"
+             id="trsvg145"><svg:tspan
+               id="trsvg43">BeiDou</svg:tspan><svg:tspan
+               x="430"
+               y="-270"
+               font-size="28px"
+               id="trsvg44">MEO satellites</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="gps"
+     class="active"
+     stroke="#0000ff"
+     fill="#0000ff"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-266 H -145"
+       id="path327" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse329"
+       r="266" />
+    <svg:g
+       class="rot_gps"
+       id="g333"
+       style="-moz-animation:rot 11.97s linear infinite;-webkit-animation:rot 11.97s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-266)"
+         id="use331" />
+    </svg:g>
+    <svg:switch
+       id="switch359">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Global_Positioning_System"
+         id="a339">
+        <svg:switch
+           id="switch337">
+          <svg:text
+             x="-145"
+             y="-261"
+             id="trsvg146"><svg:tspan
+               id="trsvg45">GPS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/GPS"
+         id="a345">
+        <svg:switch
+           id="switch343">
+          <svg:text
+             x="-145"
+             y="-261"
+             id="trsvg147"><svg:tspan
+               id="trsvg46">GPS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/GPS_(assistant_de_navigation)"
+         id="a351">
+        <svg:switch
+           id="switch349">
+          <svg:text
+             x="-145"
+             y="-261"
+             id="trsvg148"><svg:tspan
+               id="trsvg47">GPS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Global_Positioning_System"
+         id="a357">
+        <svg:switch
+           id="switch355">
+          <svg:text
+             x="-145"
+             y="-261"
+             id="trsvg149"><svg:tspan
+               id="trsvg48">GPS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="glonass"
+     class="active"
+     stroke="#ff0000"
+     fill="#ff0000"
+     text-anchor="end"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-255 H 230"
+       id="path362" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse364"
+       r="255" />
+    <svg:g
+       class="rot_glo"
+       id="g368"
+       style="-moz-animation:rot 11.25s linear infinite;-webkit-animation:rot 11.25s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-255)"
+         id="use366" />
+    </svg:g>
+    <svg:switch
+       id="switch402">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/GLONASS"
+         id="a376">
+        <svg:switch
+           id="switch374">
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg150-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg49-ko">글로나스</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg150"><svg:tspan
+               id="trsvg49">GLONASS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/GLONASS"
+         id="a384">
+        <svg:switch
+           id="switch382">
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg151-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg50-ko">글로나스</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg151"><svg:tspan
+               id="trsvg50">GLONASS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/GLONASS"
+         id="a392">
+        <svg:switch
+           id="switch390">
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg152-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg51-ko">글로나스</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg152"><svg:tspan
+               id="trsvg51">GLONASS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/GLONASS"
+         id="a400">
+        <svg:switch
+           id="switch398">
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg153-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg52-ko">글로나스</svg:tspan></svg:text>
+          <svg:text
+             x="430"
+             y="-228"
+             id="trsvg153"><svg:tspan
+               id="trsvg52">GLONASS</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:g
+     id="iridium"
+     class="active"
+     stroke="#660099"
+     fill="#660099"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-71.8 H -80"
+       id="path405" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse407"
+       r="71.800003" />
+    <svg:g
+       class="rot_iri"
+       id="g411"
+       style="-moz-animation:rot 1.7s linear infinite;-webkit-animation:rot 1.7s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-71.8)"
+         id="use409" />
+    </svg:g>
+    <svg:switch
+       id="switch445">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Iridium_satellite_constellation"
+         id="a419">
+        <svg:switch
+           id="switch417">
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg154-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg53-ko">이리듐</svg:tspan></svg:text>
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg154"><svg:tspan
+               id="trsvg53">Iridium</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/Iridium"
+         id="a427">
+        <svg:switch
+           id="switch425">
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg155-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg54-ko">이리듐</svg:tspan></svg:text>
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg155"><svg:tspan
+               id="trsvg54">Iridium</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Iridium_(t%C3%A9l%C3%A9phonie_par_satellite)"
+         id="a435">
+        <svg:switch
+           id="switch433">
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg156-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg55-ko">이리듐</svg:tspan></svg:text>
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg156"><svg:tspan
+               id="trsvg55">Iridium</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Iridium_satellite_constellation"
+         id="a443">
+        <svg:switch
+           id="switch441">
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg157-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg56-ko">이리듐</svg:tspan></svg:text>
+          <svg:text
+             x="-80"
+             y="-71.800003"
+             id="trsvg157"><svg:tspan
+               id="trsvg56">Iridium</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:path
+     d="M -81.779752,67.5 H -1.779756"
+     id="path448"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#ff00cc;stroke:#ff00cc;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:circle
+     cx="0"
+     cy="0"
+     fill="none"
+     id="ellipse450"
+     r="67.5"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;stroke:#ff00cc;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:g
+     class="rot_iss"
+     id="g454"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#ff00cc;stroke:#ff00cc;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75;-moz-animation:rot 1.5s linear infinite;-webkit-animation:rot 1.5s linear infinite">
+    <svg:use
+       xlink:href="#satellite"
+       transform="translate(0,67.5)"
+       id="use452" />
+  </svg:g>
+  <svg:switch
+     id="switch488"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#ff00cc;stroke:#ff00cc;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75"
+     transform="translate(-226)">
+    <svg:a
+       systemLanguage="en"
+       target="info"
+       xlink:href="https://en.wikipedia.org/wiki/International_Space_Station"
+       id="a462">
+      <svg:switch
+         id="switch460">
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg158-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg57-ko">국제우주정거장</svg:tspan></svg:text>
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg158"><svg:tspan
+             id="trsvg57">ISS</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:a>
+    <svg:a
+       systemLanguage="es"
+       target="info"
+       xlink:href="https://es.wikipedia.org/wiki/Estaci%C3%B3n_Espacial_Internacional"
+       id="a470">
+      <svg:switch
+         id="switch468">
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg159-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg58-ko">국제우주정거장</svg:tspan></svg:text>
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg159"><svg:tspan
+             id="trsvg58">ISS</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:a>
+    <svg:a
+       systemLanguage="fr"
+       target="info"
+       xlink:href="https://fr.wikipedia.org/wiki/Station_spatiale_internationale"
+       id="a478">
+      <svg:switch
+         id="switch476">
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg160-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg59-ko">국제우주정거장</svg:tspan></svg:text>
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg160"><svg:tspan
+             id="trsvg59">ISS</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:a>
+    <svg:a
+       target="info"
+       xlink:href="https://en.wikipedia.org/wiki/International_Space_Station"
+       id="a486">
+      <svg:switch
+         id="switch484">
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg161-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg60-ko">국제우주정거장</svg:tspan></svg:text>
+        <svg:text
+           x="80"
+           y="67.5"
+           id="trsvg161"><svg:tspan
+             id="trsvg60">ISS</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:a>
+  </svg:switch>
+  <svg:g
+     id="hst"
+     class="active"
+     stroke="#00cc00"
+     fill="#00cc00"
+     text-anchor="start"
+     style="font-size:40px;font-family:Helvetica, Arial, sans-serif;stroke-width:2;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       d="M 0,-69.4 H 80"
+       id="path491" />
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="none"
+       id="ellipse493"
+       r="69.400002" />
+    <svg:g
+       class="rot_hub"
+       id="g497"
+       style="-moz-animation:rot 1.6s linear infinite;-webkit-animation:rot 1.6s linear infinite">
+      <svg:use
+         xlink:href="#satellite"
+         transform="translate(0,-69.4)"
+         id="use495" />
+    </svg:g>
+    <svg:switch
+       id="switch531">
+      <svg:a
+         systemLanguage="en"
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Hubble_Space_Telescope"
+         id="a505">
+        <svg:switch
+           id="switch503">
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg162-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg61-ko">허블</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg162"><svg:tspan
+               id="trsvg61">Hubble</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="es"
+         target="info"
+         xlink:href="https://es.wikipedia.org/wiki/Telescopio_espacial_Hubble"
+         id="a513">
+        <svg:switch
+           id="switch511">
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg163-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg62-ko">허블</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg163"><svg:tspan
+               id="trsvg62">Hubble</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         systemLanguage="fr"
+         target="info"
+         xlink:href="https://fr.wikipedia.org/wiki/Hubble_(t%C3%A9lescope_spatial)"
+         id="a521">
+        <svg:switch
+           id="switch519">
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg164-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg63-ko">허블</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg164"><svg:tspan
+               id="trsvg63">Hubble</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+      <svg:a
+         target="info"
+         xlink:href="https://en.wikipedia.org/wiki/Hubble_Space_Telescope"
+         id="a529">
+        <svg:switch
+           id="switch527">
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg165-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg64-ko">허블</svg:tspan></svg:text>
+          <svg:text
+             x="80"
+             y="-69.400002"
+             id="trsvg165"><svg:tspan
+               id="trsvg64">Hubble</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:a>
+    </svg:switch>
+  </svg:g>
+  <svg:path
+     class="rule"
+     d="M 64,0 H 547"
+     id="path595"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;stroke:#000000;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:use
+     xlink:href="#km"
+     id="use597"
+     transform="translate(64)"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:use
+     xlink:href="#km"
+     transform="translate(164)"
+     id="use599"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:use
+     xlink:href="#km"
+     transform="translate(264)"
+     id="use601"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:use
+     xlink:href="#km"
+     transform="translate(364)"
+     id="use603"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75" />
+  <svg:switch
+     id="switch613"
+     transform="translate(64)"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="100"
+       y="-35"
+       id="trsvg176"><svg:tspan
+         id="trsvg79">10000</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch617"
+     transform="translate(64)"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="190"
+       y="-35"
+       id="trsvg177"><svg:tspan
+         id="trsvg80">20000</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch621"
+     transform="translate(64)"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="300"
+       y="-35"
+       id="trsvg178"><svg:tspan
+         id="trsvg81">30000 km</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch645"
+     transform="translate(64)"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       systemLanguage="en"
+       x="345"
+       y="-90"
+       font-weight="bold"
+       text-anchor="end"
+       id="trsvg181"><svg:tspan
+         id="trsvg84">Height above</svg:tspan><svg:tspan
+         x="345"
+         y="-70"
+         id="trsvg85">sea level</svg:tspan></svg:text>
+    <svg:text
+       systemLanguage="es"
+       x="345"
+       y="-95"
+       font-weight="bold"
+       text-anchor="end"
+       id="trsvg182"><svg:tspan
+         id="trsvg86">Altura sobre el</svg:tspan><svg:tspan
+         x="345"
+         y="-70"
+         id="trsvg87">nivel del mar</svg:tspan></svg:text>
+    <svg:text
+       systemLanguage="fr"
+       x="345"
+       y="-70"
+       font-weight="bold"
+       text-anchor="end"
+       id="trsvg183"><svg:tspan
+         id="trsvg88">Altitude</svg:tspan></svg:text>
+    <svg:text
+       x="345"
+       y="-90"
+       font-weight="bold"
+       text-anchor="end"
+       id="trsvg184-ko"
+       systemLanguage="ko"><svg:tspan
+         id="trsvg89-ko">해발</svg:tspan><svg:tspan
+         x="345"
+         y="-70"
+         id="trsvg90-ko">고도</svg:tspan></svg:text>
+    <svg:text
+       x="345"
+       y="-90"
+       font-weight="bold"
+       text-anchor="end"
+       id="trsvg184"><svg:tspan
+         id="trsvg89">Height above</svg:tspan><svg:tspan
+         x="345"
+         y="-70"
+         id="trsvg90">sea level</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:g
+     class="active"
+     text-anchor="start"
+     id="g783"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:path
+       class="rule"
+       d="M 0,0 V -432 M 0,-51 H 10 M 0,-81 H 10 M 0,-106 H 10 M 0,-128 H 10 M 0,-149 H 20 M 0,-168 H 10 M 0,-186 H 10 M 0,-203 H 10 M 0,-220 H 10 M 0,-236 H 30 M 0,-251 H 10 M 0,-266 H 10 M 0,-281 H 10 M 0,-295 H 10 M 0,-309 H 20 M 0,-322 H 10 M 0,-336 H 10 M 0,-349 H 10 M 0,-362 H 10 M 0,-374 H 30 M 0,-387 H 10 M 0,-399 H 10 M 0,-411 H 10 M 0,-423 h 10"
+       id="path651" />
+    <svg:switch
+       id="switch781">
+      <svg:g
+         systemLanguage="en"
+         id="g683">
+        <svg:switch
+           id="switch657">
+          <svg:text
+             x="-15"
+             y="-350"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg185-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg91-ko">궤도 주기</svg:tspan></svg:text>
+          <svg:text
+             x="-15"
+             y="-350"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg185"><svg:tspan
+               id="trsvg91">Orbital period</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch663">
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg186-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg92-ko">5시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg186"><svg:tspan
+               id="trsvg92">5 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch669">
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg187-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg93-ko">10시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg187"><svg:tspan
+               id="trsvg93">10 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch675">
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg188-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg94-ko">15시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg188"><svg:tspan
+               id="trsvg94">15 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch681">
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg189-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg95-ko">20시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg189"><svg:tspan
+               id="trsvg95">20 hours</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:g>
+      <svg:g
+         systemLanguage="es"
+         id="g715">
+        <svg:switch
+           id="switch689">
+          <svg:text
+             x="-15"
+             y="-340"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg190-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg96-ko">궤도 주기</svg:tspan></svg:text>
+          <svg:text
+             x="-15"
+             y="-340"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg190"><svg:tspan
+               id="trsvg96">Periodo orbital</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch695">
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg191-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg97-ko">5시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg191"><svg:tspan
+               id="trsvg97">5 horas</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch701">
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg192-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg98-ko">10시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg192"><svg:tspan
+               id="trsvg98">10 horas</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch707">
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg193-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg99-ko">15시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg193"><svg:tspan
+               id="trsvg99">15 horas</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch713">
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg194-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg100-ko">20시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg194"><svg:tspan
+               id="trsvg100">20 horas</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:g>
+      <svg:g
+         systemLanguage="fr"
+         id="g747">
+        <svg:switch
+           id="switch721">
+          <svg:text
+             x="-15"
+             y="-340"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg195-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg101-ko">궤도 주기</svg:tspan></svg:text>
+          <svg:text
+             x="-15"
+             y="-340"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg195"><svg:tspan
+               id="trsvg101">Période orbitale</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch727">
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg196-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg102-ko">5시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg196"><svg:tspan
+               id="trsvg102">5 heures</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch733">
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg197-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg103-ko">10시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg197"><svg:tspan
+               id="trsvg103">10 heures</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch739">
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg198-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg104-ko">15시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg198"><svg:tspan
+               id="trsvg104">15 heures</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch745">
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg199-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg105-ko">20시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg199"><svg:tspan
+               id="trsvg105">20 heures</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:g>
+      <svg:g
+         id="g779">
+        <svg:switch
+           id="switch753">
+          <svg:text
+             x="-15"
+             y="-350"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg200-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg106-ko">궤도 주기</svg:tspan></svg:text>
+          <svg:text
+             x="-15"
+             y="-350"
+             font-weight="bold"
+             text-anchor="end"
+             id="trsvg200"><svg:tspan
+               id="trsvg106">Orbital period</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch759">
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg201-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg107-ko">5시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-139"
+             id="trsvg201"><svg:tspan
+               id="trsvg107">5 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch765">
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg202-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg108-ko">10시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-221"
+             id="trsvg202"><svg:tspan
+               id="trsvg108">10 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch771">
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg203-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg109-ko">15시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-299"
+             id="trsvg203"><svg:tspan
+               id="trsvg109">15 hours</svg:tspan></svg:text>
+        </svg:switch>
+        <svg:switch
+           id="switch777">
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg204-ko"
+             systemLanguage="ko"><svg:tspan
+               id="trsvg110-ko">20시간</svg:tspan></svg:text>
+          <svg:text
+             x="30"
+             y="-364"
+             id="trsvg204"><svg:tspan
+               id="trsvg110">20 hours</svg:tspan></svg:text>
+        </svg:switch>
+      </svg:g>
+    </svg:switch>
+  </svg:g>
+  <svg:path
+     class="rule"
+     d="M 0,0 V 432 M 0,66 H 10 M 0,71 H 10 M 0,77 H 10 M 0,83 H 20 M 0,90 H 10 M 0,98 H 10 M 0,107 H 10 M 0,117 H 10 M 0,129 H 30 M 0,143 H 10 M 0,160 H 10 M 0,179 H 10 M 0,202 H 10 M 0,230 H 20 M 0,264 H 10 M 0,306 H 10 M 0,359 H 10 M 0,427 h 10"
+     id="path785"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;stroke:#000000;stroke-linecap:round;stroke-opacity:0.75"
+     sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccc" />
+  <svg:switch
+     id="switch789"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="30"
+       y="93"
+       id="trsvg205"><svg:tspan
+         id="trsvg111">25000 km/h</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch793"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="30"
+       y="139"
+       id="trsvg206"><svg:tspan
+         id="trsvg112">20000 km/h</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch797"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="30"
+       y="235"
+       id="trsvg207"><svg:tspan
+         id="trsvg113">15000 km/h</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch801"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:text
+       x="15"
+       y="429"
+       id="trsvg208"><svg:tspan
+         id="trsvg114">11000 km/h</svg:tspan></svg:text>
+  </svg:switch>
+  <svg:switch
+     id="switch847"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:start;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-opacity:0.75">
+    <svg:g
+       systemLanguage="en"
+       id="g821">
+      <svg:switch
+         id="switch819">
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg212-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg118-ko">공전 속도</svg:tspan></svg:text>
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg212"><svg:tspan
+             id="trsvg118">Orbital speed</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:g>
+    <svg:g
+       systemLanguage="es"
+       id="g829">
+      <svg:switch
+         id="switch827">
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg213-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg119-ko">공전 속도</svg:tspan></svg:text>
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg213"><svg:tspan
+             id="trsvg119">Velocidad orbital</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:g>
+    <svg:g
+       systemLanguage="fr"
+       id="g837">
+      <svg:switch
+         id="switch835">
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg214-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg120-ko">공전 속도</svg:tspan></svg:text>
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg214"><svg:tspan
+             id="trsvg120">Vitesse orbitale</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:g>
+    <svg:g
+       id="g845">
+      <svg:switch
+         id="switch843">
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg215-ko"
+           systemLanguage="ko"><svg:tspan
+             id="trsvg121-ko">공전 속도</svg:tspan></svg:text>
+        <svg:text
+           x="-15"
+           y="350"
+           font-weight="bold"
+           text-anchor="end"
+           id="trsvg215"><svg:tspan
+             id="trsvg121">Orbital speed</svg:tspan></svg:text>
+      </svg:switch>
+    </svg:g>
+  </svg:switch>
+  <svg:g
+     id="earth"
+     class="nofade"
+     style="font-size:24px;font-family:Helvetica, Arial, sans-serif;text-anchor:middle;fill:#000000;stroke:#000000;stroke-width:1;stroke-linecap:round">
+    <svg:circle
+       cx="0"
+       cy="0"
+       fill="#0066ff"
+       stroke="#66ccff"
+       id="ellipse851"
+       r="64.279999" />
+    <svg:g
+       class="rot_geo"
+       id="g855"
+       style="-moz-animation:rot 23.93s linear infinite;-webkit-animation:rot 23.93s linear infinite">
+      <svg:path
+         transform="scale(0.6378)"
+         fill="#ffcc00"
+         stroke="none"
+         clip-path="url(#clip_earth)"
+         d="m -15,-22 c -3,-6 6,2 2,-6 4,-2 1,-3 7,-6 4,-2 -3,-1 3,-9 5,5 -3,9 1,12 -1,-7 22,0 10,-10 1,-12 4,-6 2,-1 10,-14 9,-1 13,-8 5,0 -2,-4 5,-5 0,5 1,12 7,9 -9,-8 1,2 0,-10 16,-9 18,7 24,4 0,-10 3,-9 9,-7 1,2 -1,13 6,7 2,-6 -4,-3 2,-11 3,11 0,5 -1,13 -13,9 1,7 -5,10 -8,11 7,11 10,17 4,-2 19,4 -4,12 1,12 -5,0 -5,17 -4,17 -7,6 -8,14 16,-3 1,-8 11,-13 7,4 5,15 7,24 -9,2 -24,1 -22,5 36,-2 20,-14 26,-17 15,18 -3,26 23,29 -7,20 6,7 2,19 1,4 3,18 -14,33 C 85,98 66,99 70,87 52,79 60,92 55,80 41,77 28,102 13,85 10,74 11,61 35,48 c -1,5 14,0 11,-3 0,-5 14,-7 7,-16 -4,-3 -2,11 -10,5 3,-9 6,-8 6,-13 -5,0 -4,2 -7,1 0,0 1,2 2,4 -10,0 0,5 -1,8 -5,5 6,2 -2,6 -19,-4 -9,2 -2,1 -4,7 5,5 -5,5 10,-5 -10,-6 -11,4 0,5 -7,11 -9,0 10,-5 7,-6 2,-6 -2,-4 9,-7 3,-14 3,-4 0,5 5,1 9,-7 -3,-7 -4,-14 -2,1 11,18 0,10 0,5 -7,1 -4,-3 0,-5 -4,-10 6,-14 4,3 0,-5 1,-8 3,-4 -11,-3 0,-5 -7,0 -7,-5 -13,-7 -2,-4 4,-2 0,-5 -3,-1 0,-7 -7,-4 -10,-7 -9,2 -18,-3 m -11,-8 c -2,16 2,-5 11,13 -1,10 -9,3 -7,12 -6,13 1,12 4,8 5,6 -11,8 -1,8 -4,7 -4,-3 -5,5 -7,-9 -12,-4 -8,4 -4,2 -4,9 1,2 2,6 6,-13 8,3 3,6 0,10 1,17 -13,-6 11,-3 -12,-9 12,4 -2,1 6,7 -13,-1 -1,-2 -9,-3 -4,2 -4,-3 -9,2 -13,-7 -10,4 -14,1 0,-5 6,-3 -2,-11 1,-18 -25,-1 -7,3 5,10 -10,-2 -2,11 -11,7 1,7 -1,13 16,2 5,5 19,15 5,15 11,7 12,19 3,6 27,12 22,17 -1,3 -11,3 -9,7 -4,7 -6,7 -23,3 0,5 -16,8 -26,-3 11,13 -12,1 -16,-2 5,10 -12,-6 -8,4 -15,-8 -5,4 -4,6 -21,-14 -19,-30 -6,-24 7,-10 2,4 25,-14 -8,-18 -1,-14 -2,-26 7,-5 9,4 14,-1 2,-6 0,-5 -2,-4 -4,-13 0,-15 -1,-24 -2,-4 -2,-19 2,-16 1,-3 4,-7 9,-12 -8,4 -7,6 -9,7 1,-8 11,-8 13,-14 16,-9 3,6 31,-9 7,-6 1,-8 5,-15 m 39,-111 c -28,13 11,19 10,32 5,0 2,-11 10,-5 7,5 5,6 0,5 16,10 15,1 20,6 20,7 5,-5 28,9 9,-2 1,-8 6,-13 -14,-15 -28,-9 -43,-24 -11,-2 -2,-11 -31,-10 m -1,35 c 7,4 15,5 17,9 13,-1 0,2 11,5 2,-8 -15,-8 -7,-12 -3,-1 -7,-4 -12,-4 -5,5 -2,-4 -14,-3 -5,0 12,4 5,5 m 96,137 c 7,-6 6,2 12,6 1,2 3,6 -1,8 -8,4 -2,-4 -8,-1 -3,-1 -2,-4 -1,-7 0,0 2,-3 -2,-6 M 12,-52 c -1,-2 1,-5 3,-6 1,-3 6,-3 10,2 -2,1 -11,-4 -12,6 -6,2 -6,-3 -1,-2 m 31,-29 c -3,8 5,10 -1,12 2,7 7,0 6,-2 -3,-6 11,2 0,-5 5,0 -1,-7 -5,-5 m 5,-5 c 2,4 0,0 7,4 10,0 3,-4 6,-3 1,-8 -3,4 -5,-5 -2,1 3,6 -8,4 m 7,9 c 0,5 2,4 5,5 3,1 8,1 11,4 3,-6 -4,-15 -8,-13 -10,0 0,5 -8,4 m -76,74 c -1,-2 8,2 6,3 1,7 -1,8 -3,-1 -3,3 2,4 -4,6 -5,-5 0,-5 1,-8 m -22,-136 c -2,0 -6,2 -7,0 8,-3 9,-11 20,-9 -1,3 -7,1 -13,9 m 1,7 c -3,3 -8,-2 -14,1 -3,4 2,-11 10,-5 -6,3 1,2 4,4 m 27,142 c -1,7 4,8 -6,14 -7,-16 2,-1 3,-11 -3,-6 1,-7 3,-3 m 27,26 c -1,-7 1,-3 5,0 6,2 -1,3 -2,6 -1,-7 0,-5 -3,-6 m -64,-90 c -3,4 -9,7 -8,4 -2,-4 1,2 8,-4 m 44,68 c -9,-4 7,-11 10,-5 1,24 -12,13 -12,23 -8,-2 0,-12 2,-18 m 50,-76 c -1,3 -4,0 -4,2 0,-2 2,-3 4,-2 m 15,6 c -3,-1 -4,-3 -4,2 5,0 3,1 4,-2 m -33,-88 c -3,-1 -9,2 -8,-1 6,-8 16,8 8,1 m 45,60 c 6,7 7,9 11,15 1,-5 -8,-14 -11,-15 M -61,53 c 4,3 9,8 7,4 -2,-4 -6,-7 -7,-4 M 80,-69 c -2,-2 -2,20 1,21 0,-5 4,-11 -1,-21 M -66,38 c 4,-2 9,18 6,12 -5,-10 0,-5 -6,-12 m 78,3 c 2,-1 1,-3 0,-5 -3,-1 -2,6 0,5 M 0,27 c 2,-1 4,-2 5,0 -3,4 -4,2 -5,0 M -5,5 c 1,2 -9,7 -11,3 1,-3 7,-6 11,-3 m 93,-31 c -3,-2 -2,0 -3,3 5,1 6,-2 3,-3 M 8,6 c 5,5 1,2 2,4 C 5,10 7,9 8,6 m 6,-8 c 3,1 3,6 7,5 2,4 -7,0 -7,-5"
+         id="path853" />
+    </svg:g>
+    <svg:circle
+       class="rot_sun"
+       cx="0"
+       cy="0"
+       fill="url(#gradient_shade)"
+       id="ellipse857"
+       style="fill:url(#gradient_shade);-moz-animation:rot 8766s linear infinite;-webkit-animation:rot 8766s linear infinite"
+       r="63.779999" />
+  </svg:g>
+</svg:svg>

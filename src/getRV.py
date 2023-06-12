@@ -53,15 +53,45 @@ with open(filename_out, "w") as f:
         str(i[3][1] * 1000) + " " +
         str(i[3][2] * 1000) + "\n")
 
+# propagate with sgp4 and compare with the original tles
+satellite = Satrec.twoline2rv(lines[0], lines[1])
+jd = satellite.jdsatepoch
+jd_frac = satellite.jdsatepochF
+ErrTLE = [[0, 0]]
+for i in range(2, len(lines)):
+  if i % 2 == 0:
+    line1 = lines[i]
+    line2 = lines[i + 1]
+    satellite_aux = Satrec.twoline2rv(line1, line2)
+    T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
+    # print(T)
+    e, r, v = satellite.sgp4(jd, jd_frac + T)
+    e, r0, v0 = satellite_aux.sgp4(
+        satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
+    err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
+    ErrTLE.append([T, err])
+
+with open(filename_out_2, "w") as f:
+  for i in ErrTLE:
+    f.write(str(i[0]) + " " + str(i[1]) + "\n")
+
 
 # propagate with sgp4 in a 1h interval
 satellite = Satrec.twoline2rv(lines[0], lines[1])
 jd = satellite.jdsatepoch
 jd_frac = satellite.jdsatepochF
 I = []
-for i in range(0, 50):
+for i in range(0, 1000):
   e, r, v = satellite.sgp4(jd, jd_frac + i / 24)
-  I.append([i / 24, r[0], r[1], r[2], v[0], v[1], v[2]])
+  # we do a linear interpolation to get the error from ErrTLE
+  elapsed_time = i / (24 * 60)
+  err = 0
+  for j in range(0, len(ErrTLE) - 1):
+    if elapsed_time >= ErrTLE[j][0] and elapsed_time < ErrTLE[j + 1][0]:
+      err = (elapsed_time - ErrTLE[j][0]) * (ErrTLE[j + 1][1] -
+                                             ErrTLE[j][1]) / (ErrTLE[j + 1][0] - ErrTLE[j][0]) + ErrTLE[j][1]
+      break
+  I.append([i / 24, r[0], r[1], r[2], v[0], v[1], v[2], e])
 
 mjd = jd - 2400000.5
 with open(filename_out_3, "w") as f:
@@ -80,9 +110,17 @@ satellite = Satrec.twoline2rv(lines[0], lines[1])
 jd = satellite.jdsatepoch
 jd_frac = satellite.jdsatepochF
 I = []
-for i in range(0, 1000):
+for i in range(0, 20000):
   e, r, v = satellite.sgp4(jd, jd_frac + i / (24 * 60))
-  I.append([i / (24 * 60), r[0], r[1], r[2], v[0], v[1], v[2]])
+  # we do a linear interpolation to get the error from ErrTLE
+  elapsed_time = i / (24 * 60)
+  err = 0
+  for j in range(0, len(ErrTLE) - 1):
+    if elapsed_time >= ErrTLE[j][0] and elapsed_time < ErrTLE[j + 1][0]:
+      err = (elapsed_time - ErrTLE[j][0]) * (ErrTLE[j + 1][1] -
+                                             ErrTLE[j][1]) / (ErrTLE[j + 1][0] - ErrTLE[j][0]) + ErrTLE[j][1]
+      break
+  I.append([i / (24 * 60), r[0], r[1], r[2], v[0], v[1], v[2], err])
 
 mjd = jd - 2400000.5
 with open(filename_out_4, "w") as f:
@@ -93,26 +131,11 @@ with open(filename_out_4, "w") as f:
             str(i[3] * 1000) + " " +
             str(i[4] * 1000) + " " +
             str(i[5] * 1000) + " " +
-            str(i[6] * 1000) + "\n")
+            str(i[6] * 1000) + " " +
+            str(i[7]) + "\n")
 
+# print("Done!")
 
-# # propagate with sgp4 and compare with the original tles
-# satellite = Satrec.twoline2rv(lines[0], lines[1])
-# jd = satellite.jdsatepoch
-# jd_frac = satellite.jdsatepochF
-# I = []
-# for i in range(2, len(lines)):
-#   if i % 2 == 0:
-#     line1 = lines[i]
-#     line2 = lines[i + 1]
-#     satellite_aux = Satrec.twoline2rv(line1, line2)
-#     T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
-#     e, r, v = satellite.sgp4(jd, jd_frac + T)
-#     e, r0, v0 = satellite_aux.sgp4(
-#         satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
-#     err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
-#     I.append([T, err])
+# bstar = satellite.bstar
 
-# with open(filename_out_2, "w") as f:
-#   for i in I:
-#     f.write(str(i[0]) + " " + str(i[1]) + "\n")
+# print("B* = " + str(bstar))

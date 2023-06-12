@@ -7,7 +7,6 @@
 typedef struct {
   int n_max;        // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
   int m_max;        // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
-  double mjd_tt;    // modified julian date of the terrestrial time (TT)
   bool pointEarth;  // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
   bool sun;         // true if the Sun is included in the spherical harmonics expansion, false otherwise
   bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
@@ -80,6 +79,40 @@ Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area, double m
 double Illumination(const Vector& r, const Vector& r_Sun);
 
 // ----------------------------------------------
+// AccelDrag
+// ----------------------------------------------
+// Purpose:
+//    Calculate acceleration of the satellite at position r due the atmospheric drag
+//
+// Parameters:
+//    r: position vector of the satellite in the inertial reference frame of J2000 [m]
+//    v: velocity vector of the satellite in the inertial reference frame of J2000 [m/s]
+//    mjd_TT: modified Julian date (Terrestrial Time)
+//    NP: transformation matrix from the inertial reference frame of J2000 to the reference frame true of date (without the precession and nutation matrices)
+//    Area: cross-sectional area of the satellite [m^2]
+//    mass: mass of the satellite [kg]
+//
+// Return value:
+//    acceleration vector in the inertial reference frame of J2000 [m/s^2]
+// ----------------------------------------------
+Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& NP, double Area, double mass);
+
+// ----------------------------------------------
+// Density_HP
+// ----------------------------------------------
+// Purpose:
+//    Calculate the atmospheric density at the altitude of the satellite using the Harris-Priester model
+//
+// Parameters:
+//    mjd_TT: modified Julian date (Terrestrial Time)
+//    r_NP: position vector of the in the reference frame true of date (without the precession and nutation matrices) [m]
+//
+// Return value:
+//    atmospheric density [kg/m^3]
+// ----------------------------------------------
+double Density_HP(double mjd_TT, const Vector& r_NP);
+
+// ----------------------------------------------
 // AccelHarmonic
 // ----------------------------------------------
 // Purpose:
@@ -88,16 +121,13 @@ double Illumination(const Vector& r, const Vector& r_Sun);
 // Parameters:
 //    r: position vector in the inertial reference frame [m]
 //    E: transformation matrix from the inertial reference frame to the reference frame of the spherical harmonics expansion (fixed to the Earth)
-//    GM: gravitational parameter of the central body [m^3/s^2]
-//    R_ref: reference radius of the spherical harmonics expansion [m]
-//    CS: cosine and sine coefficients of the spherical harmonics expansion
 //    n_max: maximum degree of the spherical harmonics expansion (0...N_JDM3 -1)
 //    m_max: maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
 //
 // Return value:
 //    acceleration vector in the inertial reference frame [m/s^2]
 // ----------------------------------------------
-Vector AccelHarmonic(const Vector& r, const Matrix& E, double GM, double R_ref, const Matrix& CS, int n_max, int m_max);
+Vector AccelHarmonic(const Vector& r, const Matrix& E, int n_max, int m_max);
 
 // ----------------------------------------------
 // gravField

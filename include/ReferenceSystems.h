@@ -282,6 +282,19 @@ void PolarMotion(double mjd_TT, double& xp, double& yp);
 Matrix PolarMotionMatrix(double mjd_TT);
 
 // ----------------------------------------------
+// Height
+// ----------------------------------------------
+// Purpose:
+//    Calculate height of the given point above the reference ellipsoid
+//
+// Parameters:
+//    r_PN: position vector of the point in the true-of-date reference frame (J2000 - precession & nutation matrices)
+//
+// Returns:
+//    Height of the point above the reference ellipsoid [m]
+double Height(Vector r_PN);
+
+// ----------------------------------------------
 // Sun
 // ----------------------------------------------
 // Purpose:
