@@ -9,7 +9,7 @@ filename_err="errors"
 filename_orb="orbit"
 
 # list of all satellite names available
-satellites=("STARLINK_1007" "NUTSAT" "TDRS-3" "ISS" "NAVSTAR_61" "GALILEO_20" "SIRIUS_3" "TESS" "HUBBLE")
+satellites=("STARLINK_1007" "NUTSAT" "TDRS-3" "ISS" "NAVSTAR_61" "GALILEO_20" "SIRIUS_3" "TESS" "HUBBLE" "GALAXY_16" "GALAXY_18" "GALAXY_19" "GLONASS")
 true_false=("t" "f")
 default_sat="ISS"
 

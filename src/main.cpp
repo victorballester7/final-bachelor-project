@@ -19,8 +19,26 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
   std::string satellite = argv[1];
+  std::string filename_in_bstar = "data/bstar/" + satellite + ".txt";
+  std::ifstream file_in_bstar(filename_in_bstar);
+  std::string line;
+  double bstar, Am;
 
-  args_gravField args = {8, 8, false, false, false, false, false, 10000., 450000.};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area, mass
+  if (!file_in_bstar.is_open()) {
+    bstar = 0.;
+    Am = 0.01;  // TDRS-3
+    // Am = 0.075;
+  } else {
+    std::getline(file_in_bstar, line);
+    std::istringstream iss(line);
+    iss >> bstar;
+    file_in_bstar.close();
+    Am = bstar * 2 / (0.157 * C_D);
+  }
+
+  printf("Am = %f\n", Am);
+
+  args_gravField args = {8, 8, false, false, false, false, false, Am};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area_mass
 
   if (argv[2][0] == 't') args.pointEarth = true;
   if (argv[3][0] == 't') args.sun = true;
@@ -61,10 +79,9 @@ int main(int argc, char const *argv[]) {
 
   std::cout << "This is a SAAAAAAAAAAAAAAMPLEEEEEEEEEEEEEEE" << std::endl;
   std::cout.precision(16);
-  std::cout << Sun(53827.) << std::endl;
+  std::cout << Sun(UTC2TT(53827.)) << std::endl;
 
   int TLEs = 10000;
-  std::string line;
   double mjd_utc;
   double x, y, z, vx, vy, vz, errTLE;
   std::getline(file_in, line);
@@ -81,6 +98,7 @@ int main(int argc, char const *argv[]) {
   double h, T, t0 = s.mjd_TT, error, temp, t1, height;
   int maxNumSteps = 1000;
   int inter_steps = 1;
+  double Errors[TLEs];
   std::cout << "t0 = " << t0 << std::endl;
   for (int i = 0; i < TLEs; i++) {
     std::getline(file_in, line);
@@ -106,14 +124,18 @@ int main(int argc, char const *argv[]) {
     Vector v_ECI = s.v_ECI / 1000;  // km/s
 
     // height = Height(NutationMatrix(s.mjd_TT) * PrecessionMatrix(s.mjd_TT) * r_ECI);
-    file_out_orbit << r_ECI(0) << " " << r_ECI(1) << " " << r_ECI(2) << " " << v_ECI(0) << " " << v_ECI(1) << " " << v_ECI(2) << " " << r_ECI.norm() - R_Earth / 1000 << std::endl;
+    file_out_orbit << s.mjd_TT << r_ECI(0) << " " << r_ECI(1) << " " << r_ECI(2) << " " << v_ECI(0) << " " << v_ECI(1) << " " << v_ECI(2) << " " << r_ECI.norm() - R_Earth / 1000 << std::endl;
 
     error = (s.r_ECI - t.r_ECI).norm() / 1000;
     file_out << t.mjd_TT - t0 << " " << error << " " << errTLE << std::endl;
 
+    Errors[i] = error;
     // // plot only error in z
     // file_out << t1 - t0 << " " << s.r_ECI.norm() - R_Earth << std::endl;
   }
+
+  std::cout << "Variance of data: " << variance(Errors, TLEs) << std::endl;
+
   // int LINE = 0;
   // // we are not interested in the first 66 lines
   // for (int i = 0; i < LINE - 1; i++)

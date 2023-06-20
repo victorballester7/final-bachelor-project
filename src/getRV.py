@@ -2,7 +2,7 @@
 from sgp4.api import Satrec
 import sys
 import os
-
+import numpy as np
 
 if len(sys.argv) != 2:
   print("Usage: python3 getRV.py <satellite_name>")
@@ -13,7 +13,10 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 filename_in = os.path.join(
     script_dir + "/../data/tle/",
     satellite_name + ".txt")
-filename_out = os.path.join(
+filename_out_0 = os.path.join(
+    script_dir + "/../data/bstar/",
+    satellite_name + ".txt")
+filename_out_1 = os.path.join(
     script_dir + "/../data/teme/",
     satellite_name + "_tles.txt")
 filename_out_2 = os.path.join(
@@ -42,7 +45,7 @@ for i in range(0, len(lines)):
     mdjd = jd - 2400000.5
     L.append([mdjd, jd_frac, r, v])
 
-with open(filename_out, "w") as f:
+with open(filename_out_1, "w") as f:
   for i in L:
     f.write(
         str(i[0] + i[1]) + " " +
@@ -58,22 +61,33 @@ satellite = Satrec.twoline2rv(lines[0], lines[1])
 jd = satellite.jdsatepoch
 jd_frac = satellite.jdsatepochF
 ErrTLE = [[0, 0]]
+BSTAR = [satellite.bstar]
 for i in range(2, len(lines)):
   if i % 2 == 0:
     line1 = lines[i]
     line2 = lines[i + 1]
     satellite_aux = Satrec.twoline2rv(line1, line2)
+    BSTAR.append(satellite_aux.bstar)
     T = (satellite_aux.jdsatepoch - jd) + (satellite_aux.jdsatepochF - jd_frac)
     # print(T)
     e, r, v = satellite.sgp4(jd, jd_frac + T)
+    if (e != 0):
+      print("ERROR!!!!!!!!!!")
     e, r0, v0 = satellite_aux.sgp4(
         satellite_aux.jdsatepoch, satellite_aux.jdsatepochF)
+    if (e != 0):
+      print("ERROR!!!!!!!!!!")
     err = sum([(r[i] - r0[i]) ** 2 for i in range(3)])**0.5
     ErrTLE.append([T, err])
 
 with open(filename_out_2, "w") as f:
   for i in ErrTLE:
     f.write(str(i[0]) + " " + str(i[1]) + "\n")
+
+BSTAR_coeff = np.median(BSTAR)
+if (BSTAR_coeff > 1.e-7):
+  with open(filename_out_0, "w") as f:
+    f.write(str(BSTAR_coeff))
 
 
 # propagate with sgp4 in a 1h interval
@@ -83,6 +97,8 @@ jd_frac = satellite.jdsatepochF
 I = []
 for i in range(0, 1000):
   e, r, v = satellite.sgp4(jd, jd_frac + i / 24)
+  if (e != 0):
+    print("ERROR!!!!!!!!!!")
   # we do a linear interpolation to get the error from ErrTLE
   elapsed_time = i / (24 * 60)
   err = 0
@@ -112,6 +128,8 @@ jd_frac = satellite.jdsatepochF
 I = []
 for i in range(0, 20000):
   e, r, v = satellite.sgp4(jd, jd_frac + i / (24 * 60))
+  if (e != 0):
+    print("ERROR!!!!!!!!!!")
   # we do a linear interpolation to get the error from ErrTLE
   elapsed_time = i / (24 * 60)
   err = 0

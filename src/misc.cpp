@@ -14,3 +14,16 @@ int numLines(std::string filename) {
   file.seekg(0, std::ios::beg);
   return n;
 }
+
+double mean(double *array, int n) {
+  double sum = 0;
+  for (int i = 0; i < n; i++) sum += array[i];
+  return sum / n;
+}
+
+double variance(double *array, int n) {
+  double sum = 0;
+  double mu = mean(array, n);
+  for (int i = 0; i < n; i++) sum += (array[i] - mu) * (array[i] - mu);
+  return sum / (n - 1);
+}

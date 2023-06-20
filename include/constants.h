@@ -21,6 +21,7 @@ const double GM_EARTH = 398600.4415e+9;       // [m^3/s^2]; JGM3
 const double GM_SUN = 1.32712438e+20;         // [m^3/s^2]; IAU 1976
 const double GM_MOON = GM_EARTH / 81.300587;  // [m^3/s^2]; DE200
 
+const double R_Sun = 6.955e8;                 // [m]
 const double R_Earth = 6378.1363e3;           // Radius Earth [m]; JGM3 model (Earth gravitational model)
 const double f_Earth = 1.0 / 298.257223563;   // Flattening Earth
 const double e2 = f_Earth * (2.0 - f_Earth);  // Square of eccentricity of the Earth

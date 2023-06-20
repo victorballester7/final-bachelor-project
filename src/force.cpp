@@ -27,6 +27,11 @@ Vector AccelPointMass(const Vector& r, const Vector& s, double GM) {
 
   // Solution to improve cancellation error (from Vallado: p. 575)
   double Q = (r.dot(r) + 2 * r.dot(r_relSR)) * (s2 + s1 * r1 + r2) / (s3 * r3 * (s1 + r1));
+  return (r_relSR * Q - r / s3) * GM;
+
+  // double q = (r.dot(r) + 2 * r.dot(s)) / s2;
+  // double f = q * (3 + q * (3 + q)) / (1 + pow(1 + q, 1.5));
+  // return (r - s * f) * (-GM / (s3 * pow(1 + q, 1.5)));
 
   // static int count = 0;
   // if (count++ < 10) {
@@ -35,10 +40,9 @@ Vector AccelPointMass(const Vector& r, const Vector& s, double GM) {
   //   count++;
   // }
   // return (sat_pointMass - earth_pointMass) * (GM);
-  return (r_relSR * Q - r / s3) * GM;
 }
 
-Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area, double mass) {
+Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area_mass) {
   Vector d(3);
 
   // Relative position vector of spacecraft w.r.t. Sun
@@ -49,17 +53,37 @@ Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area, double m
 
   // Acceleration
 
-  return d * (C_R * (Area / mass) * P0 * AU * AU / d3);
+  return d * (C_R * Area_mass * P0 * AU * AU / d3);
 }
 
 double Illumination(const Vector& r, const Vector& r_Sun) {
-  Vector e_Sun = r_Sun / r_Sun.norm();  // Sun direction unit vector
-  double s = r.dot(e_Sun);              // Projection of s/c position
+  // From Vallado p. 299
+  double alpha_umb, alpha_pen;  // Umbra and penumbra angles
+  double zeta, sat_horiz, sat_vert, pen_vert, umb_vert;
+  alpha_umb = asin((R_Sun - R_Earth) / r_Sun.norm());
+  alpha_pen = asin((R_Sun + R_Earth) / r_Sun.norm());
+  if (r.dot(r_Sun) > 0)  // Sunlight
+    return 1.;
+  zeta = acos(r.dot(r_Sun) / (r.norm() * r_Sun.norm()));
+  sat_horiz = r.norm() * cos(zeta);
+  sat_vert = r.norm() * sin(zeta);
+  pen_vert = R_Earth + sat_horiz * tan(alpha_pen);
+  umb_vert = R_Earth - sat_horiz * tan(alpha_umb);
+  if (sat_vert < umb_vert)  // Umbra
+    return 0.;
+  else if (sat_vert > pen_vert)  // Sunlight
+    return 1.;
+  else  // Partial illumination = Penumbra
+    return (sat_vert - umb_vert) / (pen_vert - umb_vert);
 
-  return ((s > 0 || (r - e_Sun * s).norm() > R_Earth) ? 1.0 : 0.0);
+  // Montenbruck
+  // Vector e_Sun = r_Sun / r_Sun.norm();  // Sun direction unit vector
+  // double s = r.dot(e_Sun);              // Projection of s/c position
+
+  // return ((s > 0 || (r - e_Sun * s).norm() > R_Earth) ? 1.0 : 0.0);
 }
 
-Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& NP, double Area, double mass) {
+Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& NP, double Area_mass) {
   // Constants
 
   // Earth angular velocity vector [rad/s]
@@ -82,7 +106,7 @@ Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& 
   dens = Density_HP(mjd_TT, r_tod);
 
   // Acceleration
-  a_tod = v_rel * (-0.5 * C_D * (Area / mass) * dens * v_abs);
+  a_tod = v_rel * (-0.5 * C_D * Area_mass * dens * v_abs);
 
   // std::cout << "v_abs^2 = " << v_abs * v_abs << std::endl;
   // std::cout << "dens = " << dens << std::endl;
@@ -254,23 +278,23 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   Vector r_moon = Moon(mjd_tt);
   Vector v_dot_0 = v_dot;
   static int i = 0;
-  if (i < 100)
-    std::cout << "v_dot_0 = " << v_dot.norm() << std::endl;
+  // if (i < 100)
+  // std::cout << "v_dot_0 = " << v_dot.norm() << std::endl;
   if (prm->sun) v_dot += AccelPointMass(r, r_sun, GM_SUN);
-  if (i < 100)
-    std::cout << "v_dot_sun = " << (v_dot - v_dot_0).norm() << std::endl;
-  v_dot_0 = v_dot;
+  // if (i < 1000)
+  // std::cout << "v_dot_sun (" << prm->sun << ") = " << (v_dot - v_dot_0).norm() << std::endl;
+  // v_dot_0 = v_dot;
   if (prm->moon) v_dot += AccelPointMass(r, r_moon, GM_MOON);
-  if (i < 100)
-    std::cout << "v_dot_moon = " << (v_dot - v_dot_0).norm() << std::endl;
-  v_dot_0 = v_dot;
-  if (prm->solar_rad) v_dot += AccelSolarRad(r, r_sun, prm->A, prm->m) * Illumination(r, r_sun);
-  if (i < 100)
-    std::cout << "v_dot_solar_rad = " << (v_dot - v_dot_0).norm() << std::endl;
+  // if (i < 1000)
+  // std::cout << "v_dot_moon (" << prm->moon << ") = " << (v_dot - v_dot_0).norm() << std::endl;
+  // v_dot_0 = v_dot;
+  if (prm->solar_rad) v_dot += AccelSolarRad(r, r_sun, prm->Am) * Illumination(r, r_sun);
+  // if (i < 100)
+  // std::cout << "v_dot_solar_rad (" << prm->solar_rad << ") = " << (v_dot - v_dot_0).norm() << std::endl;
 
-  if (prm->atmo_drag) v_dot += AccelDrag(r, v, mjd_tt, NutationMatrix(mjd_tt) * PrecessionMatrix(mjd_tt), prm->A, prm->m);
-  if (i < 100)
-    std::cout << "v_dot_drag = " << (v_dot - v_dot_0).norm() << std::endl;
+  if (prm->atmo_drag) v_dot += AccelDrag(r, v, mjd_tt, NutationMatrix(mjd_tt) * PrecessionMatrix(mjd_tt), prm->Am);
+  // if (i < 100)
+  // std::cout << "v_dot_drag (" << prm->atmo_drag << ") = " << (v_dot - v_dot_0).norm() << std::endl;
   i++;
   // static int count = 0;
   // // std::cout << "count = " << count << std::endl;

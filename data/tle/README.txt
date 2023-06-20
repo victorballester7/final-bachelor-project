@@ -8,9 +8,13 @@
 - Galileo_20 (~ 23,000km)
 - NAVSTAR_61 (~ 20,000km) - from GPS
 - SIRIUS_3 (~ 25,000km)
+- GLONASS
 
 # GEO: Geostationary Earth Orbit
 - TDRS-3 (~ 35,000km)
+- GALAXY 16 (~ 35,000km)
+- GALAXY 18 (~ 35,000km)
+- GALAXY 19 (~ 35,000km)
 
 # HEO: High Earth Orbit
 - TESS (~ 100,000km)

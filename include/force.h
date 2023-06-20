@@ -12,8 +12,7 @@ typedef struct {
   bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
   bool solar_rad;   // true if solar radiation pressure is included, false otherwise
   bool atmo_drag;   // true if solar radiation pressure is included, false otherwise
-  double A;         // cross-sectional area of the satellite [m^2]
-  double m;         // mass of the satellite [kg]
+  double Am;        // Area-to-mass ratio of the satellite: A/m [m^2 / kg] cross-sectional area of the satellite [m^2]
 } args_gravField;
 
 // ----------------------------------------------
@@ -55,13 +54,12 @@ Vector AccelPointMass(const Vector& r, const Vector& s, double GM);
 // Parameters:
 //    r: position vector of the satellite in the inertial reference frame [m]
 //    r_Sun: position vector of the Sun in the inertial reference frame [m]
-//    Area: cross-sectional area of the satellite [m^2]
-//    mass: mass of the satellite [kg]
+//    Area_mass: Area-to-mass ratio of the satellite: A/m [m^2 / kg]
 //
 // Return value:
 //    acceleration vector in the inertial reference frame [m/s^2]
 // ----------------------------------------------
-Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area, double mass);
+Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area_mass);
 
 // ----------------------------------------------
 // Illumination
@@ -89,13 +87,12 @@ double Illumination(const Vector& r, const Vector& r_Sun);
 //    v: velocity vector of the satellite in the inertial reference frame of J2000 [m/s]
 //    mjd_TT: modified Julian date (Terrestrial Time)
 //    NP: transformation matrix from the inertial reference frame of J2000 to the reference frame true of date (without the precession and nutation matrices)
-//    Area: cross-sectional area of the satellite [m^2]
-//    mass: mass of the satellite [kg]
+//    Area_mass: Area-to-mass ratio of the satellite: A/m [m^2 / kg]
 //
 // Return value:
 //    acceleration vector in the inertial reference frame of J2000 [m/s^2]
 // ----------------------------------------------
-Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& NP, double Area, double mass);
+Vector AccelDrag(const Vector& r, const Vector& v, double mjd_TT, const Matrix& NP, double Area_mass);
 
 // ----------------------------------------------
 // Density_HP

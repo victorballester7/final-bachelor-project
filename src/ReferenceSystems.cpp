@@ -30,7 +30,7 @@ Matrix ECI2TEME(double mjd_TT) {
 //   return Mjd_TT + 2400000.5;
 // }
 
-double UTC2UT1(double mjd_utc) {
+double UTC2UT1(double mjd_utc) {  // valid from 01/01/2023 onwards.
   int day_before = floor(mjd_utc);
   // we will do a linear interpolation between the two values of UT1-UTC
   double f1 = eop[day_before][5];      // first value of UT1-UTC
@@ -386,8 +386,13 @@ Vector Sun(double mjd_tt) {
   M = (357.5291092 + 35999.05034 * T) * DEG_TO_RAD;                            // [rad]
   r = (1.000140612 - 0.016708617 * cos(M) - 0.000139589 * cos(2.0 * M)) * AU;  // [m]
 
+  lM = fmod(lM, 2 * PI);
+  M = fmod(M, 2 * PI);
+
   // Ecliptic longitude
   L = lM + (1.914666471 * sin(M) + 0.019994643 * sin(2.0 * M)) * DEG_TO_RAD;  // [rad]
+  L = fmod(L, 2 * PI);
+
   static int count = 0;
   if (count == 0) {
     std::cout << "T: " << T << std::endl;
@@ -396,10 +401,15 @@ Vector Sun(double mjd_tt) {
     std::cout << "M: " << fmod(M, 2 * PI) / DEG_TO_RAD << std::endl;
     std::cout << "r: " << r / AU << std::endl;
     std::cout << "L: " << fmod(L, 2 * PI) / DEG_TO_RAD << std::endl;
+    std::cout << "hola" << std::endl;
+    std::cout << "position: " << Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0) << std::endl;
     count++;
   }
-  // Equatorial position vector
+  // Equatorial position vector in Mean-of-Date frame
   r_Sun = Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0);
+
+  // Equatorial position vector in J2000 frame
+  r_Sun = PrecessionMatrix(mjd_tt).transpose() * r_Sun;
 
   return r_Sun;
 }
@@ -433,9 +443,11 @@ Vector Moon(double mjd_TT) {
 
   R = R_Earth / sin(P);
 
-  // Equatorial coordinates
-
+  // Equatorial coordinates Mean-of-date
   r_Moon = Matrix(1, -eps) * Vector(R * cos(Long) * cos(Lat), R * sin(Long) * cos(Lat), R * sin(Lat));
+
+  // Equatorial coordinates J2000
+  r_Moon = PrecessionMatrix(mjd_TT).transpose() * r_Moon;
 
   return r_Moon;
 }

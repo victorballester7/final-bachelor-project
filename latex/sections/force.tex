@@ -68,9 +68,9 @@ depends only on the initial and final positions of it. Moreover, due to historic
     =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
   \end{multline*}
   Hence, as in \cref{thm:conservative}, we have that for each $\vf{r}\in\Omega^c$ $\exists\varepsilon,\delta>0$ such that $\forall \vf{\tilde{r}} \in B(\vf{r},\varepsilon)\subset\Omega^c$ we have:
-  $$
+  \begin{equation}
     \abs{\rho(\vf{s})\frac{\norm{\vf{\tilde{r}}-\vf{s}}^2-3{(\tilde{x}-x')}^2}{\norm{\vf{\tilde{r}}-\vf{s}}^5}}\leq \frac{4\abs{\rho(\vf{s})}}{\norm{\vf{\tilde{r}}-\vf{s}}^3}\leq \frac{4\abs{\rho(\vf{s})}}{\delta^3}
-  $$
+  \end{equation}
   which is integrable by Weierstrass theorem. Thus, by the theorem of derivation under the integral sign:
   \begin{equation}
     \div(\vf{g})=-\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=-\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
@@ -96,7 +96,7 @@ We will see now that \cref{eq:dirichletProblem} has a unique solution. To do tha
 \begin{proof}
   Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$, $W=0$ on $\Fr{\Omega}$ and $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\Omega \subseteq B(0,n)$ and $\abs{W}\leq \varepsilon$ on $\RR^3\setminus \overline{B(0,n)}$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
 \end{proof}
-Now that we know that the Dirichlet problem has a unique solution, we can proceed to find it. In the next section we will construct an explicit solution for the gravitational potential of created by the Earth.
+Now that we know that the Dirichlet problem has a unique solution, we can proceed to find it. In the next section we will construct an explicit solution for the gravitational potential created by the Earth.
 \subsection{Spherical harmonics}
 \subsubsection{Legendre polynomials, regularity and orthonormality}
 In this section we aim to introduce a class of functions that will appear later on in the general solution of the Laplace equation (see \cref{sec:laplace_spherical}). To accomplish this, we need first to introduce the Legendre polynomials. There are several ways to define them, but the most convenient one for our purposes is from the following differential equation. Consider the following second-order differential equation called \emph{Legendre differential equation}:
@@ -107,7 +107,7 @@ for $\lambda\in\RR$. This equation can be rewritten as:
 \begin{equation}\label{eq:legendre_diff_eq}
   {((1-x^2)y')}'+\lambda  y=0
 \end{equation}
-Seeking for analytic solutions of this equation using the power series method \cite{florida:legendre}, i.e. looking for solutions of the form $y(x)=\sum_{j=0}^{\infty}a_jx^j$, we see that:
+Seeking for analytic solutions of this equation using the power series method \cite{florida:legendre}, i.e.\ looking for solutions of the form $y(x)=\sum_{j=0}^{\infty}a_jx^j$, we see that:
 \begin{multline}
   0=(1-x^2)\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-2x\sum_{j=0}^{\infty}a_{j+1}(j+1)x^j+\lambda\sum_{j=0}^{\infty}a_jx^j =\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-\\-\sum_{j=0}^{\infty}a_{j}(j-1)jx^{j}-\sum_{j=0}^{\infty}2a_{j}jx^{j}+\sum_{j=0}^{\infty}\lambda a_jx^j  =\sum_{j=0}^{\infty}[a_{j+2}(j+1)(j+2) - a_j(j(j+1)-\lambda)]x^j
 \end{multline}
@@ -486,7 +486,7 @@ starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0
 \end{figure}
 \subsubsection{Position and velocity}
 With all the ingredients in place, the position and velocity of the satellite can be calculated from the following system of differential equations:
-$$
+\begin{equation}
   \ddot{\vf{r}}=\vf{g}
   \implies
   \begin{cases}
@@ -497,11 +497,58 @@ $$
     {v_y}'=\ddot{y} \\
     {v_z}'=\ddot{z}
   \end{cases}
-$$
+\end{equation}
 where $\ddot{x}$, $\ddot{y}$, $\ddot{z}$ are given in \cref{eq:acceleration}. The initial conditions will be the position and velocity obtained from the TLE.
 
 In order to solve this system of differential equations, we have opted to use the Runge-Kutta-Fehlberg of order 78.
 \subsection{Other perturbations}
+So far we have only considered one force acting on the satellite: the gravitational force exerted by the Earth. However, there are other important forces worth-considering, and they relative importance varies depending on the satellite's altitude.
+
+\subsubsection{Atmospheric drag}
+For example, for \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than 1000 km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The satellite acceleration due to drag can be written as:
+\begin{equation}
+  \ddot{\vf{r}}=-\frac{1}{2}C_D\frac{A}{m}\rho v_r\vf{v}_r
+\end{equation}
+where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_r$ is the relative velocity between the satellite and the air particles, $v_r=\norm{\vf{v}_r}$, and $C_D$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_r$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
+\begin{equation}
+  \vf{v}_r=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}
+\end{equation}
+where $\vf{\omega}_\oplus$ is the angular velocity of the Earth.
+
+The complexity of modeling this force arises from the challenge of representing accurately the atmospheric density as a function of the altitude. We will not delve into this topic, but in the simulation we will use the density model of Harris-Priester, which is valid for altitudes between 100 and 1000 km (see \cite{montenbruck} for more details).
+
+\subsubsection{Sun and Moon gravitational perturbations}
+For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between 1000 and 35780 km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around 35780 km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than 35780 km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even celestial bodies.
+
+Adding a third body into the equations requires some carefulness. We will do the general deduction to make it clear for the reader. Suppose we have $N+2$ bodies of masses $M$, $M_1,\ldots, M_N$ and $m\ll M,M_1,\ldots,M_N$ at positions $\vf{s}$, $\vf{s}_1,\ldots,\vf{s}_N$ and $\vf{r}$, respectively, in an inertial reference frame (we omit the dependence in time). The dynamics of this system is governed by the following equations:
+\begin{equation}
+  \begin{cases}
+    \displaystyle \ddot{\vf{s}}=\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})      +\frac{Gm}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s}) \\
+    \displaystyle \ddot{\vf{s}}_i=\frac{GM}{\norm{\vf{s}-\vf{s}_i}^3}(\vf{s}-\vf{s}_i)+\sum_{\substack{j=1                                                \\j\ne i}}^N\frac{GM_j}{\norm{\vf{s}_j-\vf{s}_i}^3}(\vf{s}_j-\vf{s}_i)+\frac{Gm}{\norm{\vf{r}-\vf{s}_i}^3}(\vf{r}-\vf{s}_i)& \text{for } i=1,\ldots, N \\
+    \displaystyle \ddot{\vf{r}}=\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
+  \end{cases}
+\end{equation}
+Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can assume that the motion of the large bodies is not affected by the small body, i.e.\ we can assume
+\begin{equation}
+  \begin{cases}
+    \displaystyle \ddot{\vf{s}}\simeq \sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})        \\
+    \displaystyle \ddot{\vf{s}}_i\simeq\frac{GM}{\norm{\vf{s}-\vf{s}_i}^3}(\vf{s}-\vf{s}_i)+\sum_{\substack{j=1 \\j\ne i}}^N\frac{GM_j}{\norm{\vf{s}_j-\vf{s}_i}^3}(\vf{s}_j-\vf{s}_i)& \text{for } i=1,\ldots, N \\
+    \displaystyle \ddot{\vf{r}}\simeq\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
+  \end{cases}
+\end{equation}
+For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The evolution of $\vf{R}$ is given by
+\begin{equation}
+  \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}-\vf{R}}^3}(\vf{s}_i-\vf{s}-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})
+\end{equation}
+Taking the origin of the inertial reference frame at the center of mass of the Earth, i.e.\ $\vf{s}=0$, the latter equation finally becomes:
+\begin{equation}
+  \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{R}}^3}(\vf{s}_i-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i}^3}(\vf{s}_i)
+\end{equation}
+In practice, the first term of the right-hand side of the equation is exchanged by the expansion of the acceleration in spherical harmonics.
+
+\subsubsection{Solar radiation pressure}
+
+
 atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun,
 POSAR-HO SI AL FINAL FAIG SIMULACIO AMB AIXO, SI NO, NOOOO.
 
