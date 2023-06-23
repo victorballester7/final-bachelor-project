@@ -375,14 +375,16 @@ double Height(Vector r_PN) {
 Vector Sun(double mjd_tt) {
   // we asume mjd_ut1 = mjd_tt
 
-  const double eps = MeanObliquity(mjd_tt);         // Mean obliquity of the ecliptic
-  const double T = (mjd_tt - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+  const double eps = MeanObliquity(mjd_tt);              // Mean obliquity of the ecliptic
+  const double T = (mjd_tt - MJD_J2000) / 36525.0;       // Julian cent. since J2000
+  const double mjd_ut1 = TT2UTC(mjd_tt);                 // more or less
+  const double T_ut1 = (mjd_ut1 - MJD_J2000) / 36525.0;  // Julian cent. since J2000
 
   double lM, L, M, r;
   Vector r_Sun(3);
 
   // Mean anomaly, ecliptic longitude and radius (from Vallado, p. 304)
-  lM = (280.460 + 36000.770 * T) * DEG_TO_RAD;                                 // [rad]
+  lM = (280.460 + 36000.770 * T_ut1) * DEG_TO_RAD;                             // [rad]
   M = (357.5291092 + 35999.05034 * T) * DEG_TO_RAD;                            // [rad]
   r = (1.000140612 - 0.016708617 * cos(M) - 0.000139589 * cos(2.0 * M)) * AU;  // [m]
 
@@ -393,24 +395,42 @@ Vector Sun(double mjd_tt) {
   L = lM + (1.914666471 * sin(M) + 0.019994643 * sin(2.0 * M)) * DEG_TO_RAD;  // [rad]
   L = fmod(L, 2 * PI);
 
-  static int count = 0;
-  if (count == 0) {
-    std::cout << "T: " << T << std::endl;
-    std::cout << "eps: " << eps / DEG_TO_RAD << std::endl;
-    std::cout << "lM: " << fmod(lM, 2 * PI) / DEG_TO_RAD << std::endl;
-    std::cout << "M: " << fmod(M, 2 * PI) / DEG_TO_RAD << std::endl;
-    std::cout << "r: " << r / AU << std::endl;
-    std::cout << "L: " << fmod(L, 2 * PI) / DEG_TO_RAD << std::endl;
-    std::cout << "hola" << std::endl;
-    std::cout << "position: " << Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0) << std::endl;
-    count++;
-  }
+  // static int count = 0;
+  // if (count == 0) {
+  //   std::cout << "T: " << T << std::endl;
+  //   std::cout << "eps: " << eps / DEG_TO_RAD << std::endl;
+  //   std::cout << "lM: " << fmod(lM, 2 * PI) / DEG_TO_RAD << std::endl;
+  //   std::cout << "M: " << fmod(M, 2 * PI) / DEG_TO_RAD << std::endl;
+  //   std::cout << "r: " << r / AU << std::endl;
+  //   std::cout << "L: " << fmod(L, 2 * PI) / DEG_TO_RAD << std::endl;
+  //   std::cout << "position: " << Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0) << std::endl;
+  //   count++;
+  // }
   // Equatorial position vector in Mean-of-Date frame
   r_Sun = Matrix(1, -eps) * Vector(r * cos(L), r * sin(L), 0.0);
 
   // Equatorial position vector in J2000 frame
   r_Sun = PrecessionMatrix(mjd_tt).transpose() * r_Sun;
 
+  // const double mjd_ut1 = TT2UTC(mjd_tt);  // more or less
+
+  // // search in the array for the closest value
+  // int index = 0;
+  // for (int i = 1; i < N_ALMANAC; i++) {
+  //   if (mjd_ut1 < SUN[i][0]) {
+  //     index = i - 1;
+  //     break;
+  //   }
+  // }
+
+  // Vector r_Sun_tete(3);  // true-equator, true-equinox
+
+  // // we do a linear interpolation of the coordinates x, y, z from the two closest values
+  // for (int i = 0; i < 3; i++) {
+  //   r_Sun_tete(i) = SUN[index][i + 1] + (SUN[index + 1][i + 1] - SUN[index][i + 1]) * (mjd_ut1 - SUN[index][0]) / (SUN[index + 1][0] - SUN[index][0]);
+  // }
+
+  // Vector r_Sun = PrecessionMatrix(mjd_tt).transpose() * NutationMatrix(mjd_tt).transpose() * r_Sun_tete;
   return r_Sun;
 }
 
@@ -449,5 +469,25 @@ Vector Moon(double mjd_TT) {
   // Equatorial coordinates J2000
   r_Moon = PrecessionMatrix(mjd_TT).transpose() * r_Moon;
 
+  // const double T = (mjd_TT - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+  // const double mjd_ut1 = TT2UTC(mjd_TT);            // more or less
+
+  // // search in the array for the closest value
+  // int index = 0;
+  // for (int i = 1; i < N_ALMANAC; i++) {
+  //   if (mjd_ut1 < MOON[i][0]) {
+  //     index = i - 1;
+  //     break;
+  //   }
+  // }
+
+  // Vector r_Moon_tete(3);  // true-equator, true-equinox
+
+  // // we do a linear interpolation of the coordinates x, y, z from the two closest values
+  // for (int i = 0; i < 3; i++) {
+  //   r_Moon_tete(i) = MOON[index][i + 1] + (MOON[index + 1][i + 1] - MOON[index][i + 1]) * (mjd_ut1 - MOON[index][0]) / (MOON[index + 1][0] - MOON[index][0]);
+  // }
+
+  // Vector r_Moon = PrecessionMatrix(mjd_TT).transpose() * NutationMatrix(mjd_TT).transpose() * r_Moon_tete;
   return r_Moon;
 }

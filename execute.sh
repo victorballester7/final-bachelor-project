@@ -9,8 +9,9 @@ filename_err="errors"
 filename_orb="orbit"
 
 # list of all satellite names available
-satellites=("STARLINK_1007" "NUTSAT" "TDRS-3" "ISS" "NAVSTAR_61" "GALILEO_20" "SIRIUS_3" "TESS" "HUBBLE" "GALAXY_16" "GALAXY_18" "GALAXY_19" "GLONASS")
+satellites=("STARLINK_1007" "NUTSAT" "TDRS-3" "TDRS-5" "ISS" "NAVSTAR_61" "GALILEO_20" "SIRIUS_3" "TESS" "HUBBLE" "GALAXY_16" "GALAXY_18" "GALAXY_19" "GLONASS" "IRIDIUM_71")
 true_false=("t" "f")
+models=("sgp4" "tle")
 default_sat="ISS"
 
 name_pointEarth="_pointEarth"
@@ -22,28 +23,30 @@ name_atmoDrag="_atmoDrag"
 
 make $BIN/main 
 
-if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] ; then
-  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f solarRad> <t/f atmoDrag>"
+if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] || [[ ! "${models[*]}" =~ "$7" ]]; then
+  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>"
   sat_string="Available satellites: "
   for i in "${satellites[@]}"; do
     sat_string+="$i "
   done
   echo $sat_string
-  echo "Executing the default command: ./execute.sh $default_sat f f f f f"
+  echo "Executing the default command: ./execute.sh $default_sat f f f f f sgp4"
   satellite=$default_sat
   pointEarth="f"
   sun="f"
   moon="f"
   solarRad="f"
   atmoDrag="f"
+  model="sgp4"
 else
-  echo "Executing the command: ./execute.sh $1"
+  echo "Executing the command: ./execute.sh $1 $2 $3 $4 $5 $6 $7"
   satellite=$1
   pointEarth=$2
   sun=$3
   moon=$4
   solarRad=$5
   atmoDrag=$6
+  model=$7
 fi
 
 end_name=""
@@ -65,13 +68,18 @@ fi
 if [ "$atmoDrag" == "t" ]; then
   end_name+=$name_atmoDrag
 fi
+if [ "$model" == "tle" ]; then
+  filename_err+="_with_tles"
+fi
 
 end_name+=".txt"
 
 # data files
 datafile_err="data/${filename_err}/${satellite}${end_name}"
+datafile_err_sgp4="data/sgp4/${satellite}.txt"
 datafile_orb="data/${filename_orb}/${satellite}${end_name}"
 datafile_real="data/teme/${satellite}_1min_interval.txt"
+# datafile_real="data/teme/${satellite}_1h_interval.txt"
 
 echo "Executing with settings: "
 echo "satellite: $satellite"
@@ -105,7 +113,9 @@ fi
 echo "Getting the RV data from SGP4..."
 python3 src/getRV.py $satellite
 echo "Running the integrator..."
-./$BIN/main $satellite $pointEarth $sun $moon $solarRad $atmoDrag
+./$BIN/main $satellite $pointEarth $sun $moon $solarRad $atmoDrag $model
+echo "Reducing the data..."
+python3 src/reduceData.py "${satellite}${end_name}" 10
 echo "Plotting..."
-gnuplot -p -c $PLOT/$filename_err.gnu $satellite $datafile_err
+gnuplot -p -c $PLOT/$filename_err.gnu $satellite $datafile_err $datafile_err_sgp4
 # gnuplot -p -c $PLOT/$filename_orb.gnu $datafile_real $datafile_orb

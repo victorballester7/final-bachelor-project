@@ -7,10 +7,8 @@
 \renewcommand\author{Víctor Ballester}
 \renewcommand\date{June 26, 2023}
 \newcommand\supervisor{Josep Maria Mondelo}
-\newcommand\faculty{Faculty of Science}
-% \newcommand\faculty{Facultat de Ciències}
-\newcommand\department{Department of Mathematics}
-% \newcommand\department{Departament de Matemàtiques}
+\newcommand\faculty{Facultat de Ciències}
+\newcommand\department{Departament de Matemàtiques}
 \newcommand\degree{Bachelor's Degree in Mathematics}
 
 
@@ -64,7 +62,10 @@
 \vspace*{\fill}
 \newpage
 \pagenumbering{roman}
-\tableofcontents
+{
+  \hypersetup{linkcolor=black}
+  \tableofcontents
+}
 % \listoffigures
 % \listoftables
 \newpage
@@ -78,7 +79,8 @@
 \subfile{sections/astro}\newpage
 \subfile{sections/force}\newpage
 \subfile{sections/simulation}\newpage
-\subfile{sections/conclusions}\newpage
+\appendix
+\subfile{sections/apendix}\newpage
 
 \addcontentsline{toc}{section}{References}
 \printbibliography

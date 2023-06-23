@@ -2,7 +2,7 @@
 
 \begin{document}
 
-\section{Earth's gravitational field}\label{sec:force}
+\section{Earth's gravitational field and other perturbations}\label{sec:force}
 So far we have only considered the gravitational force acting between point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will delve into the details of a more realistic model of the Earth's gravitational field.
 \subsection{Geopotential model}
 \subsubsection{Continuous distribution of mass}
@@ -29,25 +29,6 @@ where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 \begin{theorem}\label{thm:conservative}
   Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
 \end{theorem}
-\begin{proof}
-  An easy computation shows that fixed $\vf{s}\in\RR^3$ we have:
-  \begin{equation}
-    \grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)=-\frac{1}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})
-  \end{equation}
-  So we need to justify whether the following exchange between the gradient and the integral is correct:
-  \begin{equation}
-    \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_{\Omega}\rho(\vf{s})\grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}=\grad\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}
-  \end{equation}
-  Without loss of generality it suffices to justify that
-  \begin{equation}\label{eq:exchangeDivInt}
-    \pdv{}{x}\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}=\int_{\Omega}\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}
-  \end{equation}
-  assuming $\vf{r}=(x,y,z)$ and $\vf{s}=(x',y',z')$. In order to apply the theorem of derivation under the integral sign we need to control $\pdv{}{x}\left(\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\right)=-\rho(\vf{s})\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}$ by an integrable function $h(\vf{s})$. Using spherical coordinates centered at $\vf{r}$ and writing ${(\vf{r}-\vf{s})}_{\mathrm{sph}}=(\rho_{\vf{r}},\theta,\phi)$, the integrand to bound becomes (in spherical coordinates):
-  \begin{equation}
-    \abs{-\rho(\vf{s})\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}{\rho_{\vf{r}}}^2\sin\phi}=\abs{\rho(\vf{s})}\abs{\frac{{\rho_{\vf{r}}}\cos\theta\sin\phi}{{\rho_{\vf{r}}}^3}{\rho_{\vf{r}}}^2\sin\phi}\leq \abs{\rho(\vf{s})}\leq K
-  \end{equation}
-  where the last inequality follows for certain $K\in\RR$ by Weierstrass theorem ($\rho$ is continuous and $\Omega$ is compact). Thus, since $h(\vf{s})=K$ is integrable, because $\Omega$ is bounded, the equality of \cref{eq:exchangeDivInt} is correct.
-\end{proof}
 Physically speaking, the gravitational force $\vf{F}$ being conservative means that the work $W$ done by the force along a path $C$
 \begin{equation}
   W=\int_C\vf{F}\cdot\dd{\vf{s}}
@@ -61,21 +42,6 @@ depends only on the initial and final positions of it. Moreover, due to historic
   \end{equation}
   for all points outside $\Omega$\footnote{It can be seen that $V$ satisfies in fact the \emph{Poisson equation} $\laplacian V=4\pi G\rho$ for any point $\vf{r}\in\RR^3$, which reduces to Laplace equation when $\vf{r}\in\Omega^c$, because there we have $\rho(\vf{r})=0$.}.
 \end{theorem}
-\begin{proof}
-  Recall that $\laplacian V=\div(\grad V)$. So since $\vf{g}=-\grad V$ it suffices to prove that $\div(\vf{g})=0$. Note that if $\vf{r}\in\Omega^c$, then $\exists \delta>0$ such that $\norm{\vf{r}-\vf{s}}\geq\delta>0$ $\forall \vf{s}\in\Omega$ because $\Omega$ is closed. As a result, $\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}$ is differentiable and:
-  \begin{multline*}
-    \div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)=\pdv{}{x}\left(\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{y}\left(\frac{y-y'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{z}\left(\frac{z-z'}{\norm{\vf{r}-\vf{s}}^3}\right)=\\
-    =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
-  \end{multline*}
-  Hence, as in \cref{thm:conservative}, we have that for each $\vf{r}\in\Omega^c$ $\exists\varepsilon,\delta>0$ such that $\forall \vf{\tilde{r}} \in B(\vf{r},\varepsilon)\subset\Omega^c$ we have:
-  \begin{equation}
-    \abs{\rho(\vf{s})\frac{\norm{\vf{\tilde{r}}-\vf{s}}^2-3{(\tilde{x}-x')}^2}{\norm{\vf{\tilde{r}}-\vf{s}}^5}}\leq \frac{4\abs{\rho(\vf{s})}}{\norm{\vf{\tilde{r}}-\vf{s}}^3}\leq \frac{4\abs{\rho(\vf{s})}}{\delta^3}
-  \end{equation}
-  which is integrable by Weierstrass theorem. Thus, by the theorem of derivation under the integral sign:
-  \begin{equation}
-    \div(\vf{g})=-\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=-\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
-  \end{equation}
-\end{proof}
 So far we have seen that the gravitational potential $V$ satisfies the Laplace equation. If, moreover, we choose the origin of potential to be at the infinity, that is, if we impose $\displaystyle\lim_{\norm{\vf{r}}\to\infty}V=0$, then the gravitational potential created by a distribution of mass in a compact region $\Omega$ is a solution of the following exterior Dirichlet problem:
 \begin{equation}\label{eq:dirichletProblem}
   \begin{cases}
@@ -93,9 +59,6 @@ We will see now that \cref{eq:dirichletProblem} has a unique solution. To do tha
 \begin{corollary}
   The Dirichlet problem of \cref{eq:dirichletProblem} has a unique solution.
 \end{corollary}
-\begin{proof}
-  Suppose we have two solutions $V_1$, $V_2$ of \cref{eq:dirichletProblem}. Then, $W:=V_1-V_2$ is harmonic in $\Omega^c$, $W=0$ on $\Fr{\Omega}$ and $\displaystyle\lim_{\norm{\vf{r}}\to\infty}W=0$. So $\forall\varepsilon>0$, $\exists n\in\NN$ large enough such that $\Omega \subseteq B(0,n)$ and $\abs{W}\leq \varepsilon$ on $\RR^3\setminus \overline{B(0,n)}$. Thus, by the maximum principle, $\abs{W}\leq \varepsilon$ on $\overline{B(0,n)}\cap \Omega^c$. Since the $\varepsilon$ is arbitrary, we must have $W=0$ on $\Omega^c$, that is, $V_1=V_2$.
-\end{proof}
 Now that we know that the Dirichlet problem has a unique solution, we can proceed to find it. In the next section we will construct an explicit solution for the gravitational potential created by the Earth.
 \subsection{Spherical harmonics}
 \subsubsection{Legendre polynomials, regularity and orthonormality}
@@ -120,11 +83,11 @@ From here we can obtain two independent solutions by setting the initial conditi
   y_\mathrm{e}(x)=a_0\sum_{j=0}^{\infty}\left[\prod_{k=0}^{j-1}(2k(2k+1)-\lambda)\right]\frac{x^{2j}}{(2j)!}\quad y_\mathrm{o}(x)=a_1\sum_{j=0}^{\infty}\left[\prod_{k=0}^{j-1}((2k+1)(2k+2)-\lambda)\right]\frac{x^{2j+1}}{(2j+1)!}
 \end{equation}
 Here, the empty product (that is, when $k$ ranges from 0 to $-1$) is defined to be 1. However, for each $\lambda\in\RR$ either one of these series or both diverge at $x=\pm 1$, as they behave as the harmonic series in a neighborhood of $x=\pm 1$. We are interested, though, in the solutions that remain bounded on the whole interval $[-1,1]$. Looking at the expressions of \cref{eq:legendre_series} one can check that the only possibility to make the series converge in $[-1,1]$ is when $\lambda =n(n+1)$, $n\in\NN\cup\{0\}$. In this case, for each $n\in\NN\cup\{0\}$ exactly one of the series is in fact a polynomial of degree $n$. If, furthermore, we choose $a_0$ or $a_1$ be such that the polynomial evaluates to 1 at $x=1$, these polynomials are called \emph{Legendre polynomials}, and they are denoted by $P_n(x)$. The other (divergent) series is usually denoted in the literature by $Q_n(x)$ (check \cite{mathematical_methods,florida:legendre}) and it is independent of $P_n(x)$. Thus, the general solution of \cref{eq:legendre_diff_eq} for $\lambda=n(n+1)$ can be expressed as a linear combination of $P_n$ and $Q_n$, because the space of solutions form a vector space of dimension 2.
-\begin{figure}[ht]
+\begin{center}
   \centering
   \begin{minipage}[ht]{0.47\textwidth}
     \centering
-    \captionsetup{type=table} %% tell latex to change to table
+    % \captionsetup{type=table} %% tell latex to change to table
     \begin{tabular}{|c|c|}
       \hline
       $n$ & $P_n(x)$                                 \\
@@ -139,16 +102,16 @@ Here, the empty product (that is, when $k$ ranges from 0 to $-1$) is defined to 
       $7$ & $\frac{1}{16}(429x^7-693x^5+315x^3-35x)$ \\
       \hline
     \end{tabular}
-    \caption{First eight Legendre polynomials}
+    \captionof{table}{First eight Legendre polynomials}
     \label{tab:legendre_polys}
   \end{minipage}
   \hspace{0.02\textwidth}
   \begin{minipage}[ht]{0.47\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Images/legendre.pdf}
-    \caption{Graphic representation of the first eight Legendre polynomials.}
+    \captionof{figure}{Graphic representation of the first eight Legendre polynomials.}
   \end{minipage}
-\end{figure}
+\end{center}
 % The following proposition gives and explicit formula for the Legendre polynomials.
 % \begin{proposition}[Rodrigues' formula]
 %   Let $n\in \NN\cup\{0\}$. Then, $\forall x\in[-1,1]$:
@@ -314,20 +277,6 @@ Similarly, it can be shown that the spherical harmonics from an orthonormal fami
   \end{equation}
   where $\dd\Omega=\sin\phi\dd{\phi}\dd{\theta}$ is the solid angle element, which measures the element of area on a sphere of radius $1$.
 \end{proposition}
-\begin{proof}
-  Let $N_{n_1,m_1}$, $N_{n_2,m_2}$ be the normalization factors of the spherical harmonics $Y_{n_1,m_1}$, $Y_{n_2,m_2}$ respectively. Note that we can separate the variables in the integral of \cref{eq:ortho_spherical_harmonics}. So if $i\ne j$, the integral over $\theta$ becomes $\int_0^{2\pi}\cos(m_1\theta)\sin(m_2\theta)\dd{\theta}$ which is equal to 0 regardless of the values of $m_1$ and $m_2$. So from now on assume that $i=j$. Due to the symmetry between the cosine and the sine we can suppose that $i=\mathrm{c}$. Thus:
-  \begin{multline}
-    \int_0^{2\pi}\int_0^\pi Y_{n_1,m_1}^i(\theta,\phi) Y_{n_2,m_2}^j(\theta,\phi)\dd\Omega=\\= N_{n_1,m_1}N_{n_2,m_2}\int_0^\pi P_{n_1,m_1}(\cos\phi) P_{n_2,m_2}(\cos\phi)\sin\phi\dd\phi\int_{0}^{2\pi}\cos(m_1\theta)\cos(m_2\theta)\dd{\theta}
-  \end{multline}
-  An easy check shows that if $m_1\neq m_2$ then the integral over $\theta$ is zero (and the same applies with sines). So suppose $m_1=m_2=m$. In that case, if $m\ne 0$ we have $\int_{0}^{2\pi}{(\cos m\theta)}^2\dd{\theta}=\int_{0}^{2\pi}{(\sin m\theta)}^2\dd{\theta}=\pi$ and if $m=0$, the cosine integral evaluates to $2\pi$ whereas the sine integral is 0. We can omit this latter case because $Y_{n,0}^{\mathrm{s}}$ is identically zero. Thus:
-  \begin{equation}
-    \frac{2\pi}{2-\delta_{0,m}} N_{n_1,m}N_{n_2,m}\int_0^\pi P_{n_1,m}(\cos\phi) P_{n_2,m}(\cos\phi)\sin\phi\dd\phi=\frac{2\pi}{2-\delta_{0,m}} N_{n_1,m}N_{n_2,m}\int_{-1}^1 P_{n_1,m}(x) P_{n_2,m}(x)\dd{x}
-  \end{equation}
-  By \cref{lem:ortho_asso_legendre} this latter integral is $\frac{2}{2n_1+1}\frac{(n_1+m)!}{(n_1-m)!} \delta_{n_1,n_2}$. Finally, if $n_1=n_2=n$, putting all normalization factors together we get:
-  \begin{equation}
-    \frac{2\pi}{2-\delta_{0,m}} N_{n}^{m}N_{n}^{m}\frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}=4\pi
-  \end{equation}
-\end{proof}
 Moreover, an important result in the Sturm-Liouville Theory of second order differential equations (\cite{wiki:sturmliouville,completenessSL}) says that the family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ form a complete set in the sense that any smooth function defined on the sphere $f:\mathrm{S}^2\rightarrow\RR$ can be expanded in a series of spherical harmonics:
 \begin{equation}
   f(\theta,\phi)=\sum_{n=0}^\infty\sum_{m=0}^n (c_{n,m} Y_{n,m}^{\mathrm{c}}(\theta,\phi)+s_{n,m} Y_{n,m}^{\mathrm{s}}(\theta,\phi))
@@ -365,40 +314,6 @@ We are now interested in solving the Laplace equation. \cref{thm:laplace_spheric
   \end{align}
   where $a_n,b_n,c_{n,m},s_{n,m},\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$.
 \end{theorem}
-\begin{proof}
-  Let $f(r,\theta,\phi)$ be a solution of \cref{eq:laplace}. Using separation variables $f(r,\theta,\phi)=R(r)\Theta(\theta)\Phi(\phi)$ we can write:
-  \begin{equation}
-    \frac{\Theta\Phi}{r^2}{(r^2R')}'+\frac{R\Theta}{r^2\sin\phi}{(\sin\phi\Phi')}'+\frac{R\Phi}{r^2{(\sin\phi)}^2}\Theta''=0
-  \end{equation}
-  Here, we are making and abuse of notation denoting all the derivatives with a prime, but the reader should have no confusion with it. Isolating $R$ from $\Theta$ and $\Phi$ yields:
-  \begin{equation}
-    \frac{{(r^2R')}'}{R}=-\frac{1}{\sin\phi\Phi}{(\sin\phi\Phi')}'-\frac{1}{{(\sin\phi)}^2\Theta}\Theta''
-  \end{equation}
-  Since the left-hand side depends entirely on $r$ and the right-hand side does not, it follows that both sides must be constant. Therefore:
-  \begin{align}
-    \label{eq:laplaceR}        & \frac{{(r^2R')}'}{R}=\lambda                                                               \\
-    \label{eq:laplaceThetaPhi} & \frac{1}{\sin\phi\Phi}{(\sin\phi\Phi')}'+\frac{1}{{(\sin\phi)}^2\Theta}\Theta''  =-\lambda
-  \end{align}
-  with $\lambda\in\RR$. Similarly, separating variables from \cref{eq:laplaceThetaPhi} we obtain that the equations
-  \begin{align}
-    \label{eq:laplaceTheta} & \frac{1}{\Theta}\Theta''  =-m^2                                     \\
-    \label{eq:laplacePhi}   & \frac{\sin\phi}{\Phi}{(\sin\phi\Phi')}'+\lambda{(\sin\phi)}^2  =m^2
-  \end{align}
-  must be constant with $m\in\CC$ (a priori). The solution to the well-known \cref{eq:laplaceTheta} is a linear combination of the $\cos(m\theta)$ and $\sin(m\theta)$. Note, though, that since $\Theta$ must be a $2\pi$-periodic function, that is satisfying $\Theta(\theta+2\pi)=\Theta(\theta)$ $\forall\theta\in\RR$, $m$ must be an integer. On the other hand making the change of variables $x=\cos \phi$ and $y=\Phi(\phi)$ in \cref{eq:laplacePhi} and using the chain rule, that equation becomes:
-  \begin{equation}\label{}
-    (1-x^2)\dv[2]{y}{x}-2x\dv[2]{y}{x}+\left(\lambda-\frac{m^2}{1-x^2}\right)y=0
-  \end{equation}
-  which is the associate Legendre equation. We have argued in \cref{prop:associate_legendre} that we need $\lambda=n(n+1)$ and $m\leq n$ in order to obtain regular solutions at $x=\cos\phi=\pm 1$. Moreover, these solutions are $P_{n,m}(\cos\phi)$.
-
-  Finally, note that equation \cref{eq:laplaceR} is a Cauchy-Euler equation (check \cite{wiki:cauchy-euler}) and so the general solution of it is given by
-  \begin{equation}
-    R(r) = c_1 r^{n} + c_2 r^{-n-1}
-  \end{equation}
-  because $\lambda = n(n+1)$ (the reader may check that $r^n$ and $r^{-n-1}$ are indeed two independent solutions of \cref{eq:laplaceR}). So the general solution becomes a linear combination of each solution found varying $n\in\NN\cup\{0\}$ and $m\in\{0,1,\dots,n\}$:
-  \begin{equation}
-    f(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))
-  \end{equation}
-\end{proof}
 We ignore the singularity at $r=0$ of \cref{eq:sol_laplace} from now. See \cref{sec:laplace_spherical_potential} for more details.
 \subsubsection{Expansion in spherical harmonics}\label{sec:laplace_spherical_potential}
 We have just seen that if $V$ satisfies the exterior Dirichlet problem for the Laplace equation, then, by uniqueness of solutions, it can be expressed as:
@@ -445,14 +360,14 @@ Let $C_{n,m}:= \bar{C}_{n,m}N_{n,m}$ and $ S_{n,m}:= \bar{S}_{n,m}N_{n,m}$. If $
 where the \textit{partial} accelerations $\ddot{x}_{n,m}$, $\ddot{y}_{n,m}$, $\ddot{z}_{n,m}$ are given by:
 \begin{align}
   \ddot{x}_{n,m} & =\begin{cases}
-                      \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}V_{n+1,1}                                                                                          & \text{ if $m=0$} \\[10pt]
+                      \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}V_{n+1,1}                                                                                         & \text{ if $m=0$} \\[10pt]
                       \begin{aligned}
       \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}\cdot\frac{1}{2}\bigg[C_{n,m}V_{n+1,m+1}+ S_{n,m}W_{n+1,m+1}-\hspace{4cm} \\
       -  \frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}V_{n+1,m-1}+S_{n,m}W_{n+1,m-1}\right)\bigg]
     \end{aligned} & \text{ if $m>0$}
                     \end{cases} \\
   \ddot{y}_{n,m} & =\begin{cases}
-                      \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}W_{n+1,1}                                                                                          & \text{ if $m=0$} \\[10pt]
+                      \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}W_{n+1,1}                                                                                         & \text{ if $m=0$} \\[10pt]
                       \begin{aligned}
       \displaystyle -\frac{GM_\oplus}{{R_\oplus}^2}\cdot\frac{1}{2}\bigg[C_{n,m}W_{n+1,m+1}-S_{n,m}V_{n+1,m+1}-\hspace{4cm} \\
       -\frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}W_{n+1,m-1}-S_{n,m}V_{n+1,m-1}\right)\bigg]
@@ -484,30 +399,13 @@ starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0
   \caption{Scheme for the calculation of the coefficients $V_{n,m}$ and $W_{n,m}$ for $0\leq m\leq n\leq n_\mathrm{max}$. The red arrows indicate that the coefficients are calculated using the first of the above recursions; the green arrows indicate that they are calculated using the second recursion; and the blue arrows indicate that they are calculated using the third recursion.}
   \label{fig:SHcoeffs}
 \end{figure}
-\subsubsection{Position and velocity}
-With all the ingredients in place, the position and velocity of the satellite can be calculated from the following system of differential equations:
-\begin{equation}
-  \ddot{\vf{r}}=\vf{g}
-  \implies
-  \begin{cases}
-    x'=v_x          \\
-    y'=v_y          \\
-    z'=v_z          \\
-    {v_x}'=\ddot{x} \\
-    {v_y}'=\ddot{y} \\
-    {v_z}'=\ddot{z}
-  \end{cases}
-\end{equation}
-where $\ddot{x}$, $\ddot{y}$, $\ddot{z}$ are given in \cref{eq:acceleration}. The initial conditions will be the position and velocity obtained from the TLE.
-
-In order to solve this system of differential equations, we have opted to use the Runge-Kutta-Fehlberg of order 78.
 \subsection{Other perturbations}
 So far we have only considered one force acting on the satellite: the gravitational force exerted by the Earth. However, there are other important forces worth-considering, and they relative importance varies depending on the satellite's altitude.
 
 \subsubsection{Atmospheric drag}
-For example, for \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than 1000 km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The satellite acceleration due to drag can be written as:
+For \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than 1000 km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The acceleration due to drag can be written as:
 \begin{equation}
-  \ddot{\vf{r}}=-\frac{1}{2}C_D\frac{A}{m}\rho v_r\vf{v}_r
+  \vf{a}_{\mathrm{D}}=-\frac{1}{2}C_{\mathrm{D}}\frac{A}{m}\rho v_r\vf{v}_r
 \end{equation}
 where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_r$ is the relative velocity between the satellite and the air particles, $v_r=\norm{\vf{v}_r}$, and $C_D$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_r$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
 \begin{equation}
@@ -518,9 +416,9 @@ where $\vf{\omega}_\oplus$ is the angular velocity of the Earth.
 The complexity of modeling this force arises from the challenge of representing accurately the atmospheric density as a function of the altitude. We will not delve into this topic, but in the simulation we will use the density model of Harris-Priester, which is valid for altitudes between 100 and 1000 km (see \cite{montenbruck} for more details).
 
 \subsubsection{Sun and Moon gravitational perturbations}
-For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between 1000 and 35780 km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around 35780 km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than 35780 km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even celestial bodies.
+For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between 1000 and 35780 km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around 35780 km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than 35780 km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even other celestial bodies.
 
-Adding a third body into the equations requires some carefulness. We will do the general deduction to make it clear for the reader. Suppose we have $N+2$ bodies of masses $M$, $M_1,\ldots, M_N$ and $m\ll M,M_1,\ldots,M_N$ at positions $\vf{s}$, $\vf{s}_1,\ldots,\vf{s}_N$ and $\vf{r}$, respectively, in an inertial reference frame (we omit the dependence in time). The dynamics of this system is governed by the following equations:
+Adding a third body into the equations requires some carefulness. We will do the general deduction to make it clear for the reader. Suppose we have $N+2$ bodies of masses $M$, $M_1,\ldots, M_N$ and $m\ll M,M_1,\ldots,M_N$ at positions $\vf{s}$, $\vf{s}_1,\ldots,\vf{s}_N$ and $\vf{r}$, respectively, in an inertial reference frame (we omit the dependence in time). The dynamics of this system are governed by the following system of differential equations:
 \begin{equation}
   \begin{cases}
     \displaystyle \ddot{\vf{s}}=\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})      +\frac{Gm}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s}) \\
@@ -542,16 +440,34 @@ For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ 
 \end{equation}
 Taking the origin of the inertial reference frame at the center of mass of the Earth, i.e.\ $\vf{s}=0$, the latter equation finally becomes:
 \begin{equation}
-  \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{R}}^3}(\vf{s}_i-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i}^3}(\vf{s}_i)
+  \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{R}}^3}(\vf{s}_i-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i}^3}\vf{s}_i=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\vf{a}_i
 \end{equation}
-In practice, the first term of the right-hand side of the equation is exchanged by the expansion of the acceleration in spherical harmonics.
+where $\vf{a}_i=\frac{GM_i}{\norm{\vf{s}_i-\vf{R}}^3}(\vf{s}_i-\vf{R})-\frac{GM_i}{\norm{\vf{s}_i}^3}\vf{s}_i$ is the contribution of the $i$-th body to the acceleration of the satellite.
+In the simulation, we will replace the first term of the right-hand side of the equation by the expansion of the acceleration in spherical harmonics.
 
 \subsubsection{Solar radiation pressure}
+Satellites in high-altitude orbits may also experience a force that arises from the absortion or reflection of photons emitted by the Sun \cite{montenbruck}. We will expose a brief overview on how this solar radiation pressure is modeled and how it is included in the equations of motion. The acceleration due to solar radiation pressure is given by:
+\begin{equation}\label{eq:preSolarRad}
+  \ddot{\vf{r}}_{\mathrm{R}}=-P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{r}}^3}
+\end{equation}
+Here $P_{\odot}$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{s}_\odot$ denotes the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
 
+One should note that $A_\odot$ and $A$ (the cross-sectional area of the satellite use to compute the drag force) are in general not the same. We will see in the next section, though, that due to the difficulties on determining them, we will assume that they are equal and constant throughout the integration process.
 
-atmospheric drag, solar radiation pressure, and the gravitational pull of the Moon and Sun,
-POSAR-HO SI AL FINAL FAIG SIMULACIO AMB AIXO, SI NO, NOOOO.
-
+In reality, \cref{eq:preSolarRad} does not describe entirely well the perturbation due to the solar radiation. Indeed, an illumination factor $\nu\in[0,1]$ should be added into the equation to account for the fraction of solar rays that actually reach the satellite. This cause the disctinction of three regions: the illumination zone ($\nu=1$), where the satellite is fully exposed to the Sun; the penumbral zone ($0<\nu<1$), where the satellite is partially exposed to the Sun, and the umbral zone ($\nu=0$), where the satellite receives no solar radiation due to the Earth obstructing the light.
+Thus, \cref{eq:preSolarRad} should be corrected to:
+\begin{equation}\label{eq:SolarRad}
+  \ddot{\vf{r}}_{\mathrm{R}}=-\nu P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}^3}
+\end{equation}
+\cref{fig:penumbra} shows a 2D schematic representation of the penumbra and umbral zones of the Earth. To determine whether the satellite is or not inside on of these zones, we must compute the dot product between $\vf{r}$ and $\vf{s}_\odot$ and if it is negative, then compare the relative ``altitude'' of the satellite with respect to the ``altitudes'' of the penumbral and umbral zones ($y_\mathrm{sat}$, $y_{\mathrm{pen}}$ and $y_{\mathrm{umb}}$ respectively in the figure).
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Images/penumbra.pdf}
+  \caption{Schematic representation of the penumbra and umbral zones. Source: based on \cite{vallado}.}
+  \label{fig:penumbra}
+\end{figure}
+\subsubsection{Minor perturbations}
+In addition to the major perturbations described above, there are other minor perturbations that we will not consider in this work, but they are worth-considering if accurate results are required. Some of these perturbations include relativistic effects, the Earth tide effects, or radiation pressure caused by the sunlight reflected by the Earth (albedo) \cite{montenbruck}.
 % From  https://physics.stackexchange.com/questions/19477/earth-centered-inertial-eci-reference-frame-as-approximate-inertial-frame-of-r
 % ECI coordinate frames are not truly inertial since the Earth itself is accelerating as it travels in its orbit about the Sun. In many cases, it may be assumed that the ECI frame is inertial without adverse effect. However, when computing the gravitational influence of a third body such as the Moon on the dynamics of a spacecraft, the acceleration of the ECI frame must be considered. For example, when computing the acceleration of an Earth-orbiting spacecraft due to the gravitational influence of the Moon, the acceleration of the Earth itself due to the Moon's gravity must be subtracted
 \end{document}

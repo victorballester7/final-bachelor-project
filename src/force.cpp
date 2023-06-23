@@ -22,12 +22,14 @@ Vector AccelPointMass(const Vector& r, const Vector& s, double GM) {
   double s1 = s.norm();
   double s2 = s1 * s1;
   double s3 = s2 * s1;
-  Vector sat_pointMass = r_relSR / r3;
-  Vector earth_pointMass = s / s3;
+  // Vector sat_pointMass = r_relSR / r3;
+  // Vector earth_pointMass = s / s3;
+
+  // return (r_relSR / r3 - s / s3) * GM;
 
   // Solution to improve cancellation error (from Vallado: p. 575)
   double Q = (r.dot(r) + 2 * r.dot(r_relSR)) * (s2 + s1 * r1 + r2) / (s3 * r3 * (s1 + r1));
-  return (r_relSR * Q - r / s3) * GM;
+  return (r_relSR * Q - r / s3) * (GM);
 
   // double q = (r.dot(r) + 2 * r.dot(s)) / s2;
   // double f = q * (3 + q * (3 + q)) / (1 + pow(1 + q, 1.5));
@@ -53,7 +55,8 @@ Vector AccelSolarRad(const Vector& r, const Vector& r_Sun, double Area_mass) {
 
   // Acceleration
 
-  return d * (C_R * Area_mass * P0 * AU * AU / d3);
+  // return d * (C_R * Area_mass * P0 * AU * AU / d3);
+  return d * (C_R * Area_mass * P0 / d.norm());
 }
 
 double Illumination(const Vector& r, const Vector& r_Sun) {
@@ -279,18 +282,18 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   Vector v_dot_0 = v_dot;
   static int i = 0;
   // if (i < 100)
-  // std::cout << "v_dot_0 = " << v_dot.norm() << std::endl;
+  //   std::cout << "v_dot_0 = " << v_dot.norm() << std::endl;
   if (prm->sun) v_dot += AccelPointMass(r, r_sun, GM_SUN);
   // if (i < 1000)
-  // std::cout << "v_dot_sun (" << prm->sun << ") = " << (v_dot - v_dot_0).norm() << std::endl;
+  //   std::cout << "v_dot_sun (" << prm->sun << ") = " << (v_dot - v_dot_0).norm() << std::endl;
   // v_dot_0 = v_dot;
   if (prm->moon) v_dot += AccelPointMass(r, r_moon, GM_MOON);
   // if (i < 1000)
-  // std::cout << "v_dot_moon (" << prm->moon << ") = " << (v_dot - v_dot_0).norm() << std::endl;
+  //   std::cout << "v_dot_moon (" << prm->moon << ") = " << (v_dot - v_dot_0).norm() << std::endl;
   // v_dot_0 = v_dot;
   if (prm->solar_rad) v_dot += AccelSolarRad(r, r_sun, prm->Am) * Illumination(r, r_sun);
   // if (i < 100)
-  // std::cout << "v_dot_solar_rad (" << prm->solar_rad << ") = " << (v_dot - v_dot_0).norm() << std::endl;
+  //   std::cout << "v_dot_solar_rad (" << prm->solar_rad << ") = " << (v_dot - v_dot_0).norm() << std::endl;
 
   if (prm->atmo_drag) v_dot += AccelDrag(r, v, mjd_tt, NutationMatrix(mjd_tt) * PrecessionMatrix(mjd_tt), prm->Am);
   // if (i < 100)
@@ -312,7 +315,7 @@ int gravField(int n, double t, double x[], double f[], void* param) {
 int integrateOrbit(Satellite& s, double T, double h, double tol, int maxNumSteps, void* prm) {
   int n = 6;
   double x[6] = {s.r_ECI(0), s.r_ECI(1), s.r_ECI(2), s.v_ECI(0), s.v_ECI(1), s.v_ECI(2)};
-  double hmin = h * 0.5, hmax = h * 2.0;
+  double hmin = h * 0.05, hmax = h * 20.0;
 
   double t = s.mjd_TT * 86400.0;
   // std::cout << "r_ECI = " << s.r_ECI << std::endl;

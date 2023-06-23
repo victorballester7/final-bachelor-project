@@ -1,0 +1,101 @@
+\documentclass{standalone}
+\usepackage{../../preamble}
+% Increase main_memory parameter
+% \newcommand\increaseMemory{
+%     \directlua{
+%         texconfig.main_memory = texconfig.main_memory + 100000000
+%     }
+% }
+
+% \pgfplotsset{
+%   customLegend/.style={
+%     legend image code/.code={%
+%       % \draw[##1,/tikz/.cd,densely dotted]
+%       %   (0cm,0cm) -- (0.3cm,0cm);
+%       % \draw[##1,/tikz/.cd,solid]
+%       %   (0.3cm,0cm) -- (0.6cm,0cm);
+%       \draw [#1] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
+%       \draw [#1,solid] (0cm, 0cm) -- (0.6cm,0cm);
+%     },
+%   },              
+% }
+
+
+\pgfplotsset{
+  customLegend/.style={
+    legend image code/.code={%
+      % \draw [#1,draw=none, fill opacity=0.15] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
+      \draw [fill=#1, fill opacity=0.15,draw=none] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
+      \draw [#1,solid] (0cm, 0cm) -- (0.6cm,0cm);
+    },
+  },              
+}
+
+\begin{document}
+\begin{tikzpicture}
+  % \begin{axis}[customLegend,
+  %     axis x line=bottom,axis y line=left,
+  %     domain=0:1,
+  %     legend pos=north west,
+  %     axis on top,xmin=0,
+  %   ]
+  %   \addplot [pattern=crosshatch dots,
+  %     pattern color=blue,draw=blue,
+  %     samples=500]
+  %   {sqrt(x)} \closedcycle;
+  %   \addplot [pattern=crosshatch,
+  %     pattern color=blue!30!white,
+  %     draw=blue!30!white]
+  %   {x^2} \closedcycle;
+  %   \addplot [red,line legend]
+  %   coordinates {(0,0) (1,1)};
+  %   \legend{$\sqrt x$,$x^2$,$x$}
+  % \end{axis}
+  % \draw[fill=green,draw=none] (0,0)  rectangle (1,1);
+  \begin{axis}[
+      % axis equal image,
+      % axis lines=middle,
+      xmin=0,
+      xmax=15,
+      ymin=0,
+      xlabel={Time [days]},
+      ylabel={Error in position [km]},
+      customLegend,
+      legend cell align = {left}, %
+      legend columns=2,
+      legend style={at={(0.5,-0.2)},anchor=north} % position of the legend box and anchor is the point on the box to be fitted exactly at the point of cs:<>,<>. Options are anchor=center,south west,south east,north west,north east,north,south,west...
+      % ymax=10,
+      % xtick=\empty,
+      % ytick=\empty,
+    ]
+    \def\filenameA{../../../data/plot/SIRIUS_3_sphHarm.txt}
+    \def\filenameB{../../../data/plot/SIRIUS_3_sphHarm_moon.txt}
+    \def\filenameC{../../../data/plot/SIRIUS_3_sphHarm_sun_moon.txt}
+    \def\filenameD{../../../data/plot/SIRIUS_3_sphHarm_sun_moon_solarRad.txt}
+
+    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameA};
+    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameA};
+    \addplot [fill=sphHarm!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=middle,sphHarm] table[x=time,y=error] {\filenameA};
+
+    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameB};
+    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameB};
+    \addplot [fill=sphHarmMoon!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=middle,sphHarmMoon] table[x=time,y=error] {\filenameB};
+
+
+    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameC};
+    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameC};
+    \addplot [fill=sphHarmMoonSun!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=middle,sphHarmMoonSun] table[x=time,y=error] {\filenameC};
+
+
+    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameD};
+    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameD};
+    \addplot [fill=sphHarmMoonSunSolarRad!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=middle,sphHarmMoonSunSolarRad] table[x=time,y=error] {\filenameD};
+
+    \legend{GPM,GPM + Moon,GPM + Moon + Sun,GPM + Moon + Sun + Solar Rad}
+  \end{axis}
+\end{tikzpicture}
+\end{document}

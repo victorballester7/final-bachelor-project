@@ -28,9 +28,16 @@ filename_out_3 = os.path.join(
 filename_out_4 = os.path.join(
     script_dir + "/../data/teme/",
     satellite_name + "_1min_interval.txt")
+filename_out_5 = os.path.join(
+    script_dir + "/../data/type_orbit/",
+    satellite_name + ".txt")
 
 with open(filename_in, "r") as f:
   lines = f.readlines()
+
+# print the number of TLEs in filename_out_5
+with open(filename_out_5, "w") as f:
+  f.write(str(len(lines) // 2))
 
 L = []
 
@@ -42,6 +49,8 @@ for i in range(0, len(lines)):
     jd = satellite.jdsatepoch
     jd_frac = satellite.jdsatepochF
     e, r, v = satellite.sgp4(jd, jd_frac)
+    if (e != 0):
+      print("ERROR!!!!!!!!!!")
     mdjd = jd - 2400000.5
     L.append([mdjd, jd_frac, r, v])
 
@@ -126,7 +135,7 @@ satellite = Satrec.twoline2rv(lines[0], lines[1])
 jd = satellite.jdsatepoch
 jd_frac = satellite.jdsatepochF
 I = []
-for i in range(0, 20000):
+for i in range(0, 50000):
   e, r, v = satellite.sgp4(jd, jd_frac + i / (24 * 60))
   if (e != 0):
     print("ERROR!!!!!!!!!!")

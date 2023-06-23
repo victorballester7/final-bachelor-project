@@ -92,6 +92,7 @@ int flow(double *t, double x[], double *h, double T, double hmin, double hmax, d
     // printf("Hola\n");
     // printf("t = %g, t - t0 = %g, *t + *h - t0 = %g, T = %g, h = %g, hmin = %g, hmax = %g \n", *t, *t - t0, *t + *h - t0, T, *h, hmin, hmax);
     if (rk78(t, x, h, hmin, hmax, tol, n, field, param)) return 1;
+    // printf("h = %g\n", *h);
     count++;
     // printf("t = %g, t - t0 = %g, *t + *h - t0 = %g, T = %g, h = %g, hmin = %g, hmax = %g \n", *t, *t - t0, *t + *h - t0, T, *h, hmin, hmax);
   }

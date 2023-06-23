@@ -72,23 +72,11 @@ Note that the $x$ coordinate at these two points is the same: $\displaystyle-\fr
 \end{definition}
 \begin{figure}[htbp]
   \centering
-  \begin{minipage}[ht]{0.47\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Images/ellipse.pdf}
-    \caption{Ellipse}
-    \label{fig:ellipse}
-  \end{minipage}
-  \hspace{0.02\textwidth}
-  \begin{minipage}[ht]{0.47\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Images/circles-ellipse.pdf}
-    \caption{Reference frame centered at the center of the ellipse. Source: \cite{wiki:conic-ellipse}.}
-    \label{fig:circle-ellipse}
-  \end{minipage}
+  \includegraphics[width=0.5\textwidth]{Images/ellipse.pdf}
+  \caption{Ellipse}
+  \label{fig:ellipse}
 \end{figure}
-\begin{figure}[ht]
 
-\end{figure}
 From here note that we can express $b$ in terms of $a$ and $e$ as:
 \begin{equation}\label{eq:ellipse_b_a}
   b=a\sqrt{1-e^2}
@@ -108,15 +96,5 @@ Finally, one more property of the ellipse will be needed: its area.
 \begin{proposition}
   The area enclosed in an ellipse of semi-major axis $a$ and semi-minor axis $b$ is $\pi a b$.
 \end{proposition}
-\begin{proof}
-  Consider the ellipse $E$ centered at the origin and oriented as in \cref{fig:circle-ellipse}. From \cref{fig:circle-ellipse} one can check that it can be parametrized by $(x,y)=(a\cos t,b\sin t)$ with $ t\in[0,2\pi)$. This parametrization satisfies:
-  \begin{equation}
-    \frac{x^2}{a^2}+\frac{y^2}{b^2}=1
-  \end{equation}
-  Hence, the area enclosed in the ellipse can be parametrized by $(x, y)=(ar\cos t,br\sin t)$, with $r\in[0,1]$ and $t\in[0,2\pi)$. The Jacobian of this transformation is $abr$. Therefore, from the change of variable theorem we have that:
-  \begin{equation}
-    \mathrm{Area}(E)=\iint_E\dd{x}\dd{y}=\int_{0}^{2\pi}\int_{0}^{1}abr\dd{r}\dd{t}=\pi ab
-  \end{equation}
-\end{proof}
 
 \end{document}

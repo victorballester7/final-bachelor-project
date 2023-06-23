@@ -2,4 +2,107 @@
 
 \begin{document}
 \section{Simulation}\label{sec:simulation}
+\subsection{Introduction}
+With all the ingredients in place, we can now proceed to simulate the propagation of trajectories of some satellites.
+Summarizing all the perturbations considered in this project, we have that the position $\vf{r}$ and velocity $\vf{v}=\dot{\vf{r}}$ of the satellite will be governed by the following system of differential equations:
+\begin{equation}
+  \begin{cases}
+    \dot{\vf{r}}=\vf{v} \\
+    \dot{\vf{v}}=\vf{a}_{\mathrm{GP}} + \delta_{\mathrm{D}}\vf{a}_{\mathrm{D}}+\delta_{\mathrm{R}}\vf{a}_{\mathrm{R}}+\delta_{\mathrm{sun}}\vf{a}_{\mathrm{sun}}+\delta_{\mathrm{moon}}\vf{a}_\mathrm{moon}
+  \end{cases}
+\end{equation}
+where $\vf{a}=(\ddot{x},\ddot{y},\ddot{z})$ is the acceleration caused by the geopotential and $\ddot{x}$, $\ddot{y}$ and $\ddot{z}$ are given in \cref{eq:acceleration}; $\vf{a}_{\mathrm{D}}$ is the acceleration caused by the atmospheric drag; $\vf{a}_{\mathrm{R}}$ is the acceleration caused by the solar radiation pressure; $\vf{a}_{\mathrm{sun}}$ is the acceleration caused by the Sun; and $\vf{a}_{\mathrm{moon}}$ is the acceleration caused by the Moon. The coefficients $\delta_{i}\in\{0,1\}$ are used to enable and disable the different perturbations. The initial conditions of the initial value problem will be the position and velocity obtained from the TLE. In order to solve this system of 6 differential equations, we have opted to use the Runge-Kutta-Fehlberg method of order 7(8).
+
+There is, however, a significant noting on this. In reality, the TLE sets are generated using a \emph{Simplified General Perturbations} (\emph{SGP}) model, and its stored data does not contain the instantaneous orbital elements of the satellite, but doubly-averaged mean elements calculated to fit a set of observations \cite{celestrak,celestrakReport}.
+They are created with the SGP4 model and, thus, we will use this software in order to obtain the position and velocity of each TLE.
+
+That being said, we can proceed to show the results. We have chosen to simulate the propagation of the trajectories of the satellites from very different altitudes: LEO satellites, MEO satellites and GEO satellites. \cref{fig:satellite_orbits} shows a schematic 2D representation of the different zones of study.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Images/satellite_orbits_custom.pdf}
+  \caption{Schematic 2D orbit size comparison of some orbits of satellites used in the simulation. Source: based on \cite{wiki:sat_orbits}.}
+  \label{fig:satellite_orbits}
+\end{figure}
+
+Along this section we will compare our model with SGP4, instead of with the TLE positions directly. This approach has been considered due to the following reasons. The first one is that we can obtain more easily the positions of the SGP4 propagator model at any instant of time and then compare them with our propagator. Using TLE sets, we can only predict the position at certain fixed times, and that makes the comparison more difficult, specially when the TLEs are very distant in time. Secondly but not least, throughout the simulation process we have observed that some TLEs are slightly biased in the sense of the time they are created. We noticed that by observing the errors of the position of spacecraft being bigger when adding the Sun and Moon to the equations, rather than when only considering the geopotential model.
+
+\subsection{LEO satellites}
+We start by simulating the propagation of the trajectories of the LEO satellites. For it, we have chosen the \emph{International Space Station} (\emph{ISS}) satellite. Its period is about 90 minutes, so it turns around the Earth about 16 times a day. That affects the propagations of errors, and as LEO satellites interact with the atmosphere, they are the most problematic numerically. Integrating the system with a duration of 7 days, starting from January 1, 2023, we obtain the following results.
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[ht]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Images/simulation/ISS_pointMass_comparison.pdf}
+    \caption{ISS position error when considering the Earth as a point mass or as a non-homogeneous spherical distribution of mass (with the geopotential model).}
+    \label{fig:ISS_point}
+  \end{minipage}
+  \hspace{0.0333333\textwidth}
+  \begin{minipage}[ht]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Images/simulation/ISS.pdf}
+    \caption{Propagation of the ISS satellite when considering only the geopotential model for the Earth and the atmospheric drag.}
+    \label{fig:ISS}
+  \end{minipage}
+\end{figure}
+
+Let's make the graphics clearer. The left-hand side graphic emphasises the use of the spherical harmonics expansion of the Earth's gravitational potential. The right-hand side graphic shows two curves, which represent the errors of the position of the ISS when considering only the geopotential model (GPM) of the Earth or considering also the atmospheric drag. The shaded regions surrounding the curves represent (and will respresent from here on) the interpolated error of the SGP4 model with the TLEs ``real'' positions.
+
+We see that, even not having a precise description of the term $C_\mathrm{D}\frac{A}{m}$ in the drag term, we still decrease notably the error of the position of the satellite when considering the atmospheric drag. During the integration we have assumed a constant value of $C_\mathrm{D}=2.2$, which in basis of \cite{montenbruck}, is reasonable for such conditions, and we have computed the area-to-mass ratio $\frac{A}{m}$ using the mean of the $B^*$ coefficients (see \cref{tab:TLE}) of all the TLEs of the ISS:
+\begin{equation}
+  \frac{A}{m}=\frac{2 B^*}{\rho_0 C_\mathrm{D}}
+\end{equation}
+In this formula, $\rho_0=0.157\ \mathrm{kg}/(\mathrm{m}^2 \cdot R_\oplus)$ is the reference air density, and $R_\oplus=6378.1363\ \mathrm{km}$ is the reference Earth radius. The units of $B^*$ in the TLE sets are $1 / R_\oplus$.
+
+As the ISS, and other LEO satellites, are far from the Moon and Sun, their influence is negligible for our purposes, and we have not graphically represented them, as they error curves would probably overlap the purple curve.
+
+\subsection{MEO satellites}
+As the Harris-Priester model for the density of the atmosphere is not valid for altitudes higher than 1000 km, in MEO satellites, we have not considered it. Instead, the gravitational pull of the Moon and the Sun is considerably high, namely perturbing the acceleration of the satellite by a factor of $10^{-6}$ (in SI units), large enough to be considered. The solar radiation pressure is also considered, but we will see that the results are not as good as expected, probably due to the inaccuracy of the model used for it.
+
+This time we have chosen the satellite Sirius-3 and one satellite from the Galileo constellation, namely Galileo-20. The results are shown in \cref{fig:Sirius,fig:Galileo}
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}[ht]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Images/simulation/SIRIUS.pdf}
+    \caption{Propagation of the Sirius-3 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.}
+    \label{fig:Sirius}
+  \end{minipage}
+  \hspace{0.0333333\textwidth}
+  \begin{minipage}[ht]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Images/simulation/GALILEO.pdf}
+    \caption{Propagation of the Galileo-20 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.}
+    \label{fig:Galileo}
+  \end{minipage}
+\end{figure}
+
+Let's justify the results. First note the change in duration of the integration with respect to the LEO satellites and also the decrease in magnitude of the error. These satellites travel at much lower speeds, and therefore, the integration time can be much longer for obtaining similar errors. The color codes are the same as the one in the previous graphics.
+
+We observe two very distinct results. On the one hand, errors on the Sirius-3 satellite seam to decrease when adding the Sun and Moon into the equations, although from the beginning of the 12-th day onwards, the blue curve is below the other three, but increasing its oscillations with time. That could be caused by the increasing in the errors when the pull of the Moon and the Sun is maximum (see \cref{fig:meo_explanation}) and the decreasing of them when their pull is minimum.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\textwidth]{Images/meo_explanation.pdf}
+  \caption{Exagerated plot of the possible orbits of a satellite when considering its motion with and without the perturbations of the Moon and the Sun.}
+  \label{fig:meo_explanation}
+\end{figure}
+On the other hand, the situation of the Galileo-20 satellite is very different. The oscillations of the GPM become larger in time and adding the Moon decreases the magnitude of the error but maintains the high oscillation rate. However, when enabling the Sun parameter into the equation, the oscillations decrease notably, although the errors in magnitude increase slightly. This could be caused by the fact that the position of the Sun, determined by a deterministic formula given in \cite{montenbruck}, is not accurate enough.
+
+Note that in both cases the solar radiation pressure increases the oscillations. Similarly to the atmospheric drag case, we have assumed a constant value of $C_\mathrm{R}=1.55$ (recommended in \cite{montenbruck}) and a constant ratio $\frac{A_\odot}{m}$ for all the satellites, due to the difficulty on obtaining this data. Thus, the imperfections of the model are expected.
+
+\subsection{GEO satellites}
+Finally, we study the GEO satellite TDRS-3. The results are shown in \cref{fig:TDRS}.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.5\textwidth]{Images/simulation/TDRS-3.pdf}
+  \caption{Propagation of the TDRS-3 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.}
+  \label{fig:TDRS}
+\end{figure}
+
+This time, adding the Moon improves only about 10 km of error when comparing it to only using the geopotential model. But adding the Sun really improves the results. In particular, during the first 5 days of integration, the errors with the SGP4 model remain incredibly small.
+
+\subsection{General conclusions}
+On the whole, we have seen how different perturbations affect the spacecraft dynamics. In particular, we observed that the Moon and Sun gravitational attraction become noticeable in MEO an GEO satellites, whereas the atmospheric drag is only important in LEO satellites. In all the cases studied, the solar radiation pressure has increased the oscillations of the errors, and therefore, for an extension of this work, it would be interesting to study it in a more accurate way, as well as the atmospheric drag, which has been studied in a very simple way.
+
+We have not considered the gravitational interaction of other planets with the satellites in our simulations. This is because, for our purposes, the influence of other planets on the satellites is typically negligible due to their large distances from Earth (see \cite{montenbruck}). In particular, for the date January 1, 2023, which is approximately the initial time of all our integrations, Jupiter was located at a distance of 1.5 AU from Earth. This distance is greater than the distance between the Earth and the Sun, and Jupiter's mass is also much smaller compared to the Sun. Because of that, the gravitational effect of Jupiter is not significant in our simulations, and the same applies to the other planets.
 \end{document}
