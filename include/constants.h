@@ -33,7 +33,7 @@ const double C_D = 2.2;  // Drag coefficient
 
 // Solar radiation pressure coefficients
 const double AU = 149597870700.;  // Astronomical unit [m]
-const double P0 = 4.56e-6;        // Solar radiation pressure at 1 AU [N/m^2]
+const double P0 = 4.57e-6;        // Solar radiation pressure at 1 AU [N/m^2]
 const double C_R = 1.55;          // Radiation pressure coefficient. C_R = 1 + epsilon, where epsilon is the reflectivity coefficient (between 0 and 1)
 
 const int N_JGM3 = 20;  // Degree and order of the JGM3 model (Earth gravitational model)
