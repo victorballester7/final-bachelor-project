@@ -69,8 +69,8 @@
 % \listoffigures
 % \listoftables
 \newpage
-
-\addcontentsline{toc}{section}{Acknowledgements}
+\phantomsection
+\addcontentsline{toc}{section}{\protect\numberline{}Acknowledgements}
 \subfile{sections/acknowledgements}\newpage
 \pagenumbering{arabic}
 \setcounter{page}{1}
@@ -80,8 +80,9 @@
 \subfile{sections/force}\newpage
 \subfile{sections/simulation}\newpage
 \appendix
-\subfile{sections/apendix}\newpage
+\subfile{sections/appendix}\newpage
 
+\phantomsection
 \addcontentsline{toc}{section}{References}
 \printbibliography
 \end{document}

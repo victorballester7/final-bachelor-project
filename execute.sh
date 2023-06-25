@@ -18,35 +18,38 @@ name_pointEarth="_pointEarth"
 name_sphHarm="_sphHarm"
 name_sun="_sun"
 name_moon="_moon"
+name_otherPlanets="_otherPlanets"
 name_solarRad="_solarRad"
 name_atmoDrag="_atmoDrag"
 
 make $BIN/main 
 
-if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] || [[ ! "${models[*]}" =~ "$7" ]]; then
-  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>"
+if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] || [[ ! "${true_false[*]}" =~ "$7" ]] || [[ ! "${models[*]}" =~ "$8" ]]; then
+  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>"
   sat_string="Available satellites: "
   for i in "${satellites[@]}"; do
     sat_string+="$i "
   done
   echo $sat_string
-  echo "Executing the default command: ./execute.sh $default_sat f f f f f sgp4"
+  echo "Executing the default command: ./execute.sh $default_sat f f f f f f sgp4"
   satellite=$default_sat
   pointEarth="f"
   sun="f"
   moon="f"
+  otherPlanets="f"
   solarRad="f"
   atmoDrag="f"
   model="sgp4"
 else
-  echo "Executing the command: ./execute.sh $1 $2 $3 $4 $5 $6 $7"
+  echo "Executing the command: ./execute.sh $1 $2 $3 $4 $5 $6 $7 $8"
   satellite=$1
   pointEarth=$2
   sun=$3
   moon=$4
-  solarRad=$5
-  atmoDrag=$6
-  model=$7
+  otherPlanets=$5
+  solarRad=$6
+  atmoDrag=$7
+  model=$8
 fi
 
 end_name=""
@@ -61,6 +64,9 @@ if [ "$sun" == "t" ]; then
 fi
 if [ "$moon" == "t" ]; then
   end_name+=$name_moon
+fi
+if [ "$otherPlanets" == "t" ]; then
+  end_name+=$name_otherPlanets
 fi
 if [ "$solarRad" == "t" ]; then
   end_name+=$name_solarRad
@@ -98,6 +104,11 @@ if [[ "$moon" == "t" ]]; then
 else
   echo "moon: false"
 fi
+if [[ "$otherPlanets" == "t" ]]; then
+  echo "otherPlanets: true"
+else
+  echo "otherPlanets: false"
+fi
 if [[ "$solarRad" == "t" ]]; then
   echo "solarRad: true"
 else
@@ -113,9 +124,9 @@ fi
 echo "Getting the RV data from SGP4..."
 python3 src/getRV.py $satellite
 echo "Running the integrator..."
-./$BIN/main $satellite $pointEarth $sun $moon $solarRad $atmoDrag $model
+./$BIN/main $satellite $pointEarth $sun $moon $otherPlanets $solarRad $atmoDrag $model
 echo "Reducing the data..."
-python3 src/reduceData.py "${satellite}${end_name}" 10
+python3 src/reduceData.py "${satellite}${end_name}" 50
 echo "Plotting..."
 gnuplot -p -c $PLOT/$filename_err.gnu $satellite $datafile_err $datafile_err_sgp4
 # gnuplot -p -c $PLOT/$filename_orb.gnu $datafile_real $datafile_orb

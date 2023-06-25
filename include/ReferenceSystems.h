@@ -322,4 +322,46 @@ Vector Sun(double mjd_TT);
 // ----------------------------------------------
 Vector Moon(double mjd_TT);
 
+// ----------------------------------------------
+// Mars
+// ----------------------------------------------
+// Purpose:
+//    Calculate position vector of Mars in the J2000.0 reference frame
+//
+// Parameters:
+//    Mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Position vector of Mars in the J2000.0 reference frame [m]
+// ----------------------------------------------
+Vector Mars(double mjd_tt);
+
+// ----------------------------------------------
+// Venus
+// ----------------------------------------------
+// Purpose:
+//    Calculate position vector of Venus in the J2000.0 reference frame
+//
+// Parameters:
+//    Mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Position vector of Venus in the J2000.0 reference frame [m]
+// ----------------------------------------------
+Vector Venus(double mjd_tt);
+
+// ----------------------------------------------
+// Mercury
+// ----------------------------------------------
+// Purpose:
+//    Calculate position vector of Mercury in the J2000.0 reference frame
+//
+// Parameters:
+//    Mjd_TT: time in Modified Julian date TT (terrestrial time)
+//
+// Returns:
+//    Position vector of Mercury in the J2000.0 reference frame [m]
+// ----------------------------------------------
+Vector Jupiter(double mjd_tt);
+
 #endif  // REFERENCESYSTEMS_H

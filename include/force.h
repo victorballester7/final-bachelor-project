@@ -5,14 +5,15 @@
 #include "Satellite.h"
 
 typedef struct {
-  int n_max;        // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
-  int m_max;        // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
-  bool pointEarth;  // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
-  bool sun;         // true if the Sun is included in the spherical harmonics expansion, false otherwise
-  bool moon;        // true if the Moon is included in the spherical harmonics expansion, false otherwise
-  bool solar_rad;   // true if solar radiation pressure is included, false otherwise
-  bool atmo_drag;   // true if solar radiation pressure is included, false otherwise
-  double Am;        // Area-to-mass ratio of the satellite: A/m [m^2 / kg] cross-sectional area of the satellite [m^2]
+  int n_max;          // maximum degree of the spherical harmonics expansion(0...N_JDM3 - 1)
+  int m_max;          // maximum order of the spherical harmonics expansion (0...n_max). m_max = 0 for the zonal harmonics only
+  bool pointEarth;    // true if point mass approximation of the Earth is used, false if spherical harmonics expansion is used
+  bool sun;           // true if the Sun is included, false otherwise
+  bool moon;          // true if the Moon is included, false otherwise
+  bool otherPlanets;  // true if the other planets are included, false otherwise
+  bool solar_rad;     // true if solar radiation pressure is included, false otherwise
+  bool atmo_drag;     // true if solar radiation pressure is included, false otherwise
+  double Am;          // Area-to-mass ratio of the satellite: A/m [m^2 / kg] cross-sectional area of the satellite [m^2]
 } args_gravField;
 
 // ----------------------------------------------

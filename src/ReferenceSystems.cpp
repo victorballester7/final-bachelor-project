@@ -491,3 +491,75 @@ Vector Moon(double mjd_TT) {
   // Vector r_Moon = PrecessionMatrix(mjd_TT).transpose() * NutationMatrix(mjd_TT).transpose() * r_Moon_tete;
   return r_Moon;
 }
+
+Vector Mars(double mjd_tt) {
+  const double T = (mjd_tt - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+  const double mjd_ut1 = TT2UTC(mjd_tt);            // more or less
+
+  // search in the array for the closest value
+  int index = 0;
+  for (int i = 1; i < N_ALMANAC; i++) {
+    if (mjd_ut1 < MARS[i][0]) {
+      index = i - 1;
+      break;
+    }
+  }
+
+  Vector r_Mars_tete(3);  // true-equator, true-equinox
+
+  // we do a linear interpolation of the coordinates x, y, z from the two closest values
+  for (int i = 0; i < 3; i++) {
+    r_Mars_tete(i) = MARS[index][i + 1] + (MARS[index + 1][i + 1] - MARS[index][i + 1]) * (mjd_ut1 - MARS[index][0]) / (MARS[index + 1][0] - MARS[index][0]);
+  }
+
+  Vector r_Mars = PrecessionMatrix(mjd_tt).transpose() * NutationMatrix(mjd_tt).transpose() * r_Mars_tete;
+  return r_Mars;
+}
+
+Vector Venus(double mjd_tt) {
+  const double T = (mjd_tt - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+  const double mjd_ut1 = TT2UTC(mjd_tt);            // more or less
+
+  // search in the array for the closest value
+  int index = 0;
+  for (int i = 1; i < N_ALMANAC; i++) {
+    if (mjd_ut1 < VENUS[i][0]) {
+      index = i - 1;
+      break;
+    }
+  }
+
+  Vector r_Venus_tete(3);  // true-equator, true-equinox
+
+  // we do a linear interpolation of the coordinates x, y, z from the two closest values
+  for (int i = 0; i < 3; i++) {
+    r_Venus_tete(i) = VENUS[index][i + 1] + (VENUS[index + 1][i + 1] - VENUS[index][i + 1]) * (mjd_ut1 - VENUS[index][0]) / (VENUS[index + 1][0] - VENUS[index][0]);
+  }
+
+  Vector r_Venus = PrecessionMatrix(mjd_tt).transpose() * NutationMatrix(mjd_tt).transpose() * r_Venus_tete;
+  return r_Venus;
+}
+
+Vector Jupiter(double mjd_tt) {
+  const double T = (mjd_tt - MJD_J2000) / 36525.0;  // Julian cent. since J2000
+  const double mjd_ut1 = TT2UTC(mjd_tt);            // more or less
+
+  // search in the array for the closest value
+  int index = 0;
+  for (int i = 1; i < N_ALMANAC; i++) {
+    if (mjd_ut1 < JUPITER[i][0]) {
+      index = i - 1;
+      break;
+    }
+  }
+
+  Vector r_Jupiter_tete(3);  // true-equator, true-equinox
+
+  // we do a linear interpolation of the coordinates x, y, z from the two closest values
+  for (int i = 0; i < 3; i++) {
+    r_Jupiter_tete(i) = JUPITER[index][i + 1] + (JUPITER[index + 1][i + 1] - JUPITER[index][i + 1]) * (mjd_ut1 - JUPITER[index][0]) / (JUPITER[index + 1][0] - JUPITER[index][0]);
+  }
+
+  Vector r_Jupiter = PrecessionMatrix(mjd_tt).transpose() * NutationMatrix(mjd_tt).transpose() * r_Jupiter_tete;
+  return r_Jupiter;
+}

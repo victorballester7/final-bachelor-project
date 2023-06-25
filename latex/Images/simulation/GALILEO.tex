@@ -56,7 +56,7 @@
       % axis equal image,
       % axis lines=middle,
       xmin=0,
-      xmax=15,
+      xmax=30,
       ymin=0,
       xlabel={Time [days]},
       ylabel={Error in position [km]},
@@ -74,26 +74,26 @@
     \def\filenameC{../../../data/plot/GALILEO_20_sphHarm_sun_moon.txt}
     \def\filenameD{../../../data/plot/GALILEO_20_sphHarm_sun_moon_solarRad.txt}
 
-    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameA};
-    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameA};
-    \addplot [fill=sphHarm!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=upper,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameA};
+    \addplot [name path=lower,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameA};
+    \addplot [fill=sphHarm!15,forget plot,smooth] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarm] table[x=time,y=error] {\filenameA};
 
-    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameB};
-    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameB};
-    \addplot [fill=sphHarmMoon!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=upper,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameB};
+    \addplot [name path=lower,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameB};
+    \addplot [fill=sphHarmMoon!15,forget plot,smooth] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarmMoon] table[x=time,y=error] {\filenameB};
 
 
-    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameC};
-    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameC};
-    \addplot [fill=sphHarmMoonSun!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=upper,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameC};
+    \addplot [name path=lower,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameC};
+    \addplot [fill=sphHarmMoonSun!15,forget plot,smooth] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarmMoonSun] table[x=time,y=error] {\filenameC};
 
 
-    \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameD};
-    \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameD};
-    \addplot [fill=sphHarmMoonSunSolarRad!15,forget plot] fill between[of=upper and lower];
+    \addplot [name path=upper,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameD};
+    \addplot [name path=lower,draw=none,forget plot,smooth] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameD};
+    \addplot [fill=sphHarmMoonSunSolarRad!15,forget plot,smooth] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarmMoonSunSolarRad] table[x=time,y=error] {\filenameD};
 
     \legend{GPM,GPM + Moon,GPM + Moon + Sun,GPM + Moon + Sun + Solar Rad}

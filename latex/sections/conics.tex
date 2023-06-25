@@ -32,7 +32,7 @@ The following proposition gives a characterization of the conics.
   \end{equation}
   where $d$ is the Euclidean distance. The point $F$ is called \emph{focus}; the line $D$, \emph{directrix}, and the constant of proportionality $e$, \emph{eccentricity}.
 \end{proposition}
-An important type of conic section is when $e=0$, but this definition is not valid in this case, as it reduces to a single point. In this case, the conic obtained, a \emph{circle}, is defined as the set of all points $P$ such that the distance from $P$ to a fixed point $F$ is constant. It can be thought as a limit case of \cref{eq:conic_pre} by letting the line $D$ to infinity in a specific rate.
+An important type of conic section is the case $e=0$, but this definition is not valid in this case, as it reduces to a single point. In this case, the conic obtained, a \emph{circle}, is defined as the set of all points $P$ such that the distance from $P$ to a fixed point $F$ is constant. It can be thought as a limit case of \cref{eq:conic_pre} by letting the line $D$ approach to infinity at a specific rate.
 
 Note that using the polar coordinates $(r,\nu)$ centered at $F$ (as in \cref{fig:conics_cartesian}), we can rewrite \cref{eq:conic_pre} as:
 \begin{equation}\label{eq:conic}
@@ -93,8 +93,14 @@ Hence, the value of $c$ can be simplified to (see \cref{fig:ellipse}):
   c^2=a^2-b^2=a^2-a^2(1-e^2)=a^2e^2\implies c=ae
 \end{equation}
 Finally, one more property of the ellipse will be needed: its area.
-\begin{proposition}
+\begin{restatable}{proposition}{ellipsearea}\label{prop:ellipse_area}
   The area enclosed in an ellipse of semi-major axis $a$ and semi-minor axis $b$ is $\pi a b$.
-\end{proposition}
+\end{restatable}
+\begin{proof}
+  See \cref{sec:app1}.
+\end{proof}
+% \begin{proposition}
+%   The area enclosed in an ellipse of semi-major axis $a$ and semi-minor axis $b$ is $\pi a b$.
+% \end{proposition}
 
 \end{document}

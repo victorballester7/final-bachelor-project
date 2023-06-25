@@ -6,7 +6,7 @@
 So far we have only considered the gravitational force acting between point masses. In reality, the Earth is not a point mass, neither a spherically symmetric mass distribution. In this section we will delve into the details of a more realistic model of the Earth's gravitational field.
 \subsection{Geopotential model}
 \subsubsection{Continuous distribution of mass}
-In \cref{sec:twoBody} we saw that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the Earth as well as the presence of other forces such as atmospheric drag, solar radiation pressure, or the gravitational pull of the Moon and Sun, which we will discuss later on. Nevertheless, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses, but as we will corroborate experimentally in \cref{sec:simulation} they are essential to obtain accurate results.
+In \cref{sec:twoBody} we saw that the motion of a body orbiting another one can be described by a conic section. However, we have not been concerned about the mass distribution of the large body, in our case the Earth. In this section we will see that the motion of the smaller body, the satellite, is slightly perturbed by the mass distribution of the Earth as well as the presence of other forces such as atmospheric drag, solar radiation pressure, or the gravitational pull of the Moon and Sun, which we will discuss later on. Nevertheless, the perturbations are relatively small and the orbits of the satellites are still approximating ellipses, but as we will corroborate experimentally in \cref{sec:simulation} these perturbations are essential to obtain accurate results.
 
 Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this, consider a covering of $\Omega$ in a set of disjoint cubes $Q_i$, $i=1,\dots,N$, small enough to be considered as point masses and let $R_i:=Q_i\cap \Omega$. Then, $\bigsqcup_{i=1}^NR_i=\Omega$. If each $R_i$ has mass $m_i$, volume $V_i$, density $\rho_i$, and its center is located at $\vf{s}_i\in\RR^3$, then the total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces exerted by the $N$ point masses, and it is given by:
 \begin{equation}\label{eq:riemann_sum}
@@ -26,22 +26,38 @@ where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 %   \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}
 % \end{equation}
 % where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
-\begin{theorem}\label{thm:conservative}
+\begin{restatable}{theorem}{thmconservative}\label{thm:conservative}
   Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
-\end{theorem}
+\end{restatable}
+\begin{proof}
+  See \cref{sec:app3}.
+\end{proof}
+% \begin{theorem}\label{thm:conservative}
+%   Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
+% \end{theorem}
 Physically speaking, the gravitational force $\vf{F}$ being conservative means that the work $W$ done by the force along a path $C$
 \begin{equation}
   W=\int_C\vf{F}\cdot\dd{\vf{s}}
 \end{equation}
 depends only on the initial and final positions of it. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
-\subsubsection{Laplace's equation for \texorpdfstring{$V$}{V}}
-\begin{theorem}
+\subsubsection{Laplace's equation for \texorpdfstring{$V$}{V}}\label{sec:laplace}
+\begin{restatable}{theorem}{thmlaplace}\label{thm:laplace}
   Consider a distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
   \begin{equation}
     \laplacian V = 0
   \end{equation}
   for all points outside $\Omega$\footnote{It can be seen that $V$ satisfies in fact the \emph{Poisson equation} $\laplacian V=4\pi G\rho$ for any point $\vf{r}\in\RR^3$, which reduces to Laplace equation when $\vf{r}\in\Omega^c$, because there we have $\rho(\vf{r})=0$.}.
-\end{theorem}
+\end{restatable}
+\begin{proof}
+  See \cref{sec:app3}.
+\end{proof}
+% \begin{theorem}
+%   Consider a distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
+%   \begin{equation}
+%     \laplacian V = 0
+%   \end{equation}
+%   for all points outside $\Omega$\footnote{It can be seen that $V$ satisfies in fact the \emph{Poisson equation} $\laplacian V=4\pi G\rho$ for any point $\vf{r}\in\RR^3$, which reduces to Laplace equation when $\vf{r}\in\Omega^c$, because there we have $\rho(\vf{r})=0$.}.
+% \end{theorem}
 So far we have seen that the gravitational potential $V$ satisfies the Laplace equation. If, moreover, we choose the origin of potential to be at the infinity, that is, if we impose $\displaystyle\lim_{\norm{\vf{r}}\to\infty}V=0$, then the gravitational potential created by a distribution of mass in a compact region $\Omega$ is a solution of the following exterior Dirichlet problem:
 \begin{equation}\label{eq:dirichletProblem}
   \begin{cases}
@@ -56,9 +72,15 @@ We will see now that \cref{eq:dirichletProblem} has a unique solution. To do tha
 \begin{theorem}[Maximum principle]
   Let $U\subset \RR^n$ be open and bounded and $u\in\mathcal{C}^2(U)\cap \mathcal{C}(\overline{U})$. Suppose that $u$ is harmonic within $U$, that is, $\laplacian u=0$ in $U$. Then, $\max_{\overline{U}}u=\max_{\partial U}u$.
 \end{theorem}
-\begin{corollary}
+\begin{restatable}{theorem}{Dirichlet}\label{thm:max_principle}
   The Dirichlet problem of \cref{eq:dirichletProblem} has a unique solution.
-\end{corollary}
+\end{restatable}
+\begin{proof}
+  See \cref{sec:app3}.
+\end{proof}
+% \begin{corollary}
+%   The Dirichlet problem of \cref{eq:dirichletProblem} has a unique solution.
+% \end{corollary}
 Now that we know that the Dirichlet problem has a unique solution, we can proceed to find it. In the next section we will construct an explicit solution for the gravitational potential created by the Earth.
 \subsection{Spherical harmonics}
 \subsubsection{Legendre polynomials, regularity and orthonormality}
@@ -72,7 +94,7 @@ for $\lambda\in\RR$. This equation can be rewritten as:
 \end{equation}
 Seeking for analytic solutions of this equation using the power series method \cite{florida:legendre}, i.e.\ looking for solutions of the form $y(x)=\sum_{j=0}^{\infty}a_jx^j$, we see that:
 \begin{multline}
-  0=(1-x^2)\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-2x\sum_{j=0}^{\infty}a_{j+1}(j+1)x^j+\lambda\sum_{j=0}^{\infty}a_jx^j =\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-\\-\sum_{j=0}^{\infty}a_{j}(j-1)jx^{j}-\sum_{j=0}^{\infty}2a_{j}jx^{j}+\sum_{j=0}^{\infty}\lambda a_jx^j  =\sum_{j=0}^{\infty}[a_{j+2}(j+1)(j+2) - a_j(j(j+1)-\lambda)]x^j
+  0=(1-x^2)\sum_{j=2}^{\infty}a_{j}(j-1)jx^{j-2}-2x\sum_{j=1}^{\infty}a_{j}jx^{j-1}+\lambda\sum_{j=0}^{\infty}a_jx^j =\sum_{j=0}^{\infty}a_{j+2}(j+1)(j+2)x^j-\\-\sum_{j=0}^{\infty}a_{j}(j-1)jx^{j}-\sum_{j=0}^{\infty}2a_{j}jx^{j}+\sum_{j=0}^{\infty}\lambda a_jx^j  =\sum_{j=0}^{\infty}[a_{j+2}(j+1)(j+2) - a_j(j(j+1)-\lambda)]x^j
 \end{multline}
 Equating the general term of the series to 0 we obtain this recursion:
 \begin{equation}\label{eq:legendre_recursion}
@@ -239,7 +261,7 @@ Moreover, from the definition of $P_{n,m}$, we can see that $P_{n,0}=P_n$ and th
     Y_{n,m}^{\mathrm{c}}(\theta,\phi) & =\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }P_{n,m}(\cos\phi) \cos{m\theta} \\
     Y_{n,m}^{\mathrm{s}}(\theta,\phi) & =\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }P_{n,m}(\cos\phi) \sin{m\theta}
   \end{align}
-  Here the coordinates $\theta\in [0,2\pi)$ and $\phi\in[0,\pi]$ are the spherical coordinates such that any point on the sphere can be written uniquely as $(x,y,z) = (\sin\phi\cos\theta,\sin\phi\sin\theta,\cos\phi)$. The factor $N_{n,m}:=\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }$ is called the \emph{normalization factor} of the spherical harmonics and $\delta_{0,m}$ is the Kronecker delta and will become clear in the next section.
+  Here the coordinates $\theta\in [0,2\pi)$ and $\phi\in[0,\pi]$ are the spherical coordinates such that any point on the sphere can be written uniquely as $(x,y,z) = (\sin\phi\cos\theta,\sin\phi\sin\theta,\cos\phi)$. The factor $N_{n,m}:=\sqrt{(2-\delta_{0,m})(2n+1)\frac{(n-m)!}{(n+m)!} }$ is called the \emph{normalization factor} of the spherical harmonics and $\delta_{0,m}$ is the Kronecker delta and their appearance here will become clear in the next section.
 \end{definition}
 \begin{table}[ht]
   \centering
@@ -270,27 +292,33 @@ The associated Legendre polynomials satisfy an orthogonality relation:
   where $\delta_{n_1,n_2}$ denotes the Kronecker delta.
 \end{lemma}
 Similarly, it can be shown that the spherical harmonics from an orthonormal family of functions:
-\begin{proposition}
+\begin{restatable}{proposition}{propOrthoSphericalHarmonics}
   The family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ is orthonormal in the following sense:
   \begin{equation}\label{eq:ortho_spherical_harmonics}
     \frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi Y_{n_1,m_1}^i(\theta,\phi) Y_{n_2,m_2}^j(\theta,\phi)\dd\Omega=\delta_{n_1,n_2}\delta_{m_1,m_2}\delta_{i,j}
   \end{equation}
   where $\dd\Omega=\sin\phi\dd{\phi}\dd{\theta}$ is the solid angle element, which measures the element of area on a sphere of radius $1$.
-\end{proposition}
+\end{restatable}
+% \begin{proposition}
+%   The family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ is orthonormal in the following sense:
+%   \begin{equation}\label{eq:ortho_spherical_harmonics}
+%     \frac{1}{4\pi}\int_0^{2\pi}\int_0^\pi Y_{n_1,m_1}^i(\theta,\phi) Y_{n_2,m_2}^j(\theta,\phi)\dd\Omega=\delta_{n_1,n_2}\delta_{m_1,m_2}\delta_{i,j}
+%   \end{equation}
+%   where $\dd\Omega=\sin\phi\dd{\phi}\dd{\theta}$ is the solid angle element, which measures the element of area on a sphere of radius $1$.
+% \end{proposition}
 Moreover, an important result in the Sturm-Liouville Theory of second order differential equations (\cite{wiki:sturmliouville,completenessSL}) says that the family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ form a complete set in the sense that any smooth function defined on the sphere $f:\mathrm{S}^2\rightarrow\RR$ can be expanded in a series of spherical harmonics:
 \begin{equation}
   f(\theta,\phi)=\sum_{n=0}^\infty\sum_{m=0}^n (c_{n,m} Y_{n,m}^{\mathrm{c}}(\theta,\phi)+s_{n,m} Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
 This will be useful in \cref{sec:laplace_spherical_potential} when expanding the gravitational potential created by the Earth at some arbitrary point in spherical harmonics.
 \subsubsection{Laplace's equation in spherical coordinates}\label{sec:laplace_spherical}
-\begin{definition}
-  Let $f:\RR^3\rightarrow\RR$ be a twice-differentiable function. The \emph{Laplace equation} is the equation
-  \begin{equation}
-    \laplacian f=\pdv[2]{f}{x}+\pdv[2]{f}{y}+\pdv[2]{f}{z}=0
-  \end{equation}
-  where $\Delta$ is the Laplace operator.
-\end{definition}
-The next proposition gives the Laplace equation in spherical coordinates.
+% \begin{definition}
+%   Let $f:\RR^3\rightarrow\RR$ be a twice-differentiable function. The \emph{Laplace equation} is the equation:
+%   \begin{equation}
+%     \laplacian f=\pdv[2]{f}{x}+\pdv[2]{f}{y}+\pdv[2]{f}{z}=0
+%   \end{equation}
+% \end{definition}
+We start first with this proposition that give us the laplacian of a function in spherical coordinates.
 \begin{proposition}
   Let $f:\RR^3\rightarrow\RR$ be a twice-differentiable function. Then:
   \begin{equation}\label{eq:laplace}
@@ -306,21 +334,30 @@ The next proposition gives the Laplace equation in spherical coordinates.
   \end{equation}
 \end{proposition}
 We are now interested in solving the Laplace equation. \cref{thm:laplace_spherical} gives the solution of it as a function of the spherical harmonics.
-\begin{theorem}\label{thm:laplace_spherical}
+\begin{restatable}{theorem}{laplaceSolutions}
+  \label{thm:laplace_spherical}
   The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ of the Laplace equation in spherical coordinates are of the form
   \begin{align}
     f(r,\theta,\phi) & = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))                                                              \\
                      & \label{eq:sol_laplace} = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
   \end{align}
   where $a_n,b_n,c_{n,m},s_{n,m},\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$.
-\end{theorem}
-We ignore the singularity at $r=0$ of \cref{eq:sol_laplace} from now. See \cref{sec:laplace_spherical_potential} for more details.
+\end{restatable}
+% \begin{theorem}\label{thm:laplace_spherical}
+%   The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ of the Laplace equation in spherical coordinates are of the form
+%   \begin{align}
+%     f(r,\theta,\phi) & = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})P_{n,m}(\cos\phi) (c_{n,m}\cos(m\theta)+s_{n,m}\sin(m\theta))                                                              \\
+%                      & \label{eq:sol_laplace} = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
+%   \end{align}
+%   where $a_n,b_n,c_{n,m},s_{n,m},\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$.
+% \end{theorem}
+We ignore the singularity at $r=0$ of \cref{eq:sol_laplace} from now. In the next section we discuss it in more detail.
 \subsubsection{Expansion in spherical harmonics}\label{sec:laplace_spherical_potential}
 We have just seen that if $V$ satisfies the exterior Dirichlet problem for the Laplace equation, then, by uniqueness of solutions, it can be expressed as:
 \begin{equation}\label{eq:prePotential}
   V(r,\theta,\phi) = \sum_{n=0}^\infty \sum_{m=0}^n (a_n r^{n} +b_{n}r^{-n-1})(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
 \end{equation}
-where $a_n,b_n,\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $a_{n}=0$.
+for some $a_n,b_n,\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$. If we impose $V$ to satisfy the third condition of \cref{eq:dirichletProblem}, we must have $a_{n}=0$.
 Finally, if we choose $R_\oplus$ as a reference radius for a spherical model of the Earth, using the boundary condition on $\Fr{\Omega}$
 \begin{equation}
   f(\theta,\phi) = \sum_{n=0}^\infty \sum_{m=-n}^n \frac{b_{n}}{{R_\oplus}^{n+1}}(\tilde{c}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\tilde{s}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
@@ -358,25 +395,25 @@ Let $C_{n,m}:= \bar{C}_{n,m}N_{n,m}$ and $ S_{n,m}:= \bar{S}_{n,m}N_{n,m}$. If $
   \ddot{x} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{x}_{n,m}\qquad \ddot{y} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{y}_{n,m}\qquad \ddot{z} = \sum_{n=0}^\infty \sum_{m=0}^n\ddot{z}_{n,m}
 \end{equation}
 where the \textit{partial} accelerations $\ddot{x}_{n,m}$, $\ddot{y}_{n,m}$, $\ddot{z}_{n,m}$ are given by:
-\begin{align}
+\begin{align}\label{eq:partialaccelerationX}
   \ddot{x}_{n,m} & =\begin{cases}
                       \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}V_{n+1,1}                                                                                         & \text{ if $m=0$} \\[10pt]
                       \begin{aligned}
       \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}\cdot\frac{1}{2}\bigg[C_{n,m}V_{n+1,m+1}+ S_{n,m}W_{n+1,m+1}-\hspace{4cm} \\
       -  \frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}V_{n+1,m-1}+S_{n,m}W_{n+1,m-1}\right)\bigg]
     \end{aligned} & \text{ if $m>0$}
-                    \end{cases} \\
+                    \end{cases} \\\label{eq:partialaccelerationY}
   \ddot{y}_{n,m} & =\begin{cases}
                       \displaystyle-\frac{GM_\oplus}{{R_\oplus}^2}C_{n,0}W_{n+1,1}                                                                                         & \text{ if $m=0$} \\[10pt]
                       \begin{aligned}
       \displaystyle -\frac{GM_\oplus}{{R_\oplus}^2}\cdot\frac{1}{2}\bigg[C_{n,m}W_{n+1,m+1}-S_{n,m}V_{n+1,m+1}-\hspace{4cm} \\
       -\frac{{(n-m+2)}!}{{(n-m)}!}\left(C_{n,m}W_{n+1,m-1}-S_{n,m}V_{n+1,m-1}\right)\bigg]
     \end{aligned} & \text{ if $m>0$}
-                    \end{cases} \\
+                    \end{cases} \\\label{eq:partialaccelerationZ}
   \ddot{z}_{n,m} & =-\frac{GM_\oplus}{{R_\oplus}^2}(n-m+1)\left(C_{n,m}V_{n+1,m}+S_{n,m}W_{n+1,m}\right)
 \end{align}
 and the functions $V_{n,m}$, $W_{n,m}$ are calculated using the following recurrence relations:
-\begin{align*}
+\begin{align}
   \begin{cases}
     \hspace{8pt}\begin{aligned}
                   V_{n,m} & =\frac{2n-1}{n-m} \frac{R_\oplus}{r}\cos\phi V_{n-1,m}-\frac{n+m-1}{n-m}\frac{{R_\oplus}^2}{r^2}V_{n-2,m} \\[0.1cm]
@@ -391,8 +428,8 @@ and the functions $V_{n,m}$, $W_{n,m}$ are calculated using the following recurr
                       W_{n,n} & =(2m-1)\frac{R_\oplus}{r}\sin\phi[\cos\theta W_{n-1,n-1}+\sin\theta V_{n-1,n-1}]
                     \end{aligned}                 & \text{if $m=n$}
   \end{cases}
-\end{align*}
-starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0$ and using the following scheme \cite{montenbruck}:
+\end{align}
+starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0$ and using the scheme of \cref{fig:SHcoeffs} \cite{montenbruck}.
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{Images/scheme_recursion.pdf}
@@ -407,7 +444,7 @@ For \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an 
 \begin{equation}
   \vf{a}_{\mathrm{D}}=-\frac{1}{2}C_{\mathrm{D}}\frac{A}{m}\rho v_r\vf{v}_r
 \end{equation}
-where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_r$ is the relative velocity between the satellite and the air particles, $v_r=\norm{\vf{v}_r}$, and $C_D$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_r$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
+where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_r$ is the relative velocity between the satellite and the air particles, $v_r=\norm{\vf{v}_r}$, and $C_{\mathrm{D}}$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_r$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
 \begin{equation}
   \vf{v}_r=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}
 \end{equation}
@@ -426,7 +463,7 @@ Adding a third body into the equations requires some carefulness. We will do the
     \displaystyle \ddot{\vf{r}}=\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
   \end{cases}
 \end{equation}
-Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can assume that the motion of the large bodies is not affected by the small body, i.e.\ we can assume
+Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can assume that the motion of the large bodies is not affected by the small body, i.e.\ we can assume:
 \begin{equation}
   \begin{cases}
     \displaystyle \ddot{\vf{s}}\simeq \sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})        \\
@@ -434,7 +471,7 @@ Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can as
     \displaystyle \ddot{\vf{r}}\simeq\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
   \end{cases}
 \end{equation}
-For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The evolution of $\vf{R}$ is given by
+For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The evolution of $\vf{R}$ is given by:
 \begin{equation}
   \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}-\vf{R}}^3}(\vf{s}_i-\vf{s}-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})
 \end{equation}
@@ -446,18 +483,18 @@ where $\vf{a}_i=\frac{GM_i}{\norm{\vf{s}_i-\vf{R}}^3}(\vf{s}_i-\vf{R})-\frac{GM_
 In the simulation, we will replace the first term of the right-hand side of the equation by the expansion of the acceleration in spherical harmonics.
 
 \subsubsection{Solar radiation pressure}
-Satellites in high-altitude orbits may also experience a force that arises from the absortion or reflection of photons emitted by the Sun \cite{montenbruck}. We will expose a brief overview on how this solar radiation pressure is modeled and how it is included in the equations of motion. The acceleration due to solar radiation pressure is given by:
+Satellites in medium and high-altitude orbits may also experience a force that arises from the absortion or reflection of photons emitted by the Sun \cite{montenbruck}. We will expose a brief overview on how this solar radiation pressure is modeled and how it is included in the equations of motion. The acceleration due to solar radiation pressure is given by:
 \begin{equation}\label{eq:preSolarRad}
-  \ddot{\vf{r}}_{\mathrm{R}}=-P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{r}}^3}
+  {\vf{a}}_{\mathrm{R}}=-P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
 \end{equation}
 Here $P_{\odot}$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{s}_\odot$ denotes the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
 
-One should note that $A_\odot$ and $A$ (the cross-sectional area of the satellite use to compute the drag force) are in general not the same. We will see in the next section, though, that due to the difficulties on determining them, we will assume that they are equal and constant throughout the integration process.
+One should note that $A_\odot$ and $A$ (the cross-sectional area of the satellite used to compute the drag force) are in general not the same. We will see in the next section, though, that due to the difficulties on determining them, we will assume that they are equal and constant throughout the integration process.
 
 In reality, \cref{eq:preSolarRad} does not describe entirely well the perturbation due to the solar radiation. Indeed, an illumination factor $\nu\in[0,1]$ should be added into the equation to account for the fraction of solar rays that actually reach the satellite. This cause the disctinction of three regions: the illumination zone ($\nu=1$), where the satellite is fully exposed to the Sun; the penumbral zone ($0<\nu<1$), where the satellite is partially exposed to the Sun, and the umbral zone ($\nu=0$), where the satellite receives no solar radiation due to the Earth obstructing the light.
 Thus, \cref{eq:preSolarRad} should be corrected to:
 \begin{equation}\label{eq:SolarRad}
-  \ddot{\vf{r}}_{\mathrm{R}}=-\nu P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}^3}
+  {\vf{a}}_{\mathrm{R}}=-\nu P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}^3}
 \end{equation}
 \cref{fig:penumbra} shows a 2D schematic representation of the penumbra and umbral zones of the Earth. To determine whether the satellite is or not inside on of these zones, we must compute the dot product between $\vf{r}$ and $\vf{s}_\odot$ and if it is negative, then compare the relative ``altitude'' of the satellite with respect to the ``altitudes'' of the penumbral and umbral zones ($y_\mathrm{sat}$, $y_{\mathrm{pen}}$ and $y_{\mathrm{umb}}$ respectively in the figure).
 \begin{figure}[ht]
@@ -467,7 +504,7 @@ Thus, \cref{eq:preSolarRad} should be corrected to:
   \label{fig:penumbra}
 \end{figure}
 \subsubsection{Minor perturbations}
-In addition to the major perturbations described above, there are other minor perturbations that we will not consider in this work, but they are worth-considering if accurate results are required. Some of these perturbations include relativistic effects, the Earth tide effects, or radiation pressure caused by the sunlight reflected by the Earth (albedo) \cite{montenbruck}.
+In addition to the major perturbations described above, there are other minor perturbations that we will not consider in this work, but they are worth-considering if accurate results are required. Some of these perturbations include the perturbations caused by other planets, relativistic effects, the Earth tide effects, or radiation pressure caused by the sunlight reflected by the Earth (albedo) \cite{montenbruck}.
 % From  https://physics.stackexchange.com/questions/19477/earth-centered-inertial-eci-reference-frame-as-approximate-inertial-frame-of-r
 % ECI coordinate frames are not truly inertial since the Earth itself is accelerating as it travels in its orbit about the Sun. In many cases, it may be assumed that the ECI frame is inertial without adverse effect. However, when computing the gravitational influence of a third body such as the Moon on the dynamics of a spacecraft, the acceleration of the ECI frame must be considered. For example, when computing the acceleration of an Earth-orbiting spacecraft due to the gravitational influence of the Moon, the acceleration of the Earth itself due to the Moon's gravity must be subtracted
 \end{document}

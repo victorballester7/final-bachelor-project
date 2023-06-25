@@ -14,8 +14,8 @@
 
 int main(int argc, char const* argv[]) {
   // read TLE data from data/tle/stations.txt
-  if (argc != 8) {
-    std::cout << "Usage: ./main <satellite> <t/f pointEarth> <t/f sun> <t/f moon> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>" << std::endl;
+  if (argc != 9) {
+    std::cout << "Usage: ./main <satellite> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>" << std::endl;
     return 1;
   }
   std::string satellite = argv[1];
@@ -38,13 +38,14 @@ int main(int argc, char const* argv[]) {
 
   printf("Am = %f\n", Am);
 
-  args_gravField args = {8, 8, false, false, false, false, false, Am};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area_mass
+  args_gravField args = {8, 8, false, false, false, false, false, false, Am};  // n_max, m_max, initial mjd_TT, pointEarth, sun, moon, solarRad, atmo_drag, area_mass
 
   if (argv[2][0] == 't') args.pointEarth = true;
   if (argv[3][0] == 't') args.sun = true;
   if (argv[4][0] == 't') args.moon = true;
-  if (argv[5][0] == 't') args.solar_rad = true;
-  if (argv[6][0] == 't') args.atmo_drag = true;
+  if (argv[5][0] == 't') args.otherPlanets = true;
+  if (argv[6][0] == 't') args.solar_rad = true;
+  if (argv[7][0] == 't') args.atmo_drag = true;
 
   std::string end_name = "";
 
@@ -57,6 +58,8 @@ int main(int argc, char const* argv[]) {
     end_name += "_sun";
   if (args.moon)
     end_name += "_moon";
+  if (args.otherPlanets)
+    end_name += "_otherPlanets";
   if (args.solar_rad)
     end_name += "_solarRad";
   if (args.atmo_drag)
@@ -68,7 +71,7 @@ int main(int argc, char const* argv[]) {
   // std::string filename_in = "data/teme/" + satellite + "_tles.txt";
   std::string filename_in, filename_out;
   bool sgp4 = false;
-  if (std::string(argv[7]).compare("sgp4") == 0) {
+  if (std::string(argv[8]).compare("sgp4") == 0) {
     // filename_in = "data/teme/" + satellite + "_1h_interval.txt";
     filename_in = "data/teme/" + satellite + "_1min_interval.txt";
     filename_out = "data/errors/" + satellite + end_name;
@@ -106,7 +109,7 @@ int main(int argc, char const* argv[]) {
   Vector v_teme = Vector(vx, vy, vz);
   Satellite s = Satellite(mjd_utc, r_teme, v_teme);
 
-  int MAX_DAYS = 7;                          // days of integration
+  int MAX_DAYS = 15;                         // days of integration
   int numSteps = MAX_DAYS * 24 * 60 + 1000;  // + 1000 is just to be sure
   std::cout << "MAX_DAYS = " << MAX_DAYS << std::endl;
   double* Errors = new double[numSteps];

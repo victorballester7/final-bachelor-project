@@ -278,7 +278,6 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   else
     v_dot += AccelHarmonic(r, J20002ECEF(mjd_tt), prm->n_max, prm->m_max);
   Vector r_sun = Sun(mjd_tt);
-  Vector r_moon = Moon(mjd_tt);
   Vector v_dot_0 = v_dot;
   static int i = 0;
   // if (i < 100)
@@ -287,10 +286,14 @@ int gravField(int n, double t, double x[], double f[], void* param) {
   // if (i < 1000)
   //   std::cout << "v_dot_sun (" << prm->sun << ") = " << (v_dot - v_dot_0).norm() << std::endl;
   // v_dot_0 = v_dot;
-  if (prm->moon) v_dot += AccelPointMass(r, r_moon, GM_MOON);
+  if (prm->moon) v_dot += AccelPointMass(r, Moon(mjd_tt), GM_MOON);
   // if (i < 1000)
   //   std::cout << "v_dot_moon (" << prm->moon << ") = " << (v_dot - v_dot_0).norm() << std::endl;
-  // v_dot_0 = v_dot;
+  v_dot_0 = v_dot;
+  if (prm->otherPlanets) v_dot += AccelPointMass(r, Mars(mjd_tt), GM_MARS) + AccelPointMass(r, Venus(mjd_tt), GM_VENUS) +
+                                  AccelPointMass(r, Jupiter(mjd_tt), GM_JUPITER);
+  // if (i < 1000)
+  //   std::cout << "v_dot_otherPlanets (" << prm->otherPlanets << ") = " << (v_dot - v_dot_0).norm() << std::endl;
   if (prm->solar_rad) v_dot += AccelSolarRad(r, r_sun, prm->Am) * Illumination(r, r_sun);
   // if (i < 100)
   //   std::cout << "v_dot_solar_rad (" << prm->solar_rad << ") = " << (v_dot - v_dot_0).norm() << std::endl;
