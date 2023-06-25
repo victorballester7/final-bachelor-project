@@ -440,7 +440,7 @@ starting from the initial quantities $V_{00}= \frac{R_\oplus}{r}$ and $W_{00}= 0
 So far we have only considered one force acting on the satellite: the gravitational force exerted by the Earth. However, there are other important forces worth-considering, and they relative importance varies depending on the satellite's altitude.
 
 \subsubsection{Atmospheric drag}
-For \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than 1000 km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The acceleration due to drag can be written as:
+For \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than $1\,000$ km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The acceleration due to drag can be written as:
 \begin{equation}
   \vf{a}_{\mathrm{D}}=-\frac{1}{2}C_{\mathrm{D}}\frac{A}{m}\rho v_r\vf{v}_r
 \end{equation}
@@ -450,10 +450,10 @@ where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ 
 \end{equation}
 where $\vf{\omega}_\oplus$ is the angular velocity of the Earth.
 
-The complexity of modeling this force arises from the challenge of representing accurately the atmospheric density as a function of the altitude. We will not delve into this topic, but in the simulation we will use the density model of Harris-Priester, which is valid for altitudes between 100 and 1000 km (see \cite{montenbruck} for more details).
+The complexity of modeling this force arises from the challenge of representing accurately the atmospheric density as a function of the altitude. We will not delve into this topic, but in the simulation we will use the density model of Harris-Priester, which is valid for altitudes between 100 and $1\,000$ km (see \cite{montenbruck} for more details).
 
 \subsubsection{Sun and Moon gravitational perturbations}
-For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between 1000 and 35780 km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around 35780 km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than 35780 km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even other celestial bodies.
+For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between $1\,000$ and $35\,780$ km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around $35\,780$ km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than $35\,780$ km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even other celestial bodies.
 
 Adding a third body into the equations requires some carefulness. We will do the general deduction to make it clear for the reader. Suppose we have $N+2$ bodies of masses $M$, $M_1,\ldots, M_N$ and $m\ll M,M_1,\ldots,M_N$ at positions $\vf{s}$, $\vf{s}_1,\ldots,\vf{s}_N$ and $\vf{r}$, respectively, in an inertial reference frame (we omit the dependence in time). The dynamics of this system are governed by the following system of differential equations:
 \begin{equation}
@@ -487,7 +487,7 @@ Satellites in medium and high-altitude orbits may also experience a force that a
 \begin{equation}\label{eq:preSolarRad}
   {\vf{a}}_{\mathrm{R}}=-P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
 \end{equation}
-Here $P_{\odot}$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{s}_\odot$ denotes the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
+Here $P_{\odot}= 4.57\times 10^{-6}\ \N / \m^2$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{s}_\odot$ denotes the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
 
 One should note that $A_\odot$ and $A$ (the cross-sectional area of the satellite used to compute the drag force) are in general not the same. We will see in the next section, though, that due to the difficulties on determining them, we will assume that they are equal and constant throughout the integration process.
 
