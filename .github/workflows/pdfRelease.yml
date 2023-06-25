@@ -1,4 +1,4 @@
-name: Compile Latex and Release PDF
+name: Release PDF
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  build_latex:
+  update_pdf:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
