@@ -471,7 +471,7 @@ Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can as
     \displaystyle \ddot{\vf{r}}\simeq\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
   \end{cases}
 \end{equation}
-For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The evolution of $\vf{R}$ is given by:
+For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The dynamics of $\vf{R}$ is governed by the following equation:
 \begin{equation}
   \ddot{\vf{R}}=-\frac{GM}{\norm{\vf{R}}^3}\vf{R}+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}-\vf{R}}^3}(\vf{s}_i-\vf{s}-\vf{R})-\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})
 \end{equation}
@@ -487,7 +487,7 @@ Satellites in medium and high-altitude orbits may also experience a force that a
 \begin{equation}\label{eq:preSolarRad}
   {\vf{a}}_{\mathrm{R}}=-P_{\odot} C_{\mathrm{R}} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
 \end{equation}
-Here $P_{\odot}= 4.57\times 10^{-6}\ \N / \m^2$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{s}_\odot$ denotes the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
+Here $P_{\odot}= 4.57\times 10^{-6}\ \N / \m^2$ is the solar radiation pressure at around the distance of the Earth, $C_{\mathrm{R}}=1+\varepsilon\in [0,2]$ is the radiation pressure coefficient and $\varepsilon$ is the reflectivity coefficient, being $C_{\mathrm{R}}=0$ for a perfectly translucent body, $C_{\mathrm{R}}=1$ for a perfectly absorbing body, and $C_{\mathrm{R}}=2$ for a perfectly reflecting body. $\vf{r}$ denotes the position of the satellite relative to the Earth, $\vf{s}_\odot$ is the position of the Sun relative to the Earth, $m$ the mass of the satellite and $A_\odot$ its fraction of area exposed to the Sun.
 
 One should note that $A_\odot$ and $A$ (the cross-sectional area of the satellite used to compute the drag force) are in general not the same. We will see in the next section, though, that due to the difficulties on determining them, we will assume that they are equal and constant throughout the integration process.
 
