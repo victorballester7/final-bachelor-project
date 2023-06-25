@@ -5,10 +5,10 @@
 In this project we compute the compare the errors obtained from propagating the trajectories of different satellites with to models: our model and the SGP4 model. Our model consist in solving the following differential equation:
 
 ```math
-  \begin{cases}
-    \dot{\mathbf{r}} = \mathbf{v}\\
-    \dot{\mathbf{v}} = \mathbf{a}_{\mathrm{GP}} + \delta_{\mathrm{sun}}\mathbf{a}_{\mathrm{sun}} + \delta_{\mathrm{moon}}\mathbf{a}_{\mathrm{moon}} + \delta_{\mathrm{drag}}\mathbf{a}_{\mathrm{drag}} +\delta_{\mathrm{rad}}\mathbf{a}_{\mathrm{rad}}
-  \end{cases}
+\begin{cases}
+\dot{\mathbf{r}} = \mathbf{v}\\
+\dot{\mathbf{v}} = \mathbf{a}_{\mathrm{GP}} + \delta_{\mathrm{sun}}\mathbf{a}_{\mathrm{sun}} + \delta_{\mathrm{moon}}\mathbf{a}_{\mathrm{moon}} + \delta_{\mathrm{drag}}\mathbf{a}_{\mathrm{drag}} +\delta_{\mathrm{rad}}\mathbf{a}_{\mathrm{rad}}
+\end{cases}
 ```
 
 Here, $`\mathbf{a}_{\mathrm{GP}}=(\ddot{x},\ddot{y},\ddot{z})`$ is the acceleration caused by the geopotential (expanded in spherical harmonics) and $\ddot{x}$, $\ddot{y}$ and $\ddot{z}$ are given in [Cunningham recursions](https://github.com/victorballester7/final-bachelor-thesis/blob/dc82b9a0204b01edc024837cc173b822f4e01464/docs/articles/cunningham1970.pdf); $`\mathbf{a}_{\mathrm{drag}}`$ is the acceleration caused by the atmospheric drag; $`\mathbf{a}_{\mathrm{rad}}`$ is the acceleration caused by the solar radiation pressure; $`\mathbf{a}_{\mathrm{sun}}`$ is the acceleration caused by the Sun; and $`\mathbf{a}_{\mathrm{moon}}`$ is the acceleration caused by the Moon. The coefficients $`\delta_{i}\in\{0,1\}`$ are used to enable and disable the different perturbations.
@@ -68,7 +68,7 @@ Example:
 ./execute.sh ISS f t t f f t sgp4
 ```
 
-This command would compute the errors of the ISS satellite with the SGP4 propagator and with the following perturbations enabled: Sun, Moon and atmospheric drag.
+This command computes the errors of the ISS satellite with the SGP4 propagator and with the following perturbations enabled: Sun, Moon and atmospheric drag.
 
 ## Results
 
@@ -76,6 +76,6 @@ We now expose the main results of the work:
 
 ### Comparison of the errors for LEO satellites
 
-<p align="center">
+<!-- <p align="center">
   <img src="latex/Images/simulation/ISS_pointMass_comparison.pdf" alt="Comparison of the errors when propaging the ISS spacecraft considering the Earth as point-mass or as a non-homogeneous distribution of mass." width="400px">
-</p>
+</p> -->
