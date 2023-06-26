@@ -77,12 +77,12 @@ We now expose the main results of this work:
 ### Comparison of the errors for LEO satellites
 
 <div style="display: flex;" align="center">
-  <div style="flex: 50%; padding: 5px;">
+  <div style="flex: 45%; padding: 5px;">
     <img src="../latex/Images/simulation/ISS_pointMass_comparison.jpg" alt="Image 1">
     <p>ISS position error when considering the Earth as a point mass or as a non-homogeneous spherical distribution of mass (with the geopotential model).</p>
   </div>
-  <div style="flex: 50%; padding: 5px;">
-    <img src="../latex/Images/simulation/ISS.jpg" alt="Image 2" width="385">
+  <div style="flex: 45%; padding: 5px;">
+    <img src="../latex/Images/simulation/ISS.jpg" alt="Image 2">
     <p>Propagation of the ISS satellite when considering only the geopotential model for the Earth and the atmospheric drag.</p>
   </div>
 </div>
@@ -95,7 +95,7 @@ We now expose the main results of this work:
     <p>Propagation of the Sirius-3 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.</p>
   </div>
   <div style="flex: 50%; padding: 5px;">
-    <img src="../latex/Images/simulation/GALILEO.jpg" alt="Image 2" width="405">
+    <img src="../latex/Images/simulation/GALILEO.jpg" alt="Image 2">
     <p>Propagation of the Galileo-20 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.</p>
   </div>
 </div>
