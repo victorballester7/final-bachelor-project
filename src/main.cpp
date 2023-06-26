@@ -109,7 +109,7 @@ int main(int argc, char const* argv[]) {
   Vector v_teme = Vector(vx, vy, vz);
   Satellite s = Satellite(mjd_utc, r_teme, v_teme);
 
-  int MAX_DAYS = 15;                         // days of integration
+  int MAX_DAYS = 7;                          // days of integration
   int numSteps = MAX_DAYS * 24 * 60 + 1000;  // + 1000 is just to be sure
   std::cout << "MAX_DAYS = " << MAX_DAYS << std::endl;
   double* Errors = new double[numSteps];

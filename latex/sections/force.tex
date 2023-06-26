@@ -281,7 +281,7 @@ Moreover, from the definition of $P_{n,m}$, we can see that $P_{n,0}=P_n$ and th
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{Images/sphericalHarmonics.pdf}
-  \caption{3D heat map of the spherical harmonics of degree $n=5$. The first row correspond to the cosine spherical harmonics and the second row correspond to the sine spherical harmonics.}
+  \caption{3D color gradient representation of the spherical harmonics of degree $n=5$. The first row correspond to the cosine spherical harmonics and the second row correspond to the sine spherical harmonics.}
 \end{figure}
 The associated Legendre polynomials satisfy an orthogonality relation:
 \begin{lemma}\label{lem:ortho_asso_legendre}
@@ -453,7 +453,7 @@ where $\vf{\omega}_\oplus$ is the angular velocity of the Earth.
 The complexity of modeling this force arises from the challenge of representing accurately the atmospheric density as a function of the altitude. We will not delve into this topic, but in the simulation we will use the density model of Harris-Priester, which is valid for altitudes between 100 and $1\,000$ km (see \cite{montenbruck} for more details).
 
 \subsubsection{Sun and Moon gravitational perturbations}
-For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between $1\,000$ and $35\,780$ km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit}) satellites, with an altitude of around $35\,780$ km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than $35\,780$ km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even other celestial bodies.
+For \emph{MEO} (\emph{Medium Earth Orbit}) satellites, within an altitude between $1\,000$ and $35\,780$ km \cite{vallado}; \emph{GEO} (\emph{Geostationary Earth Orbit} or \emph{Geosynchronous Earth Orbit}) satellites, with an altitude of around $35\,780$ km; and \emph{HEO} (\emph{High Earth Orbit}) satellites, with an altitude of more than $35\,780$ km, the most important perturbations are the gravitational perturbations caused by the Moon and the Sun, or even other celestial bodies.
 
 Adding a third body into the equations requires some carefulness. We will do the general deduction to make it clear for the reader. Suppose we have $N+2$ bodies of masses $M$, $M_1,\ldots, M_N$ and $m\ll M,M_1,\ldots,M_N$ at positions $\vf{s}$, $\vf{s}_1,\ldots,\vf{s}_N$ and $\vf{r}$, respectively, in an inertial reference frame (we omit the dependence in time). The dynamics of this system are governed by the following system of differential equations:
 \begin{equation}
@@ -463,12 +463,12 @@ Adding a third body into the equations requires some carefulness. We will do the
     \displaystyle \ddot{\vf{r}}=\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
   \end{cases}
 \end{equation}
-Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can assume that the motion of the large bodies is not affected by the small body, i.e.\ we can assume:
+Here $G$ is the gravitational constant. Since $m\ll M,M_1,\ldots,M_N$, we can assume that the motion of the large bodies is not affected by the small body, i.e.\ we can make $m$ tend to zero and assume:
 \begin{equation}
   \begin{cases}
-    \displaystyle \ddot{\vf{s}}\simeq \sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})        \\
-    \displaystyle \ddot{\vf{s}}_i\simeq\frac{GM}{\norm{\vf{s}-\vf{s}_i}^3}(\vf{s}-\vf{s}_i)+\sum_{\substack{j=1 \\j\ne i}}^N\frac{GM_j}{\norm{\vf{s}_j-\vf{s}_i}^3}(\vf{s}_j-\vf{s}_i)& \text{for } i=1,\ldots, N \\
-    \displaystyle \ddot{\vf{r}}\simeq\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
+    \displaystyle \ddot{\vf{s}}= \sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{s}}^3}(\vf{s}_i-\vf{s})        \\
+    \displaystyle \ddot{\vf{s}}_i=\frac{GM}{\norm{\vf{s}-\vf{s}_i}^3}(\vf{s}-\vf{s}_i)+\sum_{\substack{j=1 \\j\ne i}}^N\frac{GM_j}{\norm{\vf{s}_j-\vf{s}_i}^3}(\vf{s}_j-\vf{s}_i)& \text{for } i=1,\ldots, N \\
+    \displaystyle \ddot{\vf{r}}=\frac{GM}{\norm{\vf{s}-\vf{r}}^3}(\vf{s}-\vf{r})+\sum_{i=1}^N\frac{GM_i}{\norm{\vf{s}_i-\vf{r}}^3}(\vf{s}_i-\vf{r})
   \end{cases}
 \end{equation}
 For our purposes, if the body of mass $M$ is the Earth and the body of mass $m$ is the satellite, we are interested in the position of the satellite relative to the Earth, that is $\vf{R}=\vf{r}-\vf{s}$. The dynamics of $\vf{R}$ is governed by the following equation:
@@ -500,7 +500,7 @@ Thus, \cref{eq:preSolarRad} should be corrected to:
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{Images/penumbra.pdf}
-  \caption{Schematic representation of the penumbra and umbral zones. Source: based on \cite{vallado}.}
+  \caption{Schematic representation of the penumbra and umbral zones. Based on \cite{vallado}.}
   \label{fig:penumbra}
 \end{figure}
 \subsubsection{Minor perturbations}

@@ -9,22 +9,22 @@ We are interested in understanding the dynamics of a spacecraft in orbit around 
   \label{eq:Newton}
   \ddot{\vf{r}}=-\frac{GM_{\oplus}}{r^2}\vf{e}_r
 \end{equation}
-where $\vf{r}$ is the position vector (also called \emph{radius vector}) of the spacecraft with respect to the center of the Earth, $r:=\norm{\vf{r}}$, $\vf{e}_r=\frac{\vf{r}}{r}$ is the unit vector in the direction of $\vf{r}$, $M_{\oplus}\simeq 5.972\times 10^{24}\ \kg$ is the mass of the Earth, and $G\simeq 6.674\times 10^{-11}\ \m^3/ (\kg\cdot\s^2)$ is the universal gravitational constant. Note that the minus sign is due to the fact that the gravitational force is attractive, i.e.\ pointing towards the Earth.
+where the mass of the satellite has been canceled out on both sides of the equation. Here, $\vf{r}$ is the position vector (also called \emph{radius vector}) of the spacecraft with respect to the center of the Earth, $r:=\norm{\vf{r}}$, $\vf{e}_r=\frac{\vf{r}}{r}$ is the unit vector in the direction of $\vf{r}$, $M_{\oplus}\simeq 5.972\times 10^{24}\ \kg$ is the mass of the Earth, and $G\simeq 6.674\times 10^{-11}\ \m^3/ (\kg\cdot\s^2)$ is the universal gravitational constant. Note that the minus sign is due to the fact that the gravitational force is attractive, i.e.\ pointing towards the Earth.
 Here and throughout the document the \emph{dot notation} $\ddot{\vf{r}}$ means that the derivatives are taken with respect to time.
 Cross-multiplying \cref{eq:Newton} by $\vf{r}$, we obtain
 \begin{equation}
   \dv{(\vf{r}\times \dot{\vf{r}})}{t}=\dot{\vf{r}}\times \dot{\vf{r}}+\vf{r}\times\ddot{\vf{r}}=-\frac{GM_{\oplus}}{r^3}(\vf{r}\times \vf{r})=0
 \end{equation}
-Hence $\vf{h}:=\vf{r}\times \dot{\vf{r}}$ is constant. The physical intuition behind this is that the motion of the spacecraft around the Earth is confined to a plane, called the \emph{orbital plane}, because the position $\vf{r}$ and velocity $\dot{\vf{r}}$ are always perpendicular to $\vf{h}$.
+Hence $\vf{h}:=\vf{r}\times \dot{\vf{r}}$ is constant. The physical consequence is that the motion of the spacecraft around the Earth is confined to a plane, called the \emph{orbital plane}, because the position $\vf{r}$ and velocity $\dot{\vf{r}}$ are always perpendicular to $\vf{h}$.
 
-We are interested now in what kind of curves may be described by a spacecraft orbiting the Earth, when considered both objects as point masses. That is, we want to somehow isolate $\vf{r}$ (or $r$) from \cref{eq:Newton}. In order to simplify the notation we will denote $\mu:=GM_{\oplus}$.
+We are interested now in what kind of curves may be described by a spacecraft orbiting the Earth, when considered both objects as point masses. That is, we want to somehow isolate $\vf{r}$ (or $r$) from \cref{eq:Newton}. It is standard in Astrodynamics to denote $\mu:=GM_{\oplus}$.
 
 \begin{restatable}[Kepler's first law]{proposition}{keplerA}
   \label{prop:two-body}
   Consider two point-mass bodies. The motion of one body orbiting the other can be described by a conic section. Hence, it can be expressed in the form:
   \begin{equation}
     \label{eq:r_conic}
-    r(t)=\frac{p}{1+e\cos (\nu(t))}=\frac{h^2/\mu}{1+(B/\mu)\cos(\nu)}
+    r(t)=\frac{p}{1+e\cos (\nu(t))}=\frac{h^2/\mu}{1+(B/\mu)\cos(\nu(t))}
   \end{equation}
   for some parameters $p=h^2/\mu$, $e=B/\mu$ and $B$.
 \end{restatable}
@@ -40,7 +40,7 @@ We are interested now in what kind of curves may be described by a spacecraft or
 %   \end{equation}
 %   for some parameters $p=h^2/\mu$, $e=B/\mu$ and $B$.
 % \end{proposition}
-From here on, let's assume that $B$ is small enough to satisfy $e <1$, as this is the primary case of interest. We've seen in \cref{sec:ellipse} the range of values that can $r$ take in that case, and we deduced an equation for the semi-major axis. Note that this latter quantity can also be expressed as:
+From here on, let's assume that $B$ is small enough to satisfy $e <1$, as this is our primary case of interest. We've seen in \cref{sec:ellipse} the range of values that can $r$ take in that case, and we deduced an equation for the semi-major axis. Note that this latter quantity can also be expressed as:
 \begin{equation}\label{eq:semi-major_axis}
   a=\frac{r_\mathrm{max}+r_\mathrm{min}}{2}=\frac{p}{1-e^2}=\frac{h^2}{\mu(1-e^2)}
 \end{equation}
@@ -106,7 +106,7 @@ Observe that at $\vf{r}_\mathrm{min}$, we have $\nu=0$ and so $\vf{r}\parallel\v
 %     \end{equation}
 %   \end{proof}}
 \subsubsection{Kepler's equation}\label{sec:kepler_equation}
-So far we have been able to describe the geometry of motion of a body orbiting another one. However, we have not concerned about the specific position of the body as a function of time. That is, how to obtain $\nu(t)$ at each instant of time. In order to do this, we may think the area $A$ as a function of $\nu$, that measures the area swept by the radio vector from an initial instant $\nu_0$. Thus, from differential calculus we know that:
+So far we have been able to describe the geometry of motion of a body orbiting another one. However, we have not been concerned about the specific position of the body as a function of time. That is, how to obtain $\nu(t)$ at each instant of time. In order to do this, we may think the area $A$ as a function of $\nu$, that measures the area swept by the radio vector from an initial instant $\nu_0$. Thus, we know that:
 \begin{equation}
   A(\nu)=\int_{\nu_0}^{\nu}\int_{0}^{r(\theta)}r\dd{r}\dd{\theta}=\int_{\nu_0}^{\nu}\frac{{r(\theta)}^2}{2}\dd{\theta}\implies\dv{A}{\nu}=\frac{r^2}{2}
 \end{equation}
@@ -118,7 +118,7 @@ So from \cref{eq:r_conic,eq:areal_velocity_nu}, we get the following differentia
 \begin{equation}
   \dot\nu=\frac{h}{r^2}=\frac{h}{p^2}{(1+e\cos\nu)}^2
 \end{equation}
-which, when integrated with respect to the time, lead us to an elliptic integral which can be very computationally expensive. Our goal in this section is to find an easier way to compute the exact position of the satellite at each instant of time \cite{montenbruck}. This will lead us to the so-called \emph{Kepler's equation}. For this purpose we are forced to introduce a new parameter, $E$, called \emph{eccentric anomaly}. It is defined as the angle between the segment from the origin of the ellipse to the periapsis, and the line passing through the center of the ellipse and the point in a circle (of radius $a$ and same center as the ellipse) which is just above the position of the satellite (see \cref{fig:kepler_eq} for a better understanding).
+which, when integrated with respect to the time, lead us to an elliptic integral which can be very computationally expensive. Our goal in this section is to find an easier way to compute the exact position of the satellite at each instant of time \cite{montenbruck}. This will lead us to the so-called \emph{Kepler's equation}. For this purpose we are forced to introduce a new parameter, $E$, called \emph{eccentric anomaly}. It is defined as the angle between the segment from the origin of the ellipse to the periapsis and the line passing through the center of the ellipse and the point in a circle (of radius $a$ and same center as the ellipse) which is just above the position of the satellite (see \cref{fig:kepler_eq}).
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.5\textwidth]{Images/kepler_eq.pdf}
@@ -140,10 +140,10 @@ Finally from \cref{eq:eccentricX,eq:eccentricr} we get:
 Expressing now the areal velocity $h$ as a function of $E$ we have:
 \begin{align}
   h & =x\dot{y}-y\dot{x}                                                           \\
-    & =a^2(\cos E-e)\sqrt{1-e^2}(\cos E)\dot{E}+a^2{(\sin E)}^2\dot{E}\sqrt{1-e^2} \\
+    & =a^2(\cos E-e)\sqrt{1-e^2}(\cos E)\dot{E}+a^2{(\sin E)}^2\dot{E}\sqrt{1-e^2} \\\label{eq:h_E_dot}
     & =a^2\sqrt{1-e^2}\dot{E}(1-e\cos E)
 \end{align}
-From \cref{eq:semi-major_axis} we know that $h=\sqrt{\mu a(1-e^2)}$. Thus, substituting this in the latter equation we deduce that $E$ must satisfy the following differential equation:
+From \cref{eq:semi-major_axis} we know that $h=\sqrt{\mu a(1-e^2)}$. Thus, substituting this into \cref{eq:h_E_dot} we deduce that $E$ must satisfy the following differential equation:
 \begin{equation}\label{eq:kepler_equation_differential}
   \dot{E}(1-e\cos E)=\sqrt{\frac{\mu}{a^3}}=n
 \end{equation}
@@ -161,7 +161,7 @@ The measurement of time has undergone significant changes throughout the centuri
 \begin{definition}[Julian date]
   The \emph{Julian date} (JD) is the number of days, of length $24\cdot3\,600 = 86\,400$ seconds, elapsed since the beginning of the \emph{Julian period}, that is, since January 1, 4713 BC, at 12:00 (noon) in the Julian calendar\footnote{According to \cite{vallado}, the convention to start the JD at noon each day benefits astronomers (who often work at night) because they can make all their observations on a single day.}. A \emph{Julian year} is defined as 365.25 days and therefore a \emph{Julian century} as $36\,525$ days.
 \end{definition}
-As the unit of second is not constant among the time systems that we will use throughout the document (UT1, TT, UTC, etc.) (see \cref{sec:time_measurement}), the JD will vary depending on the time system used. We will distinguish them by adding a subscript to the JD, for instance $\text{JD}_\mathrm{UT1}$, $\text{JD}_\mathrm{TT}$ or $\text{JD}_\mathrm{UTC}$. Later on, we will give formulas that relate these time systems, and usually they will be expressed as the number of Julian centuries elapsed since January 1, 2000, at 12:00 TT (noon) in the Julian calendar. This number is given by:
+As the unit of second is not constant among the time systems that we will use throughout the document (UT1, TT, UTC, etc.) (see \cref{sec:time_measurement}), the actual length of a JD will vary depending on the time system used. We will distinguish them by adding a subscript to the JD, for instance $\text{JD}_\mathrm{UT1}$, $\text{JD}_\mathrm{TT}$ or $\text{JD}_\mathrm{UTC}$. Later on, we will give formulas that relate these time systems, and usually they will be expressed as the number of Julian centuries elapsed since January 1, 2000, at 12:00 TT (noon) in the Julian calendar. This number is given by:
 \begin{equation}
   \frac{\text{JD}-2\,451\,545}{36\,525}
 \end{equation}
@@ -173,7 +173,7 @@ But first we need some preliminary definitions:
   We define the \emph{equatorial plane} as the plane in $\RR^3$ that contains the Earth equator. We define the \emph{ecliptic plane} as the orbital plane in $\RR^3$ of the Earth around the Sun.
 \end{definition}
 \begin{definition}
-  We define the \emph{celestial sphere} as an abstract sphere of infinite radius centered at the center of mass of the Earth. All the celestial objects are thus, projected naturally on the celestial sphere, identifying them with two spherical coordinates, known as \emph{right ascension} and \emph{declination}, which we define below. The intersection of the equatorial plane with the celestial sphere is called \emph{celestial equator}. The intersection of the ecliptic plane with the celestial sphere is called \emph{ecliptic} (see \cref{fig:right_ascesion} for a better understanding).
+  We define the \emph{celestial sphere} as an abstract sphere of infinite radius centered at the center of mass of the Earth. All the celestial objects are thus projected naturally on the celestial sphere, identifying them with two spherical coordinates, known as \emph{right ascension} and \emph{declination}, which we define below. The intersection of the equatorial plane with the celestial sphere is called \emph{celestial equator}. The intersection of the ecliptic plane with the celestial sphere is called \emph{ecliptic} (see \cref{fig:right_ascesion} for a better understanding).
 \end{definition}
 A first important thing to note is that, since the celestial sphere is centered at the Earth, the Sun moves along the ecliptic. Moreover, note that both the celestial equator and the ecliptic are two different great circles on the celestial sphere. Hence, they intersect at exactly two points.
 
@@ -182,7 +182,7 @@ A first important thing to note is that, since the celestial sphere is centered 
 \end{definition}
 The angle measured along the equator of any object on the celestial sphere from the vernal equinox is called \emph{right ascension}, whereas the angle measured along the meridian of the object from the position of the object to the equator is called \emph{declination} (see \cref{fig:right_ascesion}).
 
-An \emph{apparent solar day} is defined to be the time between two successive transits of the Sun across our local meridian. One should note that the Earth has to rotate on itself slightly more than one revolution in order to complete one solar day. In addition, due to the non-circular orbit of the Earth around the Sun, the length of an apparent solar day is not constant, as the Earth has to rotate on itself slightly more in the perihelion that in the aphelion. The \emph{apparent sidereal day} is defined as the time it takes for the Earth to complete a rotation (see \cref{fig:sidereal} for a better understanding). From the point of view of the celestial sphere, the apparent solar time is the angle (measured along the celestial equator) between the local meridian\footnote{We consider the local meridian as the meridian on the celestial sphere that is projected onto the Earth and moves in synchronization with it.} and the meridian of the Sun at that epoch, which is not uniform because the angular velocity of the Earth is not constant \cite{montenbruck}.
+An \emph{apparent solar day} is defined to be the time between two successive transits of the Sun across our local meridian\footnote{We consider the local meridian as the meridian on the celestial sphere that is projected onto the Earth and moves in synchronization with it.}. One should note that the Earth has to rotate on itself slightly more than one revolution in order to complete one apparent solar day (see \cref{fig:sidereal}). In addition, due to the non-circular orbit of the Earth around the Sun, the length of an apparent solar day is not constant, as the Earth has to rotate on itself slightly more in the perihelion than in the aphelion, where it goes faster. The \emph{apparent sidereal day} is defined as the time it takes for the Earth to complete a rotation on itself (see \cref{fig:sidereal} for a better understanding). From the point of view of the celestial sphere, the apparent solar time is the angle (measured along the celestial equator) between the local meridian and the meridian of the Sun at that epoch, which is not uniform because the angular velocity of the Earth (both in its orbit around the Sun and in its rotation around its own axis) is not constant \cite{montenbruck}.
 
 \begin{figure}[htbp]
   \centering
@@ -214,24 +214,24 @@ It is worth noting that unlike the real Sun, the mean Sun moves along the celest
 \end{definition}
 The use of two distinct names, namely GMT and UT, to refer to the same time can be attributed to historical reasons. Initially, GMT was defined as the mean solar time at the prime meridian with 00:00 GMT coinciding with the moment when the mean Sun was at that meridian. On the other hand, UT was introduced as a 12-hour translation of GMT, intended for civilian purposes. Eventually, GMT was redefined to align with UT.
 
-In the middle of the 20th century, \emph{Ephemeris Time} (ET) was introduced to cope with the irregularities of the Earth's rotation (see \cref{sec:reference_systems}). This time was defined from historical observations of planets in a Newtonian physics framework, isolating the time from the equations, and the origin of time was chosen coherently with GMT, at January 0, 1900, 12:00 GMT (JD $2\,415\,020.0$). This timescale provided a uniform time, although it was more difficult to measure than the mean solar time. In the meantime, atomic clocks were invented and at 1967 the \emph{atomic time} (TAI, from French \emph{Temps Athomique International}) was adopted as the SI unit of second. The origin was chosen such that the TAI matched UT at the 00:00 UT of January 1, 1958, and at that time the ET was displaced from UT by 32.184 seconds. At the end of the 20th century, the \emph{Terrestrial Time} (TT) was introduced within a relativistic framework in order to replace ET and provide a smooth and more accurate continuation of it yielding the relation \cite{montenbruck}:
+In the middle of the 20th century, \emph{Ephemeris Time} (ET) was introduced to cope with the irregularities of the Earth's rotation (see \cref{sec:reference_systems}). This time was defined from historical observations of planets in a Newtonian physics framework, isolating the time from the equations, and the origin of time was chosen coherently with GMT, at January 0, 1900, 12:00 GMT (JD $2\,415\,020.0$). This timescale provided a uniform time, although it was more difficult to measure than the mean solar time. In the meantime, atomic clocks were invented and at 1967 \emph{atomic time} (TAI, from French \emph{Temps Athomique International}) was adopted as the SI unit of second. The origin was chosen such that the TAI matched UT at the 00:00 UT of January 1, 1958, and at that time ET was displaced from UT by 32.184 seconds. At the end of the 20th century, \emph{Terrestrial Time} (TT) was introduced within a relativistic framework in order to replace ET and provide a smooth and more accurate continuation of it yielding the relation \cite{montenbruck}:
 \begin{equation}
   \text{TT}=\text{ET}= \text{TAI} + 32.184\,\mathrm{s}
 \end{equation}
 
-For astronomical calculations, it is convenient to consider a timescale defined directly from Earth's rotation, known as \emph{sidereal time}. Namely, \emph{Greenwich Mean Sidereal Time} (GMST) is defined as the angle between the prime meridian and the mean vernal equinox of date (see \cref{sec:reference_systems}). Due to unpredictable irregular changes on the rotation of the Earth, the GMST cannot be computed directly with a formula in terms of the TAI or TT.
+For astronomical calculations, it is convenient to consider a timescale defined directly from Earth's rotation, known as \emph{sidereal time}. Namely, \emph{Greenwich Mean Sidereal Time} (GMST) is defined as the angle between the prime meridian and the mean vernal equinox of date (see \cref{sec:reference_systems}). Due to unpredictable irregular changes on the rotation of the Earth, GMST cannot be computed directly with a formula in terms of the TAI or TT.
 
-The \emph{Universal Time 1} (UT1) is the presently used form of Universal time, and it is defined in terms of Earth's rotation with the following deterministic formula given in \cite{aoki}. For each day, the 00:00 UT1 is defined as the time instant in which GMST has the value:
+The \emph{Universal Time 1} (UT1) is the presently used form of Universal time, and it is defined in terms of Earth's rotation with the following deterministic formula given in \cite{aoki}. For each day, 00:00 UT1 is defined as the time instant in which GMST has the value:
 \begin{equation}
   \mathrm{GMST}(0\text{h UT1})=24\,110.548\,41+8\,640\,184.812\,866{T_{\text{UT1},0}}+0.093\,104{T_{\text{UT1},0}}^2-6.2\cdot 10^{-6}{T_{\text{UT1},0}}^3
 \end{equation}
 where $T_{\text{UT1},0}=\frac{\text{JD}(0\text{h UT1})-2\,451\,545}{36\,525}$ denotes the number of Julian centuries that have passed since January 2000, 1.5 UT1 at the beginning of the day. The units of the coefficients are seconds. For any instant of time during the day, the following formula is used:
 \begin{multline}
-  \mathrm{GMST}(\mathrm{UT1})=24\,110.548\,41+8\,640\,184.812866{T_{\text{UT1}}}+1.002\,737\,909\,350\,795\cdot240\text{UT1}+\\+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
+  \mathrm{GMST}(\mathrm{UT1})=24\,110.548\,41+8\,640\,184.812866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
 \end{multline}
-where $T_\text{UT1}=\frac{\text{JD}(\text{UT1})-2\,451\,545}{36\,525}$ and UT1 are measured in seconds. The coefficient $\omega:=1.002\,737\,909\,350\,795$ is the Earth's mean angular velocity in degrees per second and the coefficient $240=\frac{3\,600}{15}$ is the number of seconds in one degree\footnote{Recall that $15^\circ=1\ \text{h}$, $60'=1^\circ$, $60''=1'$, where $''$ are arc seconds and $'$ are arc minutes.}. Similarly to the GMST, there is no simple conversion between the UT1 and the TT or TAI. Instead, IERS\footnote{More information on \href{https://www.iers.org}{https://www.iers.org} (accessed on June 8, 2023).} (\emph{International Earth Rotation and Reference Systems Service}) provides regularly a bulletin with the difference $\Delta T:= \mathrm{TT}-\mathrm{UT1}$ at several dates. Interpolating these values we can obtain UT1 from TT at any epoch.
+where $T_\text{UT1}=\frac{\text{JD}(\text{UT1})-2\,451\,545}{36\,525}$ and UT1 are measured in seconds. The coefficient $\omega:=1.002\,737\,909\,350$ is the Earth's mean angular velocity in degrees per second and the coefficient $240=\frac{3\,600}{15}$ is the number of seconds in one degree\footnote{Recall that $15^\circ=1\ \text{h}$, $60'=1^\circ$, $60''=1'$, where $''$ are arc seconds and $'$ are arc minutes.}. Similarly to the GMST, there is no simple conversion between the UT1 and the TT or TAI. Instead, IERS\footnote{More information on \href{https://www.iers.org}{https://www.iers.org} (accessed on June 8, 2023).} (\emph{International Earth Rotation and Reference Systems Service}) provides regularly a bulletin with the difference $\Delta T:= \mathrm{TT}-\mathrm{UT1}$ at several dates. Interpolating these values we can obtain UT1 from TT at any epoch.
 
-Finally, our everyday clock is based on the \emph{Coordinated Universal Time} (UTC). It is defined to be as uniform as the TAI but always kept closer than 0.9 seconds to the UT1 in order to resemble a mean solar time (see \cref{fig:time_graph}). Scientists achieve this by introducing a \emph{leap second} (see \cref{fig:leapsecond}), which is an extra second added to UTC at irregular intervals. \cref{fig:time_graph} summarizes some time systems introduced in the document.
+Finally, our everyday clock is based on \emph{Coordinated Universal Time} (UTC). It is defined to be as uniform as the TAI but always kept closer than 0.9 seconds to UT1 in order to resemble a mean solar time (see \cref{fig:time_graph}). Scientists achieve this by introducing a \emph{leap second} (see \cref{fig:leapsecond}), which is an extra second added to UTC at irregular intervals. \cref{fig:time_graph} summarizes some time systems introduced in the document.
 
 \begin{figure}[htbp]
   \centering
@@ -253,16 +253,16 @@ Finally, our everyday clock is based on the \emph{Coordinated Universal Time} (U
 We summarize here useful conversions between time systems:
 \begin{align*}
   \begin{split}
-    \mathrm{GMST}(\mathrm{UT1})&=24\,110.54841+8\,640\,184.812\,866{T_{\text{UT1}}}+1.002\,737\,909\,350\,795\cdot240\text{UT1}+\\
+    \mathrm{GMST}(\mathrm{UT1})&=24\,110.54841+8\,640\,184.812\,866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\
     &\hspace{8cm}+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
   \end{split} \\
-  \text{UT1} & =\text{TT}-\Delta T                                                                                                         \\
-  \text{TT}  & =\text{TAI}-32.184                                                                                                          \\
+  \text{UT1} & =\text{TT}-\Delta T                                                                                                    \\
+  \text{TT}  & =\text{TAI}-32.184                                                                                                     \\
   \text{TAI} & =\text{UTC}+\delta
 \end{align*}
 where $\Delta T$ is the difference between the TT and UT1, and $\delta$ is a piecewise constant function that counts the number of leap seconds introduced since 1972, when they were introduced for the first time. All the numbers have units of second.
 \subsubsection{Reference systems}\label{sec:reference_systems}
-It is well-known that Newton's second law is only valid when applied to an \emph{inertial reference frame}, that is, a frame of reference that is not undergoing any acceleration. In practice, however, almost any frame of reference is non-inertial. In this chapter we will describe a quasi-inertial frame of reference which will be used to integrate Newton's second law. On the other hand, since the Earth is not a body with a homogeneous density of mass, there are zones with higher mass density than others, and therefore with higher gravitational pull (see \cref{sec:laplace_spherical_potential}). Therefore, we will need the longitude and latitude of the satellite with respect to the Earth at each time of integration in order to place it in the correct position with respect to the Earth.
+It is well-known that Newton's second law is only valid when applied to an \emph{inertial reference frame}, that is, a frame of reference that is not undergoing any acceleration. In practice, however, almost any frame of reference is non-inertial. In this chapter we will describe a quasi-inertial frame of reference which will be used to integrate Newton's second law. On the other hand, since the Earth is not a body with a homogeneous density of mass, there are zones with higher mass density than others, and therefore with higher gravitational pull (see \cref{sec:laplace_spherical_potential}). Therefore, we will need the longitude and latitude of the satellite with respect to the Earth at each time of integration.
 
 Based on our study of satellite motion around the Earth, it is natural to place all the origins of the reference frames considered throughout the document at the center of mass of the Earth.
 
@@ -338,14 +338,14 @@ where we have used the convention of signs given by \cite{goldstein}.
   \begin{minipage}[ht]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Images/ecliptic_equator.pdf}
-    \caption{Celestial sphere showing the ecliptic and the equator of both the epoch J2000 and the current epoch $t$. Dark colors represent the ecliptic while light colors represent the equator. On the other hand, red colors represents the J2000 epoch and blue colors represents the current epoch $t$. Source: based on \cite{montenbruck}.}
+    \caption{Celestial sphere showing the ecliptic and the equator of both the epoch J2000 and the current epoch $t$. Dark colors represent the ecliptic while light colors represent the equator. On the other hand, red colors represents the J2000 epoch and blue colors represents the current epoch $t$. Based on \cite{montenbruck}.}
     \label{fig:precession_matrix}
   \end{minipage}
   \hspace{0.0333333\textwidth}
   \begin{minipage}[ht]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Images/nutation_matrix.pdf}
-    \caption{True equator and mean equator, and true equinox ($\Upsilon$) and mean equinox ($\overline\Upsilon$) at a given epoch $t$ together with the ecliptic at that time. Source: based on \cite{montenbruck}.}
+    \caption{True equator and mean equator, and true equinox ($\Upsilon$) and mean equinox ($\overline\Upsilon$) at a given epoch $t$ together with the ecliptic at that time. Based on \cite{montenbruck}.}
     \label{fig:nutation_matrix}
   \end{minipage}
 \end{figure}
@@ -448,7 +448,7 @@ We first give some preliminary definitions.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth]{Images/orbital_elements.pdf}
-  \caption{Orbital elements of a satellite. Source: based on \cite{wiki:orbital-elements}.}
+  \caption{Orbital elements of a satellite. Based on \cite{wiki:orbital-elements}.}
   \label{fig:orbital_elements}
 \end{figure}
 \cref{fig:orbital_elements} shows a schematic representation of these elements. The elements $a$, $e$ and $i$ are always well-defined. However, the elements $\Omega$, $\omega$ and $\nu$ are not always well-defined, namely for $e=0$ or $i=0$. We discuss this in more detail below. For the moment assume $e\neq 0$ and $i\neq 0$. In order to express these elements in terms of the position and velocity of the satellite, we need to introduce the following vectors:

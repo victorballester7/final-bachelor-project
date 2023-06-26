@@ -19,8 +19,7 @@
     ]
     \def\xmax{\pgfkeysvalueof{/pgfplots/xmax}}
     \def\xmin{\pgfkeysvalueof{/pgfplots/xmin}}
-    \addplot[thin,teal,samples=2,domain=\xmin:\xmax] {0};
-    \addplot[thin,cyan,smooth]coordinates{
+    \addplot[thick,brown!70!black,smooth]coordinates{
     (1950,3.034)
     (1950.5,2.804)
     (1951.0,2.621)
@@ -169,7 +168,7 @@
     (2022.5,-37.06870000000001)
     (2023.0,-37.019800000000004)
     };
-    \addplot[thin,red,const plot mark left] coordinates {
+    \addplot[thick,red,const plot mark left] coordinates {
         (1972,-10)
         (1972.5,-11)
         (1973,-12)
@@ -200,11 +199,12 @@
         (2017,-37)
         (2023,-37)
       };
-    \addplot[thin,violet,samples=2,domain=\xmin:\xmax] {32.184};
-    \node[cyan] at (1965, -10) {UT1};
+    \addplot[thick,teal!80!black,samples=2,domain=\xmin:\xmax] {0};
+    \addplot[thick,violet!80,samples=2,domain=\xmin:\xmax] {32.184};
+    \node[brown!70!black] at (1965, -10) {UT1};
     \node[red] at (2000, -25) {UTC};
-    \node[teal, above] at (2000, 0) {TAI};
-    \node[violet, below] at (2000, 32.184) {TT};
+    \node[teal!80!black, above] at (2000, 0) {TAI};
+    \node[violet!80, below] at (2000, 32.184) {TT};
   \end{axis}
 \end{tikzpicture}
 \end{document}

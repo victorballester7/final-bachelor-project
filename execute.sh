@@ -24,14 +24,14 @@ name_atmoDrag="_atmoDrag"
 
 make $BIN/main 
 
-if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] || [[ ! "${true_false[*]}" =~ "$7" ]] || [[ ! "${models[*]}" =~ "$8" ]]; then
-  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>"
+if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}" =~ "$2" ]] || [[ ! "${true_false[*]}" =~ "$3" ]] || [[ ! "${true_false[*]}" =~ "$4" ]] || [[ ! "${true_false[*]}" =~ "$5" ]] || [[ ! "${true_false[*]}" =~ "$6" ]] || [[ ! "${true_false[*]}" =~ "$7" ]] || [[ ! "${models[*]}" =~ "$8" ]] ||  [[ -z "$9" ]]; then
+  echo "No arguments or bad arguments provided. Use the syntax: ./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4> <compression_factor>"
   sat_string="Available satellites: "
   for i in "${satellites[@]}"; do
     sat_string+="$i "
   done
   echo $sat_string
-  echo "Executing the default command: ./execute.sh $default_sat f f f f f f sgp4"
+  echo "Executing the default command: ./execute.sh $default_sat f f f f f f sgp4 30"
   satellite=$default_sat
   pointEarth="f"
   sun="f"
@@ -40,8 +40,9 @@ if [[ -z "$1" ]] || [[ ! "${satellites[*]}" =~ "$1" ]] || [[ ! "${true_false[*]}
   solarRad="f"
   atmoDrag="f"
   model="sgp4"
+  compression_factor=30
 else
-  echo "Executing the command: ./execute.sh $1 $2 $3 $4 $5 $6 $7 $8"
+  echo "Executing the command: ./execute.sh $1 $2 $3 $4 $5 $6 $7 $8 $9"
   satellite=$1
   pointEarth=$2
   sun=$3
@@ -50,6 +51,7 @@ else
   solarRad=$6
   atmoDrag=$7
   model=$8
+  compression_factor=$9
 fi
 
 end_name=""
@@ -126,7 +128,7 @@ python3 src/getRV.py $satellite
 echo "Running the integrator..."
 ./$BIN/main $satellite $pointEarth $sun $moon $otherPlanets $solarRad $atmoDrag $model
 echo "Reducing the data..."
-python3 src/reduceData.py "${satellite}${end_name}" 50
+python3 src/reduceData.py "${satellite}${end_name}" $compression_factor
 echo "Plotting..."
 gnuplot -p -c $PLOT/$filename_err.gnu $satellite $datafile_err $datafile_err_sgp4
 # gnuplot -p -c $PLOT/$filename_orb.gnu $datafile_real $datafile_orb

@@ -24,8 +24,7 @@
 \pgfplotsset{
   customLegend/.style={
     legend image code/.code={%
-      % \draw [#1,draw=none, fill opacity=0.15] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
-      \draw [fill=#1, fill opacity=0.15,draw=none] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
+      \draw [fill=#1, fill opacity=0.\opacity,draw=none] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
       \draw [#1,solid] (0cm, 0cm) -- (0.6cm,0cm);
     },
   },              
@@ -74,12 +73,12 @@
 
     \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameA};
     \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameA};
-    \addplot [fill=sphHarm!15,forget plot] fill between[of=upper and lower];
+    \addplot [fill=sphHarm!\opacity,forget plot] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarm] table[x=time,y=error] {\filenameA};
 
     \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameB};
     \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameB};
-    \addplot [fill=sphHarmDrag!15,forget plot] fill between[of=upper and lower];
+    \addplot [fill=sphHarmDrag!\opacity,forget plot] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarmDrag] table[x=time,y=error] {\filenameB};
 
     \legend{GPM,GPM + Drag}

@@ -24,8 +24,7 @@
 \pgfplotsset{
   customLegend/.style={
     legend image code/.code={%
-      % \draw [#1,draw=none, fill opacity=0.15] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
-      \draw [fill=#1, fill opacity=0.15,draw=none] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
+      \draw [fill=#1, fill opacity=0.\opacity,draw=none] (0cm,-0.1cm) rectangle (0.6cm,0.1cm);
       \draw [#1,solid] (0cm, 0cm) -- (0.6cm,0cm);
     },
   },              
@@ -57,14 +56,14 @@
       % axis equal image,
       % axis lines=middle,
       xmin=0,
-      xmax=30,
+      xmax=31,
       ymin=0,
       xlabel={Time [days]},
       ylabel={Error in position [km]},
       customLegend,
       legend cell align = {left}, %
       legend columns=2,
-      legend style={at={(0.5,-0.2)},anchor=north} % position of the legend box and anchor is the point on the box to be fitted exactly at the point of cs:<>,<>. Options are anchor=center,south west,south east,north west,north east,north,south,west...
+      legend style={at={(0.5,-0.2)},nodes={scale=0.85},anchor=north} % position of the legend box and anchor is the point on the box to be fitted exactly at the point of cs:<>,<>. Options are anchor=center,south west,south east,north west,north east,north,south,west...
       % ymax=10,
       % xtick=\empty,
       % ytick=\empty,
@@ -75,12 +74,12 @@
 
     \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameB};
     \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameB};
-    \addplot [fill=pointMass!15,forget plot] fill between[of=upper and lower];
+    \addplot [fill=pointMass!\opacity,forget plot] fill between[of=upper and lower];
     \addplot [name path=middle,pointMass] table[x=time,y=error] {\filenameB};
 
     \addplot [name path=upper,draw=none,forget plot] table[x=time,y expr=\thisrow{error}+\thisrow{errTLE}] {\filenameA};
     \addplot [name path=lower,draw=none,forget plot] table[x=time,y expr=\thisrow{error}-\thisrow{errTLE}] {\filenameA};
-    \addplot [fill=sphHarm!15,forget plot] fill between[of=upper and lower];
+    \addplot [fill=sphHarm!\opacity,forget plot] fill between[of=upper and lower];
     \addplot [name path=middle,sphHarm] table[x=time,y=error] {\filenameA};
 
 

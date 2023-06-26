@@ -35,10 +35,10 @@ chmod +x execute.sh
 Sintax of the execution:
 
 ```
-./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4>
+./execute.sh <satellite_name> <t/f pointEarth> <t/f sun> <t/f moon> <t/f otherPlanets> <t/f solarRad> <t/f atmoDrag> <tle/sgp4> <compress>
 ```
 
-Here `<t/f>` are flags to enable or disable the different pertubations and the argument `<tle/sgp4>` is used to compare the errors with the TLE data set or with the SGP4 propagator.
+Here `<t/f>` are flags to enable or disable the different pertubations and the argument `<tle/sgp4>` is used to compare the errors with the TLE data set or with the SGP4 propagator. The argument `
 
 The available satellites names are:
 
@@ -65,7 +65,7 @@ The available satellites names are:
 Example:
 
 ```
-./execute.sh ISS f t t f f t sgp4
+./execute.sh ISS f t t f f t sgp4 10
 ```
 
 This command computes the errors of the ISS satellite with the SGP4 propagator and with the following perturbations enabled: Sun, Moon and atmospheric drag.
