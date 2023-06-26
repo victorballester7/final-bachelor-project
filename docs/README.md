@@ -104,7 +104,7 @@ We now expose the main results of this work:
 
 <div style="display: flex;" align="center">
   <div style="flex: 50%; padding: 5px;">
-    <img src="../latex/Images/simulation/TDRS-3.jpg" alt="Image 2" width="405">
+    <img src="../latex/Images/simulation/TDRS-3.jpg" alt="Image 2">
     <p>Propagation of the TDRS-3 satellite considering the perturbations from the Moon, the Sun and the solar radiation pressure.</p>
   </div>
 </div>
