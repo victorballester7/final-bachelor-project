@@ -10,11 +10,11 @@ In \cref{sec:twoBody} we saw that the motion of a body orbiting another one can 
 
 Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this, consider a covering of $\Omega$ in a set of disjoint cubes $Q_i$, $i=1,\dots,N$, small enough to be considered as point masses and let $R_i:=Q_i\cap \Omega$. Then, $\bigsqcup_{i=1}^NR_i=\Omega$. If each $R_i$ has mass $m_i$, volume $V_i$, density $\rho_i$, and its center is located at $\vf{s}_i\in\RR^3$, then the total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces exerted by the $N$ point masses, and it is given by:
 \begin{equation}\label{eq:riemann_sum}
-  \vf{g}=-\sum_{i=0}^{N}\frac{m_{i}}{\norm{\vf{r}-\vf{s}_{i}}^3}(\vf{r}-\vf{s}_{i})=-\sum_{i=0}^{N}\frac{\rho_{i}}{\norm{\vf{r}-\vf{s}_{i}}^3}(\vf{r}-\vf{s}_{i})V_i
+  \vf{g}=-\sum_{i=0}^{N}\frac{Gm_{i}}{\norm{\vf{r}-\vf{s}_{i}}^3}(\vf{r}-\vf{s}_{i})=-\sum_{i=0}^{N}\frac{G\rho_{i}}{\norm{\vf{r}-\vf{s}_{i}}^3}(\vf{r}-\vf{s}_{i})V_i
 \end{equation}
 Note that \cref{eq:riemann_sum} is a Riemann sum and so letting $N\to\infty$ we get:
 \begin{equation}\label{eq:limit}
-  \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}
+  \vf{g}=-\int_{\Omega}\frac{G\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}
 \end{equation}
 where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 % Consider a body confined in a compact region $\Omega\subseteq\RR$ with a continuous density of mass $\rho:\Omega\to\RR$. We would like to know the gravitational pull on a point mass $m$ located at position $\vf{r}$ from the center of mass of the body. To do this we can discretize the body $\Omega$ in a set of cubes $Q_{i,j,k}$ each of mass $m_{i,j,k}$, volume $\frac{1}{n_xn_yn_z}$ and density $\rho\left(\frac{i}{n_x},\frac{j}{n_y},\frac{k}{n_z}\right)=:\rho_{i,j,k}$, where $n_x$, $n_y$, and $n_z$ are the number of cubes in the $x$, $y$, and $z$ directions, respectively. The total gravitational acceleration $\vf{g}$ exerted on $m$ is the sum of the contributions of all the forces exerted by the cubes (considered as point masses) and it is given by:
@@ -27,7 +27,7 @@ where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 % \end{equation}
 % where $\dd^3{\vf{s}}:=\dd{x'}\dd{y'}\dd{z'}$, if $\vf{s}=(x',y',z')$.
 \begin{restatable}{theorem}{thmconservative}\label{thm:conservative}
-  Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $f:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad f$.
+  Let $\Omega$ be a compact region in $\RR^3$ with a continuous density of mass $\rho:\Omega\to\RR$. Then, the gravitational acceleration field $\vf{g}$ is conservative. That is, there exists a function $V:\RR^3\rightarrow\RR$ such that $\vf{g}=\grad V$. We call $V$ the \emph{gravitational potential}.
 \end{restatable}
 \begin{proof}
   See \cref{sec:app3}.
@@ -39,7 +39,8 @@ Physically speaking, the gravitational force $\vf{F}$ being conservative means t
 \begin{equation}
   W=\int_C\vf{F}\cdot\dd{\vf{s}}
 \end{equation}
-depends only on the initial and final positions of it. Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
+depends only on the initial and final positions of it.
+% Moreover, due to historical reasons, we will write $\vf{g}=-\grad V$ (with the minus sign) and call $V$ the \emph{gravitational potential}. The minus sign is chosen according the convention that work done by gravitational forces decreases the potential.
 \subsubsection{Laplace's equation for \texorpdfstring{$V$}{V}}\label{sec:laplace}
 \begin{restatable}{theorem}{thmlaplace}\label{thm:laplace}
   Consider a distribution of matter of density $\rho$ in a compact region $\Omega$. Then, the gravitational potential $V$ satisfies the Laplace equation
@@ -299,6 +300,9 @@ Similarly, it can be shown that the spherical harmonics from an orthonormal fami
   \end{equation}
   where $\dd\Omega=\sin\phi\dd{\phi}\dd{\theta}$ is the solid angle element, which measures the element of area on a sphere of radius $1$.
 \end{restatable}
+\begin{proof}
+  See \cref{sec:app3}.
+\end{proof}
 % \begin{proposition}
 %   The family of spherical harmonics $\{Y_{n,m}^{\mathrm{c}}(\theta,\phi),Y_{n,m}^{\mathrm{s}}(\theta,\phi):n\in\NN\cup\{0\},m\leq n\}$ is orthonormal in the following sense:
 %   \begin{equation}\label{eq:ortho_spherical_harmonics}
@@ -343,6 +347,9 @@ We are now interested in solving the Laplace equation. \cref{thm:laplace_spheric
   \end{align}
   where $a_n,b_n,c_{n,m},s_{n,m},\tilde{c}_{n,m},\tilde{s}_{n,m}\in\RR$.
 \end{restatable}
+\begin{proof}
+  See \cref{sec:app3}.
+\end{proof}
 % \begin{theorem}\label{thm:laplace_spherical}
 %   The regular solutions in a bounded region $\Omega\subseteq \RR^3$ such that $0\notin\overline{\Omega}$ of the Laplace equation in spherical coordinates are of the form
 %   \begin{align}
@@ -442,11 +449,11 @@ So far we have only considered one force acting on the satellite: the gravitatio
 \subsubsection{Atmospheric drag}
 For \emph{LEO} (\emph{Low Earth Orbit}) satellites, that is, satellites with an altitude of less than $1\,000$ km, the most important perturbation is the atmospheric drag. Indeed, as these satellites travel in the upper layers of the atmosphere, they are subject to a drag force caused by the interaction with air particles. The acceleration due to drag can be written as:
 \begin{equation}
-  \vf{a}_{\mathrm{D}}=-\frac{1}{2}C_{\mathrm{D}}\frac{A}{m}\rho v_r\vf{v}_r
+  \vf{a}_{\mathrm{D}}=-\frac{1}{2}C_{\mathrm{D}}\frac{A}{m}\rho v_\mathrm{rel}\vf{v}_\mathrm{rel}
 \end{equation}
-where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_r$ is the relative velocity between the satellite and the air particles, $v_r=\norm{\vf{v}_r}$, and $C_{\mathrm{D}}$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_r$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
+where $A$ is the cross-sectional area of the satellite, $m$ is its mass, $\rho$ is the atmospheric density, $\vf{v}_\mathrm{rel}$ is the relative velocity between the satellite and the air particles, $v_\mathrm{rel}=\norm{\vf{v}_\mathrm{rel}}$, and $C_{\mathrm{D}}$ is the drag coefficient, which depends on the shape of the satellite and the properties of the air particles. In order to determine $\vf{v}_\mathrm{rel}$, we will suppose that the atmospheric particles rotate with the Earth, and thus the relative velocity is given by:
 \begin{equation}
-  \vf{v}_r=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}
+  \vf{v}_\mathrm{rel}=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}
 \end{equation}
 where $\vf{\omega}_\oplus$ is the angular velocity of the Earth.
 

@@ -99,7 +99,7 @@
   \end{equation}
   So we need to justify whether the following exchange between the gradient and the integral is correct:
   \begin{equation}
-    \vf{g}=-\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_{\Omega}\rho(\vf{s})\grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}=\grad\int_{\Omega}\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}
+    \vf{g}=-\int_{\Omega}\frac{G\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=\int_{\Omega}G\rho(\vf{s})\grad\left(\frac{1}{\norm{\vf{r}-\vf{s}}}\right)\dd^3{\vf{s}}=\grad\int_{\Omega}\frac{G\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3{\vf{s}}
   \end{equation}
   Without loss of generality it suffices to justify that
   \begin{equation}\label{eq:exchangeDivInt}
@@ -113,7 +113,7 @@
 \end{proof}
 \thmlaplace*
 \begin{proof}
-  Recall that $\laplacian V=\div(\grad V)$. So since $\vf{g}=-\grad V$ it suffices to prove that $\div(\vf{g})=0$. Note that if $\vf{r}\in\Omega^c$, then $\exists \delta>0$ such that $\norm{\vf{r}-\vf{s}}\geq\delta>0$ $\forall \vf{s}\in\Omega$ because $\Omega$ is closed. As a result, $\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}$ is differentiable and:
+  Recall that $\laplacian V=\div(\grad V)$. So since $\vf{g}=\grad V$ it suffices to prove that $\div(\vf{g})=0$. Note that if $\vf{r}\in\Omega^c$, then $\exists \delta>0$ such that $\norm{\vf{r}-\vf{s}}\geq\delta>0$ $\forall \vf{s}\in\Omega$ because $\Omega$ is closed. As a result, $\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}$ is differentiable and:
   \begin{multline*}
     \div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)=\pdv{}{x}\left(\frac{x-x'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{y}\left(\frac{y-y'}{\norm{\vf{r}-\vf{s}}^3}\right)+\pdv{}{z}\left(\frac{z-z'}{\norm{\vf{r}-\vf{s}}^3}\right)=\\
     =\frac{\norm{\vf{r}-\vf{s}}^2-3{(x-x')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(y-y')}^2}{\norm{\vf{r}-\vf{s}}^5}+\frac{\norm{\vf{r}-\vf{s}}^2-3{(z-z')}^2}{\norm{\vf{r}-\vf{s}}^5} =0
@@ -124,7 +124,7 @@
   \end{equation}
   which is integrable by Weierstrass theorem. Thus, by the theorem of derivation under the integral sign:
   \begin{equation}
-    \div(\vf{g})=-\div\int_\Omega\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=-\int_\Omega\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
+    \div(\vf{g})=-\div\int_\Omega\frac{G\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}^3}(\vf{r}-\vf{s})\dd^3{\vf{s}}=-\int_\Omega G\rho(\vf{s})\div\left(\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\right)\dd^3{\vf{s}}=0
   \end{equation}
 \end{proof}
 \Dirichlet*

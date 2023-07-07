@@ -227,7 +227,7 @@ The \emph{Universal Time 1} (UT1) is the presently used form of Universal time, 
 \end{equation}
 where $T_{\text{UT1},0}=\frac{\text{JD}(0\text{h UT1})-2\,451\,545}{36\,525}$ denotes the number of Julian centuries that have passed since January 2000, 1.5 UT1 at the beginning of the day. The units of the coefficients are seconds. For any instant of time during the day, the following formula is used:
 \begin{multline}
-  \mathrm{GMST}(\mathrm{UT1})=24\,110.548\,41+8\,640\,184.812866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
+  \mathrm{GMST}(\mathrm{UT1})=24\,110.548\,41+8\,640\,184.812\,866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
 \end{multline}
 where $T_\text{UT1}=\frac{\text{JD}(\text{UT1})-2\,451\,545}{36\,525}$ and UT1 are measured in seconds. The coefficient $\omega:=1.002\,737\,909\,350$ is the Earth's mean angular velocity in degrees per second and the coefficient $240=\frac{3\,600}{15}$ is the number of seconds in one degree\footnote{Recall that $15^\circ=1\ \text{h}$, $60'=1^\circ$, $60''=1'$, where $''$ are arc seconds and $'$ are arc minutes.}. Similarly to the GMST, there is no simple conversion between the UT1 and the TT or TAI. Instead, IERS\footnote{More information on \href{https://www.iers.org}{https://www.iers.org} (accessed on June 8, 2023).} (\emph{International Earth Rotation and Reference Systems Service}) provides regularly a bulletin with the difference $\Delta T:= \mathrm{TT}-\mathrm{UT1}$ at several dates. Interpolating these values we can obtain UT1 from TT at any epoch.
 
@@ -253,11 +253,11 @@ Finally, our everyday clock is based on \emph{Coordinated Universal Time} (UTC).
 We summarize here useful conversions between time systems:
 \begin{align*}
   \begin{split}
-    \mathrm{GMST}(\mathrm{UT1})&=24\,110.54841+8\,640\,184.812\,866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\
+    \mathrm{GMST}(\mathrm{UT1})&=24\,110.548\,41+8\,640\,184.812\,866{T_{\text{UT1}}}+1.002\,737\,909\,350\cdot240\text{UT1}+\\
     &\hspace{8cm}+0.093\,104{T_{\text{UT1}}}^2-{6.2\cdot 10^{-6}}{T_{\text{UT1}}}^3
   \end{split} \\
-  \text{UT1} & =\text{TT}-\Delta T                                                                                                    \\
-  \text{TT}  & =\text{TAI}-32.184                                                                                                     \\
+  \text{UT1} & =\text{TT}-\Delta T                                                                                                      \\
+  \text{TT}  & =\text{TAI}-32.184                                                                                                       \\
   \text{TAI} & =\text{UTC}+\delta
 \end{align*}
 where $\Delta T$ is the difference between the TT and UT1, and $\delta$ is a piecewise constant function that counts the number of leap seconds introduced since 1972, when they were introduced for the first time. All the numbers have units of second.

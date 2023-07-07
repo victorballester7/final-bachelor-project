@@ -25,9 +25,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="0.66043775"
-     inkscape:cx="764.64436"
-     inkscape:cy="383.83633"
+     inkscape:zoom="1.2839167"
+     inkscape:cx="536.63917"
+     inkscape:cy="400.72693"
      inkscape:window-width="1920"
      inkscape:window-height="1080"
      inkscape:window-x="0"
@@ -393,12 +393,12 @@
        xml:space="preserve"><tspan
          x="105.43943"
          y="185.21548"
-         id="tspan3986">True<tspan
+         id="tspan2512">True<tspan
    y="185.21548"
-   id="tspan3988"> </tspan></tspan><tspan
+   id="tspan2514"> </tspan></tspan><tspan
          x="105.43943"
          y="207.71549"
-         id="tspan3990">anomaly</tspan></text>
+         id="tspan2516">anomaly</tspan></text>
   </switch>
   <switch
      id="switch374-9"
@@ -440,12 +440,12 @@
        xml:space="preserve"><tspan
          x="105.43943"
          y="185.21548"
-         id="tspan3992">Argument of<tspan
+         id="tspan2518">Argument of<tspan
    y="185.21548"
-   id="tspan3994">  </tspan></tspan><tspan
+   id="tspan2520">  </tspan></tspan><tspan
          x="105.43943"
          y="207.71549"
-         id="tspan3996">latitude</tspan></text>
+         id="tspan2522">latitude</tspan></text>
   </switch>
   <switch
      id="switch384"
@@ -736,7 +736,7 @@
   </g>
   <g
      id="g4640"
-     transform="matrix(0.04938601,-0.02150012,0.02150012,0.04938601,377.99236,325.22147)">
+     transform="matrix(0.05383894,-0.00161289,0.00161289,0.05383894,381.07373,320.34822)">
     <g
        id="svgg">
       <path
