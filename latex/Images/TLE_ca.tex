@@ -98,22 +98,22 @@
   \node[purple] at ({60.5*\xsep},1.5*\ysep+\eps){E};
 
   % titles in the top
-  \node[rotate = 90] at (\xsep/2,\y+\longtext/2){Line};
-  \node[text width=1.5cm, align=center] at (4*\xsep+\xsep/2,\y+\longtext/2){Satellite number};
-  \node[rotate = 90] at (7*\xsep+\xsep/2,\y+\longtext/2){Class};
-  \node[text width=2cm, align=center] at (13*\xsep,{\y+\shorttext+(\longtext-\shorttext)/2}){International designator};
-  \node[font=\footnotesize] at (10*\xsep,{\y+\shorttext/2}){Year};
-  \node[font=\footnotesize] at (12.5*\xsep,{\y+\shorttext/2}){Launch};
-  \node[font=\footnotesize] at (15.5*\xsep,{\y+\shorttext/2}){Piece};
-  \node[] at (25*\xsep,{\y+\shorttext+(\longtext-\shorttext)/2}){Epoch (UTC)};
-  \node[font=\footnotesize] at (19*\xsep,{\y+\shorttext/2}){Year};
-  \node[font=\footnotesize] at (26*\xsep,{\y+\shorttext/2}){Day of the year (as fraction)};
-  \node[text width=2cm, align=center] at (38*\xsep,\y+\longtext/2){$\dot{n}/2$ [rev/day$^2$]};
-  \node[text width=2cm, align=center] at (48*\xsep,\y+\longtext/2){$\ddot{n}/6$ [rev/day$^3$]};
-  \node[text width=2cm, align=center] at (57*\xsep,\y+\longtext/2){$B^*$\\(drag term)};
+  \node[rotate = 90] at (\xsep/2,\y+\longtext/2){Línia};
+  \node[text width=1.5cm, align=center] at (4*\xsep+\xsep/2,\y+\longtext/2){Número satè\lgem it};
+  \node[rotate = 90] at (7*\xsep+\xsep/2,\y+\longtext/2){Classe};
+  \node[text width=2cm, align=center] at (13*\xsep,{\y+\shorttext+(\longtext-\shorttext)/2}){Designador internacional};
+  \node[font=\footnotesize] at (10*\xsep,{\y+\shorttext/2}){Any};
+  \node[font=\footnotesize] at (12.5*\xsep,{\y+\shorttext/2}){Llanç.};
+  \node[font=\footnotesize] at (15.5*\xsep,{\y+\shorttext/2}){Peça};
+  \node[] at (25*\xsep,{\y+\shorttext+(\longtext-\shorttext)/2}){Època (UTC)};
+  \node[font=\footnotesize] at (19*\xsep,{\y+\shorttext/2}){Any};
+  \node[font=\footnotesize] at (26*\xsep,{\y+\shorttext/2}){Dia de l'any (com a fracció)};
+  \node[text width=2cm, align=center] at (38*\xsep,\y+\longtext/2){$\dot{n}/2$ [rev/dia$^2$]};
+  \node[text width=2cm, align=center] at (48*\xsep,\y+\longtext/2){$\ddot{n}/6$ [rev/dia$^3$]};
+  \node[text width=2cm, align=center] at (57*\xsep,\y+\longtext/2){$B^*$\\(terme de fregament)};
   \node[rotate=90] at (62.5*\xsep,\y+\longtext/2){Model};
-  \node[text width=1.5cm, align=center] at (66*\xsep,\y+\longtext/2){TLE number};
-  \node[rotate=90,font=\footnotesize] at (68.5*\xsep,\y+\longtext/2){Checksum};
+  \node[text width=1.5cm, align=center] at (66*\xsep,\y+\longtext/2){Número TLE};
+  \node[rotate=90,font=\footnotesize] at (68.5*\xsep,\y+\longtext/2){\emph{Checksum}};
 
   % LINE 2: 2 55124  51.6237   5.0017 0010757 188.3869 171.6963 16.01878199 13792
   \foreach \i/\j in {0/2,1/{ },2/5,3/5,4/1,5/2,6/4,7/{ },8/{ },9/5,10/1,11/{ },12/6,13/2,14/3,15/7,16/{ },17/{ },18/{ },19/5,20/{ },21/0,22/0,23/1,24/7,25/{ },26/0,27/0,28/1,29/0,30/7,31/5,32/7,33/{ },34/1,35/8,36/8,37/{ },38/3,39/8,40/6,41/9,42/{ },43/1,44/7,45/1,46/{ },47/6,48/9,49/6,50/3,51/{ },52/1,53/6,54/{ },55/0,56/1,57/8,58/7,59/8,60/1,61/9,62/9,63/{ },64/1,65/3,66/7,67/9,68/2}{
@@ -127,15 +127,15 @@
   \node[purple,font=\Huge] at ({26*\xsep},-\ysep-\ysepB-\eps-\longtext+\points){.};
 
   % titles in the top
-  \node[rotate = 90] at (\xsep/2,-\eps-\longtext/2){Line};
-  \node[text width=1.5cm, align=center] at (4*\xsep+\xsep/2,-\eps-\longtext/2){Satellite number};
-  \node[text width=2cm, align=center] at (12*\xsep,-\eps-\longtext/2){Inclination\\$i$ [deg]};
-  \node[text width=3.2cm, align=center] at (21*\xsep,-\eps-\longtext/2){Right ascension\\$\Omega$ [deg]};
-  \node[text width=3.2cm, align=center] at (29.5*\xsep,-\eps-\longtext/2){Eccentricity\\$e$};
-  \node[text width=3.2cm, align=center] at (38*\xsep,-\eps-\longtext/2){Argument\\periapsis\\$\omega$ [deg]};
-  \node[text width=3.2cm, align=center] at (47*\xsep,-\eps-\longtext/2){Mean anomaly\\$M$ [deg]};
-  \node[text width=3.2cm, align=center] at (57.5*\xsep,-\eps-\longtext/2){Mean motion\\$n$ [rev/day]};
-  \node[text width=1.7cm, align=center] at (65.5*\xsep,-\eps-\longtext/2){Number of revolutions};
-  \node[rotate=90,font=\footnotesize] at (68.5*\xsep,-\eps-\longtext/2){Checksum};
+  \node[rotate = 90] at (\xsep/2,-\eps-\longtext/2){Línia};
+  \node[text width=1.5cm, align=center] at (4*\xsep+\xsep/2,-\eps-\longtext/2){Número satè\lgem it};
+  \node[text width=2cm, align=center] at (12*\xsep,-\eps-\longtext/2){Inclinació\\$i$ [${}^\circ$]};
+  \node[text width=3.2cm, align=center] at (21*\xsep,-\eps-\longtext/2){Ascensió recta\\$\Omega$ [${}^\circ$]};
+  \node[text width=3.2cm, align=center] at (29.5*\xsep,-\eps-\longtext/2){Excentricitat\\$e$};
+  \node[text width=3.2cm, align=center] at (38*\xsep,-\eps-\longtext/2){Argument del periapsis\\$\omega$ [${}^\circ$]};
+  \node[text width=3.2cm, align=center] at (47*\xsep,-\eps-\longtext/2){Anomalia mitjana\\$M$ [${}^\circ$]};
+  \node[text width=3.2cm, align=center] at (57.5*\xsep,-\eps-\longtext/2){Moviment mitjà\\$n$ [rev/day]};
+  \node[text width=1.7cm, align=center] at (65.5*\xsep,-\eps-\longtext/2){Nombre de revolucions};
+  \node[rotate=90,font=\footnotesize] at (68.5*\xsep,-\eps-\longtext/2){\emph{Checksum}};
 \end{tikzpicture}
 \end{document}

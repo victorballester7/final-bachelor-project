@@ -1,0 +1,24 @@
+\documentclass{standalone}
+\usepackage{../preamble}
+
+\begin{document}
+\begin{tikzpicture}
+  \node (a) at (1,0) {TLE inicial};
+  \node (b) at (4,0) {SGP4};
+  \node[align=center,text width=3cm] (c) at (8,0) {Errors discrets\\SGP4 vs TLEs};
+  \node[align=center,text width=3cm] (d) at (12,0) {Errors interpolats\\SGP4 vs TLEs};
+  \node[align=center,text width=4cm] (e) at (16,-1) {Errors\\SGP4 vs El nostre model};
+  \node (f) at (8, -2) {El nostre model};
+  \node (g) at (5.5,2) {Altres TLEs};
+  \node (h) at (5.5,0) {};
+
+  % Arrows
+  \draw[-Stealth] (a) -- (b);
+  \draw[-Stealth] (b) --node[anchor=north,scale=0.75]{propagar} (c);
+  \draw[-Stealth] (c) -- (d);
+  \draw[-Stealth] (d) -- (e);
+  \draw[-Stealth] (b) --node[anchor=north,rotate=-25]{$\vf{r}_0$, $\vf{v}_0$} (f);
+  \draw[-Stealth] (f) --node[anchor=north,rotate=7.5,scale=0.75]{propagar} (e);
+  \draw[-Stealth] (g) -- (h);
+\end{tikzpicture}
+\end{document}

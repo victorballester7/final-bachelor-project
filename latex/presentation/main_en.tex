@@ -32,11 +32,11 @@
 \frame{\titlepage}
 \begin{frame}{Motivation}
   \begin{itemize}
-    \item Around 7000 satellites (active and inactive) orbiting the Earth.
-    \item Various unintentional collisions in the past.
+    \item Around 7000 satellites (active and inactive) orbit the Earth.
+    \item Various unintentional collisions have occurred in the past.
     \item Point Earth model is not enough. We need a more accurate model.
   \end{itemize}
-  \vspace{0.5cm}
+  \vspace{0.5cm}\pause
   \textbf{Goal:}
   \begin{itemize}
     \item Develop a geopotential model of the Earth.
@@ -49,7 +49,7 @@
   \begin{gather*}
     \vf{g} = -\int_\Omega G\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\rho(\vf{s})\dd^3\vf{s}=\grad V\\
     V=\int_\Omega G\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3\vf{s}
-  \end{gather*}
+  \end{gather*}\pause
   \begin{theorem}
     $V$ satisfies the following exterior boundary problem:\note{Comment the unicity of the solution}
     \begin{equation*}\label{eq:dirichletProblem}
@@ -70,7 +70,7 @@
       \displaystyle\frac{1}{\Theta}\Theta''  =-m^2\vspace{0.1cm} \\
       \displaystyle\frac{\sin\phi}{\Phi}{(\sin\phi\Phi')}'+n(n+1){(\sin\phi)}^2  =m^2
     \end{cases}\!n,m\in\NN\cup\{0\}, m\leq n
-  \end{gather*}
+  \end{gather*}\pause
   Imposing boundary conditions:
   \begin{equation*}
     V =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(\bar{C}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\bar{S}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
@@ -96,45 +96,76 @@
       \item \textcolor[RGB]{0,146,70}{{Rotation}}
       \item \textcolor[RGB]{158,0,255}{{Polar motion}}
     \end{itemize}
+    \vspace{1cm}
+    \begin{figure}
+      \centering
+      \href{https://youtu.be/KnPk2T_kpco}{
+        \includegraphics[width=\textwidth, keepaspectratio]{../Images/polarMotion_video_frame.png}
+      }
+      \vspace{-0.5cm}
+      \caption{\tiny Source: \href{https://svs.gsfc.nasa.gov/20196}{NASA Earth Orientation Animations}}
+    \end{figure}
+  \end{minipage}
+\end{frame}
+\begin{frame}{Celestial sphere}
+  \begin{itemize}
+    \item Abstract sphere of infinite radius centered at the Earth.
+    \item All celestial objects are projected naturally onto it.
+  \end{itemize}
+  \begin{minipage}{0.45\textwidth}
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{../Images/right_ascension-decli.pdf}
+    \end{figure}
+  \end{minipage}\hfill
+  \begin{minipage}{0.5\textwidth}
+    \textbf{Mean axis of rotation:} Axis of rotation when the nutation perturbation are averaged out.
+
+    \textbf{Mean equator:} plane perpendicular to the mean axis of rotation.
+
+    \textbf{Mean vernal equinox ($\overline{\Upsilon}$):} The point of intersection between the mean equator with the ecliptic where the Sun crosses the celestial equator from south to north.
   \end{minipage}
 \end{frame}
 \begin{frame}{Inertial and non-inertial reference frames}
+  J2000 date: January 1, 2000 at 12:00 TT.
+  \vspace{0.5cm}
+
   \textbf{Quasi-inertial}:
   \begin{itemize}
     \item $x$-axis: pointing towards the $\overline{\Upsilon}$ of the J2000 date
-    \item $z$-axis: perpendicular to the equator of the J2000 date
+    \item $z$-axis: perpendicular to the mean equator of the J2000 date
   \end{itemize}
 
   \textbf{Non-inertial} (Earth fixed):
   \begin{itemize}
-    \item $x$-axis: pointing towards the zero meridian
-    \item $z$-axis: perpendicular to the equator
+    \item $z$-axis: pointing towards the IRP (\emph{International Reference Pole})
+    \item $x$-axis: pointing towards the zero meridian and in the plane perpendicular to the $z$-axis.
   \end{itemize}
 
   In both systems $y$-axis is chosen in order to complete a right-handed system.
 \end{frame}
-\begin{frame}{Transformation between systems}
+% \begin{frame}{Transformation between systems}
 
 
 
-  \begin{figure}[htbp]
-    \centering
-    \begin{minipage}[ht]{0.3\textwidth}
-      \centering
-      \includegraphics[width=\textwidth]{../Images/ecliptic_equator.pdf}
-    \end{minipage}
-    \hspace{0.025\textwidth}
-    \begin{minipage}[ht]{0.3\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{../Images/nutation_matrix.pdf}
-    \end{minipage}
-    \hspace{0.025\textwidth}
-    \begin{minipage}[ht]{0.3\textwidth}
-      \centering
-      \includegraphics[width=0.9\textwidth]{../Images/polar_motion_matrix.pdf}
-    \end{minipage}
-  \end{figure}
-\end{frame}
+%   \begin{figure}[htbp]
+%     \centering
+%     \begin{minipage}[ht]{0.3\textwidth}
+%       \centering
+%       \includegraphics[width=\textwidth]{../Images/ecliptic_equator.pdf}
+%     \end{minipage}
+%     \hspace{0.025\textwidth}
+%     \begin{minipage}[ht]{0.3\textwidth}
+%       \centering
+%       \includegraphics[width=0.9\textwidth]{../Images/nutation_matrix.pdf}
+%     \end{minipage}
+%     \hspace{0.025\textwidth}
+%     \begin{minipage}[ht]{0.3\textwidth}
+%       \centering
+%       \includegraphics[width=0.9\textwidth]{../Images/polar_motion_matrix.pdf}
+%     \end{minipage}
+%   \end{figure}
+% \end{frame}
 \begin{frame}
   \frametitle{Other perturbations}
   $\vf{r} = \text{satellite position with respect to Earth's center of mass}$
@@ -145,7 +176,7 @@
     \item<2-> Atmospheric drag: $$-\frac{1}{2}C_\mathrm{D} \frac{A}{m}\rho v_\mathrm{rel}\vf{v}_\mathrm{rel}$$
       where $\vf{v}_\mathrm{rel}=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}$.
     \item<3-> Solar radiation pressure: $$
-        -P_\odot C_\mathrm{R} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
+        -\nu P_\odot C_\mathrm{R} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
       $$
   \end{itemize}
 \end{frame}
@@ -171,7 +202,7 @@
   \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{../Images/simulation_scheme.pdf}
-  \end{figure}
+  \end{figure}\pause
   \begin{minipage}{0.4\textwidth}
     \begin{figure}[ht]
       \centering
@@ -250,8 +281,9 @@
   \begin{itemize}
     \item The point mass model is not enough to predict the orbit of a satellite.
     \item Adding both together the Sun and the Moon the variability of the errors is reduced.
-    \item Radiation pressure increases the oscillations.
+    \item Solar radiation pressure increases the oscillations.
   \end{itemize}
+  \vspace{0.5cm}\pause
   \textbf{Improvements:}
   \begin{itemize}
     \item Atmospheric drag and solar radiation bad modelled.
