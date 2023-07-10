@@ -16,6 +16,7 @@
 %gets rid of footer
 %will override 'frame number' instruction above
 %comment out to revert to previous/default definitions
+\setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
 % Remove the "Figure" prefix from captions
 \captionsetup[figure]{labelformat=empty}
@@ -32,6 +33,7 @@
 \begin{document}
 \selectlanguage{catalan}
 \frame{\titlepage}
+% add index
 \begin{frame}{Motivació}
   \begin{itemize}
     \item Aproximadament 27\,000 satè\lgem its (actius i inactius) orbiten al voltant de la Terra.
@@ -46,12 +48,25 @@
     \item Estimar l'error de la trajectòria del satè\lgem it.
   \end{itemize}
 \end{frame}
-\begin{frame}{Equació per a $V$}
-  Sigui $\Omega\subseteq \RR^3$ la regió que ocupa la Terra.
-  \begin{gather*}
-    \vf{g} = -\int_\Omega G\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\rho(\vf{s})\dd^3\vf{s}=\grad V\\
-    V=\int_\Omega G\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3\vf{s}
-  \end{gather*}\pause
+\begin{frame}{Índex}
+  \tableofcontents
+\end{frame}
+\section{Equació per al geopotencial}
+\begin{frame}{Equació per al geopotencial}
+  \begin{minipage}{0.68\textwidth}
+    Sigui $\Omega\subseteq \RR^3$ la regió que ocupa la Terra.
+    \begin{gather*}
+      \vf{g} = -\int_\Omega G\frac{\vf{r}-\vf{s}}{\norm{\vf{r}-\vf{s}}^3}\rho(\vf{s})\dd^3\vf{s}=\grad V\\
+      V=\int_\Omega G\frac{\rho(\vf{s})}{\norm{\vf{r}-\vf{s}}}\dd^3\vf{s}
+    \end{gather*}
+  \end{minipage}\hfill
+  \begin{minipage}{0.31\textwidth}
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{../Images/earth_pot.pdf}
+    \end{figure}
+  \end{minipage}
+  \pause
   \begin{thm}
     $V$ satisfà el següent problema de valors de frontera exterior:
     \begin{equation*}\label{eq:dirichletProblem}
@@ -65,15 +80,7 @@
   \end{thm}
 \end{frame}
 \begin{frame}
-  Separació de variables: $V=R(r)\Theta(\theta)\Phi(\phi)$
-  \begin{gather*}
-    \begin{cases}
-      \displaystyle\frac{{(r^2R')}'}{R}=n(n+1)                  \\
-      \displaystyle\frac{1}{\Theta}\Theta'' =-m^2\vspace{0.1cm} \\
-      \displaystyle\frac{\sin\phi}{\Phi}{(\sin\phi\Phi')}'+n(n+1){(\sin\phi)}^2 =m^2
-    \end{cases}\!n,m\in\NN\cup{0}, m\leq n
-  \end{gather*}\pause
-  Imposant condicions de frontera:
+  Buscant la solució explícita fent separació de variables, trobem que
   \begin{equation*}
     V =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(\bar{C}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\bar{S}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
   \end{equation*}
@@ -83,7 +90,12 @@
     Y_{n,m}^{\mathrm{s}}(\theta,\phi) & =N_{n,m}P_{n,m}(\cos\theta)\sin(m\phi)
   \end{align*}
   són els \textbf{harmònics esfèrics}.
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../Images/sphericalHarmonics.pdf}
+  \end{figure}
 \end{frame}
+\section{Desviacions de l'eix de rotació de la Terra}
 \begin{frame}{Desviacions de l'eix de rotació de la Terra}
   \begin{minipage}{0.49\textwidth}
     \begin{figure}
@@ -95,8 +107,8 @@
     \begin{itemize}
       \item \textcolor[RGB]{0,113,188}{{Precessió}}
       \item \textcolor[RGB]{255,0,0}{{Nutació}}
-      \item \textcolor[RGB]{0,146,70}{{Rotació}}
       \item \textcolor[RGB]{158,0,255}{{Moviment polar}}
+      \item \textcolor[RGB]{0,146,70}{{Rotació}}
     \end{itemize}
     \vspace{1cm}
     \begin{figure}
@@ -129,6 +141,7 @@
 % \end{minipage}
 % \end{figure}
 % \end{frame}
+\section{Altres pertorbacions i sistema d'EDOs final}
 \begin{frame}
   \frametitle{Altres pertorbacions}
   $\vf{r} = \text{posició del satè\lgem it respecte al centre de masses de la Terra}$
@@ -144,7 +157,7 @@
       $$
   \end{itemize}
 \end{frame}
-\begin{frame}{Sistema diferencial}
+\begin{frame}{Sistema d'equacions diferencials ordinàries}
   Utilitzant el mètode de Runge-Kutta-Fehlberg d'ordre 7(8) integrarem el sistema diferencial:
   \begin{equation*}
     \begin{cases}
@@ -161,6 +174,7 @@
     \includegraphics[width=\textwidth]{../Images/TLE_ca.pdf}
   \end{figure}
 \end{frame}
+\section{Resultats}
 \begin{frame}{Resultats - LEO (\emph{Low Earth Orbit})}
   \begin{itemize}
     \item L'ISS fa aproximadament 16 òrbites al dia.
@@ -199,6 +213,7 @@
     \end{itemize}
   \end{minipage}
 \end{frame}
+\section{Conclusions}
 \begin{frame}{Conclusions}
   \begin{itemize}
     \item El model de la Terra com a massa puntual no és suficient per predir l'òrbita d'un satè\lgem it durant uns quants dies.
@@ -214,6 +229,26 @@
 \end{frame}
 \begin{frame}{Extres}
 
+\end{frame}
+\begin{frame}
+  Separació de variables: $V=R(r)\Theta(\theta)\Phi(\phi)$
+  \begin{gather*}
+    \begin{cases}
+      \displaystyle\frac{{(r^2R')}'}{R}=n(n+1)                  \\
+      \displaystyle\frac{1}{\Theta}\Theta'' =-m^2\vspace{0.1cm} \\
+      \displaystyle\frac{\sin\phi}{\Phi}{(\sin\phi\Phi')}'+n(n+1){(\sin\phi)}^2 =m^2
+    \end{cases}\!n,m\in\NN\cup{0}, m\leq n
+  \end{gather*}\pause
+  Imposant condicions de frontera:
+  \begin{equation*}
+    V =\frac{GM_\oplus}{R_\oplus}\sum_{n=0}^\infty \sum_{m=0}^n{\left(\frac{{R_\oplus}}{r}\right)}^{n+1}(\bar{C}_{n,m}Y_{n,m}^{\mathrm{c}}(\theta,\phi)+\bar{S}_{n,m}Y_{n,m}^{\mathrm{s}}(\theta,\phi))
+  \end{equation*}
+  on
+  \begin{align*}
+    Y_{n,m}^{\mathrm{c}}(\theta,\phi) & =N_{n,m}P_{n,m}(\cos\theta)\cos(m\phi) \\
+    Y_{n,m}^{\mathrm{s}}(\theta,\phi) & =N_{n,m}P_{n,m}(\cos\theta)\sin(m\phi)
+  \end{align*}
+  són els \textbf{harmònics esfèrics}.
 \end{frame}
 \begin{frame}{Esfera celeste}
   \begin{itemize}
