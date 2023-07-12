@@ -7,7 +7,7 @@ In this project we compute the compare the errors obtained from propagating the 
 ```math
 \begin{cases}
 \dot{\mathbf{r}} = \mathbf{v}\\
-\dot{\mathbf{v}} = \mathbf{a}_{\mathrm{GP}} + \delta_{\mathrm{sun}}\mathbf{a}_{\mathrm{sun}} + \delta_{\mathrm{moon}}\mathbf{a}_{\mathrm{moon}} + \delta_{\mathrm{drag}}\mathbf{a}_{\mathrm{drag}} +\delta_{\mathrm{rad}}\mathbf{a}_{\mathrm{rad}}
+\!\dot{\mathbf{v}} = \mathbf{a}_{\mathrm{GP}} + \delta_{\mathrm{sun}}\mathbf{a}_{\mathrm{sun}} + \delta_{\mathrm{moon}}\mathbf{a}_{\mathrm{moon}} + \delta_{\mathrm{drag}}\mathbf{a}_{\mathrm{drag}} +\delta_{\mathrm{rad}}\mathbf{a}_{\mathrm{rad}}
 \end{cases}
 ```
 
