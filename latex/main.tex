@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twoside]{article}
 \usepackage{preamble_style}
 \usepackage{preamble}
 
@@ -13,6 +13,7 @@
 
 
 \begin{document}
+\pagenumbering{roman}
 \selectlanguage{USenglish}
 \begin{titlepage}
   \begin{center}
@@ -54,41 +55,50 @@
   \newpage
 \end{titlepage}
 \thispagestyle{empty}
-\newpage
-\thispagestyle{empty} % Remove page number and header/footer
-\mbox{} % Add an empty box to create content-free page
-\newpage % Start a new page
-\setcounter{page}{1}
+\cleardoublepage
+
 \thispagestyle{empty}
 \vspace*{\fill}
 \vspace{-4cm}
 \epigraph{We are just an advanced breed of monkeys on a minor planet of a very average star. But we can understand the Universe. That makes us something very special.}{\textit{Stephen Hawking}}
 \vspace*{\fill}
 \newpage
-\thispagestyle{empty} % Remove page number and header/footer
-\mbox{} % Add an empty box to create content-free page
-\newpage % Start a new page
-\pagenumbering{roman}
+\thispagestyle{empty}
+\cleardoublepage
+% \thispagestyle{empty} % Remove page number and header/footer
+% \mbox{} % Add an empty box to create content-free page
+% \newpage % Start a new page
+
+\subfile{sections/acknowledgements}
+% \pagenumbering{roman}
+\cleardoublepage
+
 {
   \hypersetup{linkcolor=black}
   \tableofcontents
 }
 % \listoffigures
 % \listoftables
-\newpage
-\phantomsection
-\addcontentsline{toc}{section}{Acknowledgements}
-\subfile{sections/acknowledgements}\newpage
+\cleardoublepage
+% \addcontentsline{toc}{section}{Acknowledgements}
 \pagenumbering{arabic}
 \setcounter{page}{1}
-\subfile{sections/intro}\newpage
-\subfile{sections/conics}\newpage
-\subfile{sections/astro}\newpage
-\subfile{sections/force}\newpage
-\subfile{sections/simulation}\newpage
+\subfile{sections/intro}\cleardoublepage
+\subfile{sections/conics}\cleardoublepage
+\subfile{sections/astro}\cleardoublepage
+\subfile{sections/force}\cleardoublepage
+\subfile{sections/simulation}\cleardoublepage
 
 \phantomsection
 \addcontentsline{toc}{section}{References}
 \printbibliography
+% Add a new empty sheet at the end of the document
+\newpage
+\thispagestyle{empty}
+\mbox{}
+% Add another new empty sheet at the end of the document
+\newpage
+\thispagestyle{empty}
+\mbox{}
 \end{document}
 
