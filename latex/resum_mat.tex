@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, headheight=14pt, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{amsthm, amsmath, mathtools, amssymb, physics, thmtools, thm-restate} % for math and physics commands and symbols.
+\usepackage{parskip} % exchanges indentation for spacing between paragraphs.
+\usepackage[catalan]{babel} % for Catalan language support.
+\usepackage{color} % for colored text.
+
+\renewcommand{\normalsize}{\fontsize{10pt}{14pt}\selectfont}
+\pagestyle{empty} % Removes page numbers
+
+% \hyphenpenalty=10000
+% \exhyphenpenalty=10000
+
+\begin{document}
+\begin{center}
+  \Large \textbf{Propagació numèrica dels errors dels\\satè\lgem its en òrbita terrestre}
+\end{center}
+\vspace{0.5cm}
+% add author and supervisor in the same line but symmetric with respect to the center of the page
+\begin{minipage}[t]{0.5\textwidth}
+  \begin{flushleft} \large
+    \emph{Autor:}\\[0.1cm]
+    Víctor Ballester
+  \end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+  \begin{flushright} \large
+    \emph{Supervisor:} \\[0.1cm]
+    Josep Maria Mondelo
+  \end{flushright}
+\end{minipage}\\[0.5cm]
+
+
+Des de l'inici de l'exploració de l'espai fins ara, l'entorn orbital de la Terra ha experimentat un augment significatiu de satè\lgem its, brossa espacial i altres elements relacionats amb l'exploració espacial. Aquesta contaminació a l'espai és motiu d'una preocupació creixent de la comunitat científica. A mitjans de l'any 2023 hi havia aproximadament 27.500 artefactes en òrbita terrestre. D'aquests, uns 11.000 eren satè\lgem its actius; 2.300 eren peces de coets (és a dir, unitats de propulsió utilitzades per posar els satè\lgem its en òrbita); 13.700 eren satè\lgem its inactius (brossa espacial), i la resta eren objectes no classificats. Amb el pas dels anys, la probabilitat de co\lgem isió entre dues naus espacials augmenta de manera contínua. Ja s'han produït co\lgem isions greus en el passat, com ara el xoc a alta velocitat entre els satè\lgem its Iridium 33 i Kosmos-2251 el 2009.
+
+La dinàmica orbital al voltant de la Terra és molt complexa. L'aproximació kepleriana proporciona resultats precisos només durant poques hores. És per això que cal afegir millores en aquest model. Les pertorbacions importants de l'aproximació kepleriana són: el camp gravitatori real de la Terra (que no és keplerià perquè la Terra no és ni una massa puntual ni una esfera amb densitat constant); la resistència atmosfèrica; els efectes de tercers cossos (principalment el Sol i la Lluna), i la pressió de radiació solar. Els models més precisos inclouen totes aquestes pertorbacions i, fins i tot, algunes més, i són capaços de fer prediccions raonablement precises per a uns quants dies. Això fa possible mantenir un catàleg de naus espacials (tant actives com inactives), detectades a través d'una xarxa global heterogènia d'estacions d'observació, que poden ser òptiques (telescopis) o basades en radar. Mantenir aquest catàleg actualitzat requereix observacions constants.
+
+L'objectiu d'aquest treball és proporcionar una visió quantitativa de l'efecte que aquestes pertorbacions tenen de manera individual. Per això, s'han desenvolupat matemàticament els models necessaris.
+
+És ben conegut que la segona llei de Newton és vàlida només en sistemes de referència inercials, és a dir, sistemes de referència no accelerats. En la pràctica, no existeixen tals sistemes, ja que tots els objectes estan subjectes a \emph{petites} acceleracions. No obstant això, per tal de poder integrar numèricament les equacions que descriuen la dinàmica dels satè\lgem its, s'ha pres com a referència un sistema \emph{quasiinercial} amb origen al centre de masses de la Terra, que és l'objecte celeste al voltant del qual orbiten tots els satè\lgem its que s'han considerat al llarg d'aquest estudi.
+
+Ara bé, com que l'aproximació kepleriana de la Terra com a massa puntual o com una distribució esfèrica de densitat constant no és vàlida si volem obtenir resultats precisos, s'ha tingut en compte la variació del camp gravitatori creat per la Terra en funció de la longitud i la latitud on es trobi el satè\lgem it, un cop projectat sobre l'esfera terrestre. És precisament per aquest motiu que ha calgut considerar un altre sistema de referència, d'igual importància que l'anterior, per tal de, en cada pas de la integració numèrica, poder situar el satè\lgem it en el seu lloc exacte sobre la superfície terrestre, i determinar, així, l'acceleració que experimenta a conseqüència de la gravetat terrestre. Aquest darrer sistema no és en absolut inercial, ja que està sotmès a l'acceleració per rotació de la Terra, que en el nostre marc d'estudi no és negligible, sinó tot al contrari.
+
+Per tal de convertir les posicions dels satè\lgem its d'un dels sistemes a l'altre, ha calgut tenir presents tots els moviments que experimenta l'eix de rotació terrestre. A causa de la presència d'altres planetes del sistema solar (i altres pertorbacions més petites), el pla orbital de la Terra no és fix a l'espai, sinó que està sotmès a una petita variació anomenada \emph{precessió planetària}. A més, l'atracció gravitatòria del Sol i la Lluna sobre l'equador de la Terra provoca que l'eix de rotació de la Terra experimenti un moviment similar al d'una baldufa amb un període d'aproximadament 26.000 anys. Aquest moviment s'anomena \emph{precessió lunisolar}. D'altra banda, pertorbacions més petites en amplitud i període més curt (al voltant de 18,6 anys), superposades amb el moviment de precessió, creen un moviment anomenat \emph{nutació}. Per a la creació del nostre sistema de referència quasiinercial, el que s'ha fet és amitjanar aquestes últimes osci\lgem acions.
+
+A més, l'eix de rotació de la Terra experimenta un lleu moviment periòdic al voltant d'un pol de referència determinat per l'IERS (\emph{International Earth Rotation and Reference Systems Service}). Aquest moviment s'anomena \emph{moviment polar} i és degut a la redistribució de la massa de la Terra a causa de les variacions estacionals de l'atmosfera i els oceans.
+
+D'altra banda, a l'hora de convertir les coordenades entre sistemes de referència i integrar el nostre sistema, hi ha hagut el problema de com definir apropiadament el temps. Com a éssers humans, estem naturalment interessats a conèixer com passa el temps i, per tant, la mesura correcta d'aquest esdevé una necessitat essencial per a nosaltres. Com que és el Sol qui governa la nostra activitat diària, és natural definir el temps a partir d'aquest.
+
+Definim un \emph{dia solar vertader} com el temps entre dos trànsits del Sol pel nostre meridià local. Cal notar que la Terra ha de girar sobre si mateixa lleugerament més d'una revolució per completar un dia solar vertader. A més, a causa de l'òrbita no circular de la Terra al voltant del Sol, la durada d'un dia solar vertader no és constant, ja que la Terra ha de girar sobre si mateixa lleugerament més en el periheli que en l'afeli, per on passa més de pressa. Com a conseqüència, la posició vertadera del Sol no és idònia per una mesura precisa del temps. Així doncs, la introducció d'un \emph{Sol mitjà} és necessària. Aquest es defineix com un Sol fictici que orbita la Terra a velocitat angular constant. El ritme de gir es pren de manera que el Sol vertader i el mitjà coincideixin en l'equinocci de primavera. D'aquí, podem definir el \emph{dia solar mitjà} com el temps entre dos trànsits del Sol mitjà pel nostre meridià local. L'estàndard de temps més comú referent en aquesta mesura és el Temps Universal o UT. No obstant això, avui en dia hi ha altres estàndards de temps més precisos, com ara el Temps Atòmic Internacional o TAI. Però és el Temps Universal Coordinat o UTC el que governa el nostre dia a dia. Actualment, aquest es defineix de manera que sigui tan precís com el TAI, però mantenint una diferència petita amb l'UT, de no més de 0,9 segons, per conservar la coherència amb el \emph{rellotge solar}. Els científics aconsegueixen això mitjançant la introducció de segons intercalars, que són segons que s'afegeixen a l'UTC a mitjans o finals d'any per mantenir petita la diferència amb l'UT. La conversió entre tots aquests sistemes de temps també ha estat necessària, ja que les dades que s'ha utilitzat en aquest treball, els TLE, estan expressades en UTC.
+
+Els TLE (\emph{Two-line element sets}) són fitxers que contenen tots els paràmetres necessaris per localitzar amb exactitud on es troba un determinat satè\lgem it. La freqüència de creació d'aquests TLE per les entitats corresponents depèn de diversos factors, com per exemple l'altura a la qual es troba el satè\lgem it o la importància d'aquest, entre d'altres. Això, juntament amb els models utilitzats per predir les òrbites dels satè\lgem its, que és l'objecte d'estudi en aquest treball, permet mantenir un catàleg actualitzat d'objectes en òrbita al voltant de la Terra.
+
+Un cop considerats tots els canvis adequats de coordenades espacials i temporals, convé definir les equacions que governen la dinàmica dels satè\lgem its. Com s'ha mencionat anteriorment, ha calgut tenir en compte un model de la Terra amb densitat no constant. Per això el que s'ha fet és expressar el potencial gravitatori de la Terra com una expansió en sèrie dels harmònics esfèrics, que són funcions definides sobre l'esfera. Aquest fet implica que s'ha hagut de mantenir present l'aproximació de la Terra com una esfera, encara que hi ha extensions que milloren aquesta hipòtesi considerant harmònics e\lgem ipsoïdals. En aquest treball, però, no s'ha  considerat. La Teoria de Sturm-Liouville d'equacions diferencials de segon ordre ens afirma que la família d'harmònics esfèrics forma un sistema complet, en el sentit que qualsevol funció prou regular definida sobre l'esfera pot ser expressada com una sèrie de potències dels harmònics esfèrics. Finalment, a partir de certes recurrències per millorar la velocitat de càlcul i aquesta expressió del potencial, s'ha pogut arribar a calcular l'acceleració que experimenta un satè\lgem it en un punt de la seva òrbita a causa de la gravetat terrestre.
+
+Durant l'apartat de simulació, no només s'ha considerat la força de la gravetat com a condicionant a l'acceleració del satè\lgem it, sinó que també s'ha tingut en compte les acceleracions a causa de la Lluna i el Sol com a petites pertorbacions en l'acceleració de la Terra.
+
+Les altres dues pertorbacions que s'han incorporat són la resistència per fregament atmosfèric i l'acceleració generada per la pressió solar. La primera afecta majoritàriament els satè\lgem its d'òrbita baixa, amb altura inferior a 1.000 km per sobre del nivell del mar. Aquesta és causada per la interacció de la superfície del satè\lgem it amb les partícules de l'atmosfera, és a dir, l'acceleració del satè\lgem it vindrà afectada per un terme dependent del quadrat de la velocitat relativa del satè\lgem it respecte al \emph{fluid} de l'atmosfera. Hi ha una petita complicació amagada en considerar aquesta força: calcular la densitat de l'atmosfera com a funció de l'altura. No s'ha entrat gaire en detall en aquest tema, però s'ha seguit el model de Harris-Priester, que és vàlid per a baixes altituds (entre 100 i 1.000 km).
+
+L'altra pertorbació considerada, la pressió per radiació solar, és la deguda als fotons provinents del Sol que xoquen contra els satè\lgem its i transmeten el seu moment lineal a aquests darrers, contribuint així a la seva acceleració. El grau d'influència d'aquesta pertorbació, a diferència de l'anterior, creix a mesura que augmentem l'altura del satè\lgem it i, a més, només afecta durant poc més de la meitat de l'òrbita, ja que quan el satè\lgem it no es troba i\lgem uminat pel Sol, perquè la Terra s'interposa (és a dir, el satè\lgem it es troba a l'\emph{umbra}), no hi ha cap contribució a l'acceleració.
+
+Després d'analitzar els principals fenòmens que afecten l'òrbita dels satè\lgem its, s'ha desenvolupat un model que incorpora els elements més rellevants i s'ha dut a terme la simulació. Per integrar el sistema d'equacions diferencials s'ha utilitzat el mètode de Runge-Kutta 7(8) amb una tolerància relativa de $10^{-12}$. A més, s'han triat tres zones orbitals molt diferents entre si: els satè\lgem its d'òrbita baixa (LEO), que orbiten a altituds menors a 1.000 km; els satè\lgem its d'òrbita mitjana (MEO), que orbiten a altituds situades entre 1.000 i 35.780 km, i els satè\lgem its d'òrbita geoestacionària, que orbiten a distàncies al voltant dels 35.780 km per sobre del nivell del mar.
+
+Els resultats obtinguts han estat una mica sorprenents. Primer de tot, s'ha observat que l'atracció gravitatòria de la Lluna i el Sol es fa notable en els satè\lgem its MEO i GEO, mentre que la resistència atmosfèrica només és important en els satè\lgem its LEO, com ja havíem predit anteriorment. En tots els casos estudiats, la pressió de la radiació solar ha augmentat les osci\lgem acions dels errors i, per tant, per a una ampliació d'aquest treball, seria interessant considerar models més precisos per a aquest fenomen. El model considerat per a la resistència atmosfèrica també és imprecís; considerar un model més realista també podria millorar els resultats d'aquest estudi per a una futura extensió.
+
+Finalment, cal mencionar que no s'ha tingut en compte la interacció gravitatòria d'altres planetes, com ara Venus, Mart o Júpiter, amb els satè\lgem its en les nostres simulacions. Això és perquè, per als nostres propòsits, la influència dels altres planetes en els satè\lgem its és negligible a causa del seu ínfim efecte sobre la Terra. En particular, per a les dates al voltant de l'1 de gener de 2023, que és aproximadament el temps inicial de totes les nostres integracions, la contribució d'aquests tres planetes era de l'ordre de $10^{-11}$ m/s$^2$ per als satè\lgem its MEO, la qual cosa és menyspreable en comparació amb l'ordre de magnitud de les pertorbacions de la Lluna i el Sol (aproximadament $10^{-6}$ m/s$^2$).
+
+
+\end{document}

@@ -8,25 +8,3 @@
 \usepackage{subfiles} % for creating subfiles .tex and compiling them separately to main.tex.
 \usepackage{lmodern} % modern latin font. Also for avoiding (and correcting) some warnings. 
 \usepackage{epigraph} % for epigraphs (i.e. quotes after the title).
-\usepackage{csquotes} % needed for biblatex.
-\usepackage{stmaryrd} % for the url symbol in references.
-\usepackage[style=alphabetic,sorting=nyt,backend=biber]{biblatex} % for extended bibliography capabilities.
-
-\addbibresource{references.bib} % add bibliography file.
-
-%%% url symbol for references it is needed \usepackage{stmaryrd} %%%
-\newcommand\enllas{\raise.5pt\hbox{$\boxempty\kern-4.85pt{}^{\nearrow}$}\kern-2pt}
-
-\DeclareFieldFormat{url}{%
-  \mkbibacro{URL}\addcolon\space%
-  \ifhyperref%
-  {\href{#1}{\enllas}}%
-  {\url{#1}}}
-\DeclareFieldFormat{doi}{%
-  \mkbibacro{DOI}\addcolon\space%
-  \ifhyperref%
-  {\href{#1}{\enllas}}%
-  {\url{#1}}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n} % in order to solve a warning.

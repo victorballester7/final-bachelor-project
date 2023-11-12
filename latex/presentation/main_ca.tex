@@ -24,7 +24,7 @@
 
 \newtheorem{thm}[theorem]{Teorema}
 
-\title{Propagació numèrica d'errors\\dels satè\lgem its en òrbita terrestre}
+\title{Propagació numèrica dels errors dels\\satè\lgem its en òrbita terrestre}
 \author{Víctor Ballester\texorpdfstring{\vspace{0.15cm}\\}{}{\small Supervisor: Josep Maria Mondelo}}
 \institute{Departament de Matemàtiques\\Facultat de Ciències}
 \titlegraphic{\includegraphics[width=0.3\textwidth]{../Images/uab.pdf}}
@@ -149,12 +149,12 @@
   \vspace{0.25cm}
   \begin{itemize}
     \item<1-> Pertorbacions d'altres cossos (Lluna i Sol):
-      $$\frac{GM}{\norm{\vf{s}-\vf{r}}^2}(\vf{s}-\vf{r}) - \frac{GM}{\norm{\vf{s}}^2}\vf{s}$$
+          $$\frac{GM}{\norm{\vf{s}-\vf{r}}^2}(\vf{s}-\vf{r}) - \frac{GM}{\norm{\vf{s}}^2}\vf{s}$$
     \item<2-> Fregament atmosfèric: $$-\frac{1}{2}C_\mathrm{F} \frac{A}{m}\rho v_\mathrm{rel}\vf{v}_\mathrm{rel}$$
-      on $\vf{v}_\mathrm{rel}=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}$
+          on $\vf{v}_\mathrm{rel}=\dot{\vf{r}}-\vf{\omega}_\oplus\times\vf{r}$
     \item<3-> Pressió per radiació solar: $$
-        -\nu P_\odot C_\mathrm{R} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
-      $$
+            -\nu P_\odot C_\mathrm{R} \frac{A_\odot}{m} \frac{\vf{s}_\odot-\vf{r}}{\norm{\vf{s}_\odot-\vf{r}}}
+          $$
   \end{itemize}
 \end{frame}
 \begin{frame}{Sistema d'equacions diferencials ordinàries}
